@@ -34,4 +34,4 @@
 # C::B Files
 *.cbp
 *.layout
-*.depends
+*.depend
