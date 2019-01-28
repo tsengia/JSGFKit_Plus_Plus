@@ -26,9 +26,9 @@ class Token : public Expansion
         /** Set text
          * \param val New value to set
          */
-        void setText(string val) { text = val; }
+        void setText(string val);
 
-        ExpansionType getType() { return TOKEN; }
+        ExpansionType getType();
 
         bool hasChild();
         shared_ptr<Expansion> getChild();

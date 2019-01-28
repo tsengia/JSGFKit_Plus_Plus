@@ -24,3 +24,19 @@ string PlusOperator::getText() {
     s.append("+");
     return s;
 }
+
+ExpansionType PlusOperator::getType() {
+    return PLUS_OPERATOR;
+}
+
+bool PlusOperator::hasChild() {
+    return childExpansion != nullptr;
+}
+
+shared_ptr<Expansion> PlusOperator::getChild() {
+    return childExpansion;
+}
+
+void PlusOperator::setChild(shared_ptr<Expansion> e) {
+    childExpansion = e;
+}

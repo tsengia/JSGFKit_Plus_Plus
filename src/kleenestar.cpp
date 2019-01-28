@@ -23,3 +23,20 @@ string KleeneStar::getText() {
     s.append("*");
     return s;
 }
+
+ExpansionType KleeneStar::getType() {
+    return KLEENE_STAR;
+}
+
+bool KleeneStar::hasChild() {
+    return childExpansion != nullptr;
+}
+
+shared_ptr<Expansion> KleeneStar::getChild() {
+    return childExpansion;
+}
+
+void KleeneStar::setChild(shared_ptr<Expansion> e) {
+    childExpansion.reset();
+    childExpansion = e;
+}

@@ -5,9 +5,9 @@ RequiredGrouping::RequiredGrouping()
     //ctor
 }
 
-RequiredGrouping::RequiredGrouping(Expansion * e)
+RequiredGrouping::RequiredGrouping(shared_ptr<Expansion> e)
 {
-    childExpansion = shared_ptr<Expansion>(e);
+    childExpansion = e;
 }
 
 RequiredGrouping::~RequiredGrouping()
@@ -16,7 +16,7 @@ RequiredGrouping::~RequiredGrouping()
 }
 
 Expansion * RequiredGrouping::clone() {
-    return new RequiredGrouping(this->getChild()->clone());
+    return new RequiredGrouping(shared_ptr<Expansion>(this->getChild()->clone()));
 }
 
 string RequiredGrouping::getText() {
@@ -24,4 +24,20 @@ string RequiredGrouping::getText() {
     s.append(childExpansion->getText());
     s.append(")");
     return s;
+}
+
+ExpansionType RequiredGrouping::getType() {
+    return REQUIRED_GROUPING;
+}
+
+bool RequiredGrouping::hasChild() {
+    return childExpansion != nullptr;
+}
+
+shared_ptr<Expansion> RequiredGrouping::getChild() {
+    return childExpansion;
+}
+
+void RequiredGrouping::setChild(shared_ptr<Expansion> e) {
+    childExpansion = e;
 }

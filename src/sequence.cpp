@@ -40,3 +40,43 @@ string Sequence::getText() {
     }
     return s;
 }
+
+unsigned short Sequence::childrenCount() {
+    return distance(children.begin(), children.end());
+}
+
+/** Access children
+ * \return The current value of children
+ */
+list<shared_ptr<Expansion>> Sequence::getChildren() {
+    return children;
+}
+
+bool Sequence::hasChild() {
+    return children.empty();
+}
+
+shared_ptr<Expansion> Sequence::getChild() {
+    return children.front();
+}
+
+/**
+  * Static Helper function that checks to see if the provided expansion is a sequence, and if it is, checks to see if the Sequence has only one child. If it has only one child, it sets the provided shared_pointer to point to the child Expansion.
+  * TLDR; Simplifies singular child Sequence's to singular Expansions
+  * \param [in,out] s Expansion that will be simplified if it is a Sequence with 1 child expansion
+  */
+void Sequence::simplifySequence(shared_ptr<Expansion> s) {
+    if(typeid(*s) == typeid(Sequence)) {
+        Sequence * sq = (Sequence*) s.get();
+        if(sq->childrenCount() == 1) { // We have a sequence that has only one child. We need to extract the child, destroy the sequence, and set the expansion to the extracted child
+            s = sq->getChild(); // clone() makes a deep copy
+        }
+        else {
+            //Do nothing to s
+        }
+    }
+}
+
+ExpansionType Sequence::getType() {
+    return SEQUENCE;
+}

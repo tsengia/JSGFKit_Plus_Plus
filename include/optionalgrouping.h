@@ -12,15 +12,15 @@ class OptionalGrouping : public Expansion
     public:
         /** Default constructor */
         OptionalGrouping();
-        OptionalGrouping(Expansion * e);
+        OptionalGrouping(shared_ptr<Expansion> e);
         /** Default destructor */
         ~OptionalGrouping();
 
         Expansion * clone();
-        ExpansionType getType() { return OPTIONAL_GROUPING; }
-        bool hasChild() { return childExpansion != nullptr; }
-        shared_ptr<Expansion> getChild() { return childExpansion; }
-        void setChild(Expansion * e) { childExpansion = shared_ptr<Expansion>(e); }
+        ExpansionType getType();
+        bool hasChild();
+        shared_ptr<Expansion> getChild();
+        void setChild(shared_ptr<Expansion> e);
 
         string getText();
 };

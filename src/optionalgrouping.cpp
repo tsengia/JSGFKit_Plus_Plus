@@ -11,11 +11,11 @@ OptionalGrouping::~OptionalGrouping()
 }
 
 Expansion * OptionalGrouping::clone() {
-    return new OptionalGrouping(this->getChild()->clone());
+    return new OptionalGrouping(shared_ptr<Expansion>(this->getChild()->clone()));
 }
 
-OptionalGrouping::OptionalGrouping(Expansion * e) {
-    childExpansion = shared_ptr<Expansion>(e);
+OptionalGrouping::OptionalGrouping(shared_ptr<Expansion> e) {
+    childExpansion = e;
 }
 
 string OptionalGrouping::getText() {
@@ -23,4 +23,20 @@ string OptionalGrouping::getText() {
     s.append(childExpansion->getText());
     s.append("]");
     return s;
+}
+
+ExpansionType OptionalGrouping::getType() {
+    return OPTIONAL_GROUPING;
+}
+
+bool OptionalGrouping::hasChild() {
+    return childExpansion != nullptr;
+}
+
+shared_ptr<Expansion> OptionalGrouping::getChild() {
+    return childExpansion;
+}
+
+void OptionalGrouping::setChild(shared_ptr<Expansion> e) {
+    childExpansion = e;
 }

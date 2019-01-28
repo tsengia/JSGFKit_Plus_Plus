@@ -20,11 +20,16 @@ class UnparsedSection : public Expansion
         Expansion * clone(); // Really should never be used but should still be implemented
 
         ExpansionType getType();
-        bool hasChild() { return false; }
-        shared_ptr<Expansion> getChild() { return nullptr; }
-        string getSection ();
+
+        ///Will always return true
+        bool hasChild();
+
+        /// Will always return nullptr
+        shared_ptr<Expansion> getChild();
+
+        string getSection();
         void setSection(string s);
-        string getText() { return "UNPARSED SECTION:" + section; }
+        string getText();
 };
 
 #endif // UNPARSEDSECTION_H

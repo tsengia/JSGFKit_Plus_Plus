@@ -12,15 +12,15 @@ class RequiredGrouping : public Expansion
     public:
         /** Default constructor */
         RequiredGrouping();
-        RequiredGrouping(Expansion * e);
+        RequiredGrouping(shared_ptr<Expansion> e);
         /** Default destructor */
         ~RequiredGrouping();
 
         Expansion * clone();
-        ExpansionType getType() { return REQUIRED_GROUPING; }
-        bool hasChild() { return childExpansion != nullptr; }
-        shared_ptr<Expansion> getChild() { return childExpansion; }
-        void setChild(Expansion * e) { childExpansion.reset(); childExpansion = shared_ptr<Expansion>(e); }
+        ExpansionType getType();
+        bool hasChild();
+        shared_ptr<Expansion> getChild();
+        void setChild(shared_ptr<Expansion> e);
 
         string getText();
 };

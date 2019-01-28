@@ -19,17 +19,17 @@ class RuleReference : public Expansion
         /** Access ruleName;
          * \return The current value of ruleName;
          */
-        string getRuleName() { return ruleName; }
+        string getRuleName();
 
         /** Set ruleName;
          * \param val New value to set
          */
-        void setRuleName(string val) { ruleName = val; }
+        void setRuleName(string val);
 
-        bool hasChild() { return false; }
+        bool hasChild();
         Expansion * clone();
-        shared_ptr<Expansion> getChild() { return nullptr; }
-        ExpansionType getType() { return RULE_REFERENCE; }
+        shared_ptr<Expansion> getChild();
+        ExpansionType getType();
         string getText();
 };
 

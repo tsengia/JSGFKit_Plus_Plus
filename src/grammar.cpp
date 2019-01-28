@@ -346,7 +346,7 @@ void Grammar::parseOptionalGroupings(const list<Expansion *> & expansions, list<
                         parseOptionalGroupings(children, parsedChildren);
                         children.clear(); // Using children as next return value
                         parseUnaryOperators(parsedChildren, children);
-                        Expansion * child = parseAlternativeSets(children);
+                        shared_ptr<Expansion> child = shared_ptr<Expansion>(parseAlternativeSets(children));
                         OptionalGrouping *og = new OptionalGrouping(child);
                         tempExp.push_back(og);
                         childString = "";
@@ -454,7 +454,7 @@ void Grammar::parseRequiredGroupings(const list<Expansion *> & expansions, list<
                         parsedChildren.clear(); // Using parsedChildren as next return value
                         parseUnaryOperators(children, parsedChildren);
                         children.clear(); // Using children as next return value
-                        Expansion * child = parseAlternativeSets(parsedChildren);
+                        shared_ptr<Expansion> child = shared_ptr<Expansion>(parseAlternativeSets(parsedChildren));
                         RequiredGrouping *rg = new RequiredGrouping(child);
                         tempExp.push_back(rg);
                         childString = "";
@@ -1133,7 +1133,7 @@ list<shared_ptr<MatchInfo>> Grammar::matchesRule(shared_ptr<Rule> rule, string t
 }
 
 /**
-  * Overloading convienience function for list<shared_ptr<MatchInfo>> Grammar::matchesRule(shared_ptr<Rule> rule, string test) that accepts a string for the rule name.
+  * Overloading convenience function for list<shared_ptr<MatchInfo>> Grammar::matchesRule(shared_ptr<Rule> rule, string test) that accepts a string for the rule name.
   * \param [in] ruleName Name of the Rule to be matched against
   * \param [in] test string that will be matched against the Rule
   * \return list<shared_ptr<MatchInfo>> - see list<shared_ptr<MatchInfo>> Grammar::matchesRule(shared_ptr<Rule> rule, string test)
@@ -1151,7 +1151,7 @@ list<shared_ptr<MatchInfo>> Grammar::matchesRule(string ruleName, string test) {
   * Returns the Rule that matches the test string.
   * Will return nullptr if no match can be found.
   * \param [in] test string that will be tested to match a rule
-  * \returns shared_ptr<Rule> - Matching Rule, or nullptr if no match found
+  * \return shared_ptr<Rule> - Matching Rule, or nullptr if no match found
   */
 shared_ptr<Rule> Grammar::getMatchingRule(string test) {
     test = Grammar::trimString(test);

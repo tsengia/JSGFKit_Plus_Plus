@@ -10,7 +10,6 @@ using namespace std;
 
 int main()
 {
-
     // string that we will be parsing to create a JSGF Grammar object
     string s = "\
     grammar test-gram;\

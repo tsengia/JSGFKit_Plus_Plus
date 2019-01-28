@@ -23,8 +23,32 @@ Expansion * AlternativeSet::clone() {
     return aset;
 }
 
+unsigned short AlternativeSet::childCount() {
+    return distance(expansions.begin(), expansions.end());
+}
+
+list<shared_ptr<Expansion>> AlternativeSet::getChildren() {
+    return expansions;
+}
+
+shared_ptr<Expansion> AlternativeSet::getChild() {
+    return (*expansions.begin());
+}
+
+ExpansionType AlternativeSet::getType() {
+    return ALTERNATE_SET;
+}
+
+bool AlternativeSet::hasChild() {
+    return expansions.empty();
+}
+
 void AlternativeSet::addChild(shared_ptr<Expansion> e) {
     expansions.push_back(e);
+}
+
+void AlternativeSet::removeChild(Expansion & e) {
+    expansions.remove(shared_ptr<Expansion>(&e));
 }
 
 string AlternativeSet::getText() {

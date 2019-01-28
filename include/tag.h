@@ -26,26 +26,19 @@ class Tag : public Expansion
         /** Access childExpansion
          * \return The current value of childExpansion
          */
-        shared_ptr<Expansion> getChild() { return childExpansion; }
+        shared_ptr<Expansion> getChild();
 
         /**
           * Returns a vector of strings of the tags the child Expansion is tagged with. (All of the strings between the { } )
           */
-        vector<string> getTags() {
-            vector<string> v;
-            std::forward_list<string>::iterator it;
-            for(it = strings.begin(); it != strings.end(); it++){
-                v.push_back(*it);
-            }
-            return v;
-        }
+        vector<string> getTags();
 
         /** Set childExpansion
          * \param val Disassociates with the current child and tags the new specified child Expansion.
          */
-        void setChildExpansion(shared_ptr<Expansion> val) { childExpansion = val; }
+        void setChildExpansion(shared_ptr<Expansion> val);
 
-        ExpansionType getType() { return TAG; }
+        ExpansionType getType();
 
         bool hasChild();
         string getText();

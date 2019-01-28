@@ -17,10 +17,10 @@ class KleeneStar : public Expansion
         ~KleeneStar();
 
         Expansion * clone();
-        ExpansionType getType() { return KLEENE_STAR; }
-        bool hasChild() { return childExpansion != nullptr; }
-        shared_ptr<Expansion> getChild() { return childExpansion; }
-        void setChild(shared_ptr<Expansion> e) { childExpansion.reset(); childExpansion = e; }
+        ExpansionType getType();
+        bool hasChild();
+        shared_ptr<Expansion> getChild();
+        void setChild(shared_ptr<Expansion> e);
 
         string getText();
 };

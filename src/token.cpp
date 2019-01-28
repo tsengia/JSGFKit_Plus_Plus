@@ -30,3 +30,14 @@ bool Token::hasChild() {
 shared_ptr<Expansion> Token::getChild() {
     return nullptr;
 }
+
+/** Set text
+ * \param val New value to set
+ */
+void Token::setText(string val) {
+    text = val;
+}
+
+ExpansionType Token::getType() {
+    return TOKEN;
+}
