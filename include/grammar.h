@@ -25,7 +25,7 @@ using namespace std;
 
 class Grammar
 {
-    private:
+    protected:
         string name;
         list<shared_ptr<Rule>> rules;
         static Expansion * parseAlternativeSets(list<Expansion *> & exp);
@@ -38,6 +38,10 @@ class Grammar
     public:
         /** Default constructor */
         Grammar();
+        /**
+         * Constructor that specifies the grammar name
+         * \param [in] string Name of the Grammar
+         */
         Grammar(string grammarName);
 
         /** Default destructor */

@@ -6,6 +6,7 @@
 
 using namespace std;
 
+/// An internal class used by the parser to generate the Expansions
 class UnparsedSection : public Expansion
 {
     private:
@@ -15,6 +16,7 @@ class UnparsedSection : public Expansion
         /** Default constructor */
         UnparsedSection();
         UnparsedSection(string s);
+
         /** Default destructor */
         ~UnparsedSection();
         Expansion * clone(); // Really should never be used but should still be implemented
