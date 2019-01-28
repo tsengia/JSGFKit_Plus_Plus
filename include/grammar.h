@@ -23,6 +23,8 @@
 
 using namespace std;
 
+typedef list<shared_ptr<MatchInfo>> MatchList;
+
 class Grammar
 {
     protected:
@@ -64,9 +66,9 @@ class Grammar
         static Expansion * parseExpansionsFromString(string input);
         static Grammar * parseGrammarFromString(string s);
 
-        list<shared_ptr<MatchInfo>> getMatchingExpansions(shared_ptr<Expansion> e, string words[], unsigned int wordCount, unsigned int wordPosition);
-        list<shared_ptr<MatchInfo>> matchesRule(shared_ptr<Rule> rule, string test);
-        list<shared_ptr<MatchInfo>> matchesRule(string ruleName, string test);
+        MatchList getMatchingExpansions(shared_ptr<Expansion> e, string words[], unsigned int wordCount, unsigned int wordPosition);
+        MatchList matchesRule(shared_ptr<Rule> rule, string test);
+        MatchList matchesRule(string ruleName, string test);
         shared_ptr<Rule> getMatchingRule(string test);
         vector<string> getMatchingTags(string test);
         static vector<string> getMatchingTags(list<shared_ptr<MatchInfo>> matchInfo);
