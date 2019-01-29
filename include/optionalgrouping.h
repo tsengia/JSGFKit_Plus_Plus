@@ -7,22 +7,22 @@
 class OptionalGrouping : public Expansion
 {
     private:
-        shared_ptr<Expansion> childExpansion;
+        std::shared_ptr<Expansion> childExpansion;
 
     public:
         /** Default constructor */
         OptionalGrouping();
-        OptionalGrouping(shared_ptr<Expansion> e);
+        OptionalGrouping(std::shared_ptr<Expansion> e);
         /** Default destructor */
         ~OptionalGrouping();
 
         Expansion * clone();
         ExpansionType getType();
         bool hasChild();
-        shared_ptr<Expansion> getChild();
-        void setChild(shared_ptr<Expansion> e);
+        std::shared_ptr<Expansion> getChild();
+        void setChild(std::shared_ptr<Expansion> e);
 
-        string getText();
+        std::string getText();
 };
 
 #endif // OPTIONALGROUPING_H

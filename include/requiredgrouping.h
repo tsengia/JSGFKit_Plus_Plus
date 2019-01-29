@@ -7,22 +7,22 @@
 class RequiredGrouping : public Expansion
 {
     private:
-        shared_ptr<Expansion> childExpansion;
+        std::shared_ptr<Expansion> childExpansion;
 
     public:
         /** Default constructor */
         RequiredGrouping();
-        RequiredGrouping(shared_ptr<Expansion> e);
+        RequiredGrouping(std::shared_ptr<Expansion> e);
         /** Default destructor */
         ~RequiredGrouping();
 
         Expansion * clone();
         ExpansionType getType();
         bool hasChild();
-        shared_ptr<Expansion> getChild();
-        void setChild(shared_ptr<Expansion> e);
+        std::shared_ptr<Expansion> getChild();
+        void setChild(std::shared_ptr<Expansion> e);
 
-        string getText();
+        std::string getText();
 };
 
 #endif // REQUIREDGROUPING_H

@@ -6,7 +6,7 @@ Rule::Rule()
     //ctor
 }
 
-Rule::Rule(string n, bool visible, shared_ptr<Expansion> e)
+Rule::Rule(std::string n, bool visible, std::shared_ptr<Expansion> e)
 {
     name = n;
     isVisible = visible;
@@ -18,7 +18,7 @@ Rule::~Rule()
     ruleExpansion.reset();
 }
 
-string Rule::getRuleString() {
+std::string Rule::getRuleString() {
     if(isVisible) {
         return Grammar::trimString("public <" + name + "> = " + ruleExpansion->getText()) + ";";
     }

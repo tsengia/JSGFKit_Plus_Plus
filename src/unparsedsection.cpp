@@ -5,7 +5,7 @@ UnparsedSection::UnparsedSection()
     //ctor
 }
 
-UnparsedSection::UnparsedSection(string s)
+UnparsedSection::UnparsedSection(std::string s)
 {
     section = s;
 }
@@ -19,11 +19,11 @@ Expansion * UnparsedSection::clone() {
     return new UnparsedSection(this->getSection());
 }
 
-string UnparsedSection::getSection() {
+std::string UnparsedSection::getSection() {
     return section;
 }
 
-void UnparsedSection::setSection(string s) {
+void UnparsedSection::setSection(std::string s) {
     section = s;
 }
 
@@ -31,11 +31,11 @@ bool UnparsedSection::hasChild() {
     return false;
 }
 
-shared_ptr<Expansion> UnparsedSection::getChild() {
+std::shared_ptr<Expansion> UnparsedSection::getChild() {
     return nullptr;
 }
 
-string UnparsedSection::getText() {
+std::string UnparsedSection::getText() {
     return "UNPARSED SECTION:" + section;
 }
 

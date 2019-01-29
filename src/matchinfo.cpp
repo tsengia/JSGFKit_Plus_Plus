@@ -1,6 +1,6 @@
 #include "matchinfo.h"
 
-MatchInfo::MatchInfo(shared_ptr<Expansion> e, string matchingStringPart)
+MatchInfo::MatchInfo(std::shared_ptr<Expansion> e, std::string matchingStringPart)
 {
     expansion = e;
     matchingSection = matchingStringPart;

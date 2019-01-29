@@ -7,11 +7,11 @@
 class RuleReference : public Expansion
 {
     private:
-        string ruleName; //!< Member variable "ruleName;"
+        std::string ruleName; //!< Member variable "ruleName;"
 
     public:
         /** Default constructor */
-        RuleReference(string ruleN);
+        RuleReference(std::string ruleN);
 
         /** Default destructor */
         ~RuleReference();
@@ -19,18 +19,18 @@ class RuleReference : public Expansion
         /** Access ruleName;
          * \return The current value of ruleName;
          */
-        string getRuleName();
+        std::string getRuleName();
 
         /** Set ruleName;
          * \param val New value to set
          */
-        void setRuleName(string val);
+        void setRuleName(std::string val);
 
         bool hasChild();
         Expansion * clone();
-        shared_ptr<Expansion> getChild();
+        std::shared_ptr<Expansion> getChild();
         ExpansionType getType();
-        string getText();
+        std::string getText();
 };
 
 #endif // RULEREFERENCE_H

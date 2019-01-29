@@ -7,21 +7,21 @@
 class PlusOperator : public Expansion
 {
     private:
-        shared_ptr<Expansion> childExpansion;
+        std::shared_ptr<Expansion> childExpansion;
 
     public:
         /** Default constructor */
         PlusOperator();
-        PlusOperator(shared_ptr<Expansion> e);
+        PlusOperator(std::shared_ptr<Expansion> e);
         /** Default destructor */
         ~PlusOperator();
 
         Expansion * clone();
         ExpansionType getType();
         bool hasChild();
-        shared_ptr<Expansion> getChild();
-        void setChild(shared_ptr<Expansion> e);
+        std::shared_ptr<Expansion> getChild();
+        void setChild(std::shared_ptr<Expansion> e);
 
-        string getText();
+        std::string getText();
 };
 #endif // PLUSOPERATOR_H

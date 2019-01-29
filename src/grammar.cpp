@@ -25,6 +25,14 @@ Grammar::~Grammar() /// Default destructor, removes its ownership of Rule object
     }
 }
 
+std::string Grammar::getName() {
+    return name;
+}
+
+void Grammar::setName(std::string s) {
+    name = s;
+}
+
 /**
   * Adds the specified Rule to the Grammar.
   * \param [in] rule
@@ -50,14 +58,25 @@ string Grammar::getText()
     return s;
 }
 
+MatchResult Grammar::match(std::string test) {
+    test = Grammar::trimString(test);
+    test = Grammar::replaceAll(test, " {2,}", " ");
+    for(shared_ptr<Rule> r : rules) {
+        MatchList m = matchesRule(r, test);
+        if(m.size() != 0) {
+            return MatchResult(r, m);
+        }
+    }
+    return MatchResult();
+}
+
 /**
   * Parses a new Grammar object from string s and returns a pointer to it.
   * \param [in] string s
   * \return Grammar *
   */
-Grammar * Grammar::parseGrammarFromString(string s)
+void Grammar::parseGrammarFromString(string s, Grammar & grammar)
 {
-    Grammar * grammar = new Grammar();
     string noComments = Grammar::replaceAll(s, "(\\#+.*[\\n|\\r|\\v])|([//]+.*[\\n|\\r|\\v])", ""); // Remove all commented out lines
     vector<string> statements = Grammar::splitString(noComments, ";"); // Split into statements with each semicolon, NOTE: semicolons within quotes are not protected! Lookbehinds are not supported in C++11 https://stackoverflow.com/questions/14538687/using-regex-lookbehinds-in-c11#14539500
 
@@ -70,7 +89,7 @@ Grammar * Grammar::parseGrammarFromString(string s)
         if (Grammar::stringStartsWith(statement, "grammar "))
         {
             vector<string> parts = Grammar::splitString(statement, " ");
-            grammar->setName(parts[1]);
+            grammar.setName(parts[1]);
         }
         else if (Grammar::stringStartsWith(statement,"public <"))
         {
@@ -79,7 +98,7 @@ Grammar * Grammar::parseGrammarFromString(string s)
             string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
             ruleName = Grammar::trimString(ruleName);
             Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
-            grammar->addRule(shared_ptr<Rule>(new Rule(ruleName, true, shared_ptr<Expansion>(exp))));
+            grammar.addRule(shared_ptr<Rule>(new Rule(ruleName, true, shared_ptr<Expansion>(exp))));
         }
         else if (Grammar::stringStartsWith(statement,"<"))
         {
@@ -87,11 +106,9 @@ Grammar * Grammar::parseGrammarFromString(string s)
             string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
             ruleName = Grammar::trimString(ruleName);
             Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
-            grammar->addRule(shared_ptr<Rule>(new Rule(ruleName, false, shared_ptr<Expansion>(exp))));
+            grammar.addRule(shared_ptr<Rule>(new Rule(ruleName, false, shared_ptr<Expansion>(exp))));
         }
     }
-
-    return grammar;
 }
 
 Expansion * Grammar::parseExpansionsFromString(string input)
@@ -1145,22 +1162,6 @@ list<shared_ptr<MatchInfo>> Grammar::matchesRule(string ruleName, string test) {
         return m;
     }
     return matchesRule(r, test);
-}
-
-/**
-  * Returns the Rule that matches the test string.
-  * Will return nullptr if no match can be found.
-  * \param [in] test string that will be tested to match a rule
-  * \return shared_ptr<Rule> - Matching Rule, or nullptr if no match found
-  */
-shared_ptr<Rule> Grammar::getMatchingRule(string test) {
-    test = Grammar::trimString(test);
-    for(shared_ptr<Rule> r : rules) {
-        if(matchesRule(r, test).size() != 0) {
-            return r;
-        }
-    }
-    return nullptr;
 }
 
 vector<string> Grammar::getMatchingTags(list<shared_ptr<MatchInfo>> matchInfo) {

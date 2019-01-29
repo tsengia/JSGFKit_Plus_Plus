@@ -4,13 +4,12 @@
 #include <expansion.h>
 #include <list>
 #include <string>
-using namespace std;
 
 class AlternativeSet : public Expansion
 {
     private:
-        list<float> weights; //TODO: Implement this
-        list<shared_ptr<Expansion>> expansions;
+        std::list<float> weights; //TODO: Implement this
+        std::list<std::shared_ptr<Expansion>> expansions;
 
     public:
         /** Default constructor */
@@ -21,13 +20,13 @@ class AlternativeSet : public Expansion
         Expansion * clone();
         ExpansionType getType();
         bool hasChild();
-        shared_ptr<Expansion> getChild();
-        list<shared_ptr<Expansion>> getChildren();
+        std::shared_ptr<Expansion> getChild();
+        std::list<std::shared_ptr<Expansion>> getChildren();
         unsigned short childCount();
 
         void removeChild(Expansion & e);
-        void addChild(shared_ptr<Expansion> e);
-        string getText();
+        void addChild(std::shared_ptr<Expansion> e);
+        std::string getText();
 };
 
 #endif // ALTERNATIVESET_H

@@ -5,7 +5,6 @@
 #ifndef EXPANSION_H
 #define EXPANSION_H
 
-using namespace std;
 
 enum ExpansionType {
     UNPARSED_SECTION, EXPANSION, ALTERNATE_SET, SEQUENCE, RULE_REFERENCE, TAG, TOKEN, KLEENE_STAR, PLUS_OPERATOR, REQUIRED_GROUPING, OPTIONAL_GROUPING
@@ -23,13 +22,13 @@ class Expansion
         virtual ~Expansion();
 
         /// Returns the JSGF text representing this Expansion and its children.
-        virtual string getText() { return "EXPANSION DEFAULT"; }
+        virtual std::string getText() { return "EXPANSION DEFAULT"; }
 
         /// Returns true if the Expansion has a child Expansion. Tokens will always return false.
         virtual bool hasChild() { return false; }
 
         /// Returns the child Expansion. Returns nullptr if there is no child Expansion. If there are multiple children, returns the first child Expansion in the list.
-        virtual shared_ptr<Expansion> getChild() { return nullptr; }
+        virtual std::shared_ptr<Expansion> getChild() { return nullptr; }
 
         /// Returns a pointer to a deep clone of this Expansion. The clone() method of all children Expansions are also called when cloning this Expansion.
         virtual Expansion * clone() { return nullptr; }

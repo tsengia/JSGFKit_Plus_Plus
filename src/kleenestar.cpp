@@ -11,15 +11,15 @@ KleeneStar::~KleeneStar()
 }
 
 Expansion * KleeneStar::clone() {
-    return new KleeneStar(shared_ptr<Expansion>(this->getChild()->clone()));
+    return new KleeneStar(std::shared_ptr<Expansion>(this->getChild()->clone()));
 }
 
-KleeneStar::KleeneStar(shared_ptr<Expansion> e) {
+KleeneStar::KleeneStar(std::shared_ptr<Expansion> e) {
     childExpansion = e;
 }
 
-string KleeneStar::getText() {
-    string s = childExpansion->getText();
+std::string KleeneStar::getText() {
+    std::string s = childExpansion->getText();
     s.append("*");
     return s;
 }
@@ -32,11 +32,11 @@ bool KleeneStar::hasChild() {
     return childExpansion != nullptr;
 }
 
-shared_ptr<Expansion> KleeneStar::getChild() {
+std::shared_ptr<Expansion> KleeneStar::getChild() {
     return childExpansion;
 }
 
-void KleeneStar::setChild(shared_ptr<Expansion> e) {
+void KleeneStar::setChild(std::shared_ptr<Expansion> e) {
     childExpansion.reset();
     childExpansion = e;
 }

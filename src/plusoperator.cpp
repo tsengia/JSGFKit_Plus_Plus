@@ -5,7 +5,7 @@ PlusOperator::PlusOperator()
     //ctor
 }
 
-PlusOperator::PlusOperator(shared_ptr<Expansion> e)
+PlusOperator::PlusOperator(std::shared_ptr<Expansion> e)
 {
     childExpansion = e;
 }
@@ -16,11 +16,11 @@ PlusOperator::~PlusOperator()
 }
 
 Expansion * PlusOperator::clone() {
-    return new PlusOperator(shared_ptr<Expansion>(this->getChild()->clone()));
+    return new PlusOperator(std::shared_ptr<Expansion>(this->getChild()->clone()));
 }
 
-string PlusOperator::getText() {
-    string s = childExpansion->getText();
+std::string PlusOperator::getText() {
+    std::string s = childExpansion->getText();
     s.append("+");
     return s;
 }
@@ -33,10 +33,10 @@ bool PlusOperator::hasChild() {
     return childExpansion != nullptr;
 }
 
-shared_ptr<Expansion> PlusOperator::getChild() {
+std::shared_ptr<Expansion> PlusOperator::getChild() {
     return childExpansion;
 }
 
-void PlusOperator::setChild(shared_ptr<Expansion> e) {
+void PlusOperator::setChild(std::shared_ptr<Expansion> e) {
     childExpansion = e;
 }

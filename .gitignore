@@ -35,3 +35,7 @@
 *.cbp
 *.layout
 *.depend
+
+# Documentaion
+docs/*
+doc/*

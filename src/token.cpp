@@ -1,12 +1,11 @@
 #include "token.h"
 
-using namespace std;
 Token::Token()
 {
     //ctor
 }
 
-Token::Token(string s) {
+Token::Token(std::string s) {
     text = s;
 }
 
@@ -19,7 +18,7 @@ Expansion * Token::clone() {
     return new Token(this->getText());
 }
 
-string Token::getText() {
+std::string Token::getText() {
     return text;
 }
 
@@ -27,14 +26,14 @@ bool Token::hasChild() {
     return false;
 }
 
-shared_ptr<Expansion> Token::getChild() {
+std::shared_ptr<Expansion> Token::getChild() {
     return nullptr;
 }
 
 /** Set text
  * \param val New value to set
  */
-void Token::setText(string val) {
+void Token::setText(std::string val) {
     text = val;
 }
 

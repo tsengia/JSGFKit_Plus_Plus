@@ -1,6 +1,6 @@
 #include "rulereference.h"
 
-RuleReference::RuleReference(string ruleN)
+RuleReference::RuleReference(std::string ruleN)
 {
     ruleName = ruleN;
 }
@@ -14,21 +14,21 @@ Expansion * RuleReference::clone() {
     return new RuleReference(this->getRuleName());
 }
 
-string RuleReference::getText() {
+std::string RuleReference::getText() {
     return "<" + ruleName + ">";
 }
 
 /** Access ruleName;
 * \return The current value of ruleName;
 */
-string RuleReference::getRuleName() {
+std::string RuleReference::getRuleName() {
     return ruleName;
 }
 
 /** Set ruleName;
 * \param val New value to set
 */
-void RuleReference::setRuleName(string val) {
+void RuleReference::setRuleName(std::string val) {
     ruleName = val;
 }
 
@@ -36,7 +36,7 @@ bool RuleReference::hasChild() {
     return false;
 }
 
-shared_ptr<Expansion> RuleReference::getChild() {
+std::shared_ptr<Expansion> RuleReference::getChild() {
     return nullptr;
 }
 

@@ -2,6 +2,10 @@
 #define GRAMMAR_H
 #include <list>
 #include <string>
+#include <cstring>
+#include <regex>
+#include <typeinfo>
+#include <vector>
 #include "expansion.h"
 #include "rule.h"
 #include "unparsedsection.h"
@@ -16,26 +20,37 @@
 #include "rulereference.h"
 #include "alternativeset.h"
 #include "matchinfo.h"
-#include <cstring>
-#include <regex>
-#include <typeinfo>
-#include <vector>
+#include "matchresult.h"
 
-using namespace std;
+typedef std::list<std::shared_ptr<MatchInfo>> MatchList;
 
-typedef list<shared_ptr<MatchInfo>> MatchList;
+/**
+  * \mainpage
+  * JSGF Kit++ is a C++ port of the Java JSGF Kit library.
+  * JSGF Kit++ can parse JSGF grammars to produce Grammar objects.
+  * These Grammar objects can be manipulated by adding or removing Rule objects and manipulating the rule Expansion for each Rule.
+  * Test/input strings can be tested/matched against Rules inside of grammars, and JSGF Kit++ provides functions to extract the tags that the test string matches.
+  * Please see the examples folder for example programs for parsing, manipulating, and testing strings against Grammar objects using JSGF Kit Plus Plus.
+  *
+  */
 
 class Grammar
 {
     protected:
-        string name;
-        list<shared_ptr<Rule>> rules;
-        static Expansion * parseAlternativeSets(list<Expansion *> & exp);
-        static void parseRuleReferences(const list<Expansion *> & expansions, list<Expansion *> & returnExpansions);
-        static void parseRequiredGroupings(const list<Expansion *> & expansions, list<Expansion *> & returnExpansions);
-        static void parseOptionalGroupings(const list<Expansion *> & expansions, list<Expansion *> & returnExpansions);
-        static void parseUnaryOperators(const list<Expansion *> & expansions, list<Expansion *> & returnExpansions);
-        static list<Expansion *> parseTokensFromString(string part);
+        // Member data
+        std::string name;
+        std::list<std::shared_ptr<Rule>> rules;
+
+        //Matching
+        MatchList getMatchingExpansions(std::shared_ptr<Expansion> e, std::string words[], unsigned int wordCount, unsigned int wordPosition);
+
+        // Parsing functions
+        static Expansion * parseAlternativeSets(std::list<Expansion *> & exp);
+        static void parseRuleReferences(const std::list<Expansion *> & expansions, std::list<Expansion *> & returnExpansions);
+        static void parseRequiredGroupings(const std::list<Expansion *> & expansions, std::list<Expansion *> & returnExpansions);
+        static void parseOptionalGroupings(const std::list<Expansion *> & expansions, std::list<Expansion *> & returnExpansions);
+        static void parseUnaryOperators(const std::list<Expansion *> & expansions, std::list<Expansion *> & returnExpansions);
+        static std::list<Expansion *> parseTokensFromString(std::string part);
 
     public:
         /** Default constructor */
@@ -44,36 +59,40 @@ class Grammar
          * Constructor that specifies the grammar name
          * \param [in] string Name of the Grammar
          */
-        Grammar(string grammarName);
+        Grammar(std::string grammarName);
 
         /** Default destructor */
         ~Grammar();
 
-        void addRule(shared_ptr<Rule> r);
-        shared_ptr<Rule> getRule(string name);
+        void addRule(std::shared_ptr<Rule> r);
+        std::shared_ptr<Rule> getRule(std::string name);
 
-        string getName() { return name; }
-        void setName(string s) { name = s; }
-        string getText();
+        std::string getName();
+        void setName(std::string s);
 
-        static string trimString(string const& input);
-        static vector<string> splitString(const std::string & s, std::string rgx_str);
-        static bool stringContains(string part, string search);
-        static bool stringStartsWith(string s, string test);
-        static bool stringEndsWith(string s, string test);
-        static string replaceAll(string s, string re, string replacement);
-        static string replaceFirst(string s, string re, string replacement);
-        static Expansion * parseExpansionsFromString(string input);
-        static Grammar * parseGrammarFromString(string s);
+        std::string getText();
 
-        MatchList getMatchingExpansions(shared_ptr<Expansion> e, string words[], unsigned int wordCount, unsigned int wordPosition);
-        MatchList matchesRule(shared_ptr<Rule> rule, string test);
-        MatchList matchesRule(string ruleName, string test);
-        shared_ptr<Rule> getMatchingRule(string test);
-        vector<string> getMatchingTags(string test);
-        static vector<string> getMatchingTags(list<shared_ptr<MatchInfo>> matchInfo);
+        // Parsing
+        static Expansion * parseExpansionsFromString(std::string input);
+        static void parseGrammarFromString(std::string s, Grammar & g);
 
-        static regex specialCharacterRegex;
+        // Matching
+        MatchResult match(std::string test);
+        MatchList matchesRule(std::shared_ptr<Rule> rule, std::string test);
+        MatchList matchesRule(std::string ruleName, std::string test);
+        std::vector<std::string> getMatchingTags(std::string test);
+        static std::vector<std::string> getMatchingTags(std::list<std::shared_ptr<MatchInfo>> matchInfo);
+
+        // Helper functions
+        static std::string trimString(std::string const& input);
+        static std::vector<std::string> splitString(const std::string & s, std::string rgx_str);
+        static bool stringContains(std::string part, std::string search);
+        static bool stringStartsWith(std::string s, std::string test);
+        static bool stringEndsWith(std::string s, std::string test);
+        static std::string replaceAll(std::string s, std::string re, std::string replacement);
+        static std::string replaceFirst(std::string s, std::string re, std::string replacement);
+
+        static std::regex specialCharacterRegex;
 };
 
 #endif // GRAMMAR_H

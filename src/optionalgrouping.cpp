@@ -11,15 +11,15 @@ OptionalGrouping::~OptionalGrouping()
 }
 
 Expansion * OptionalGrouping::clone() {
-    return new OptionalGrouping(shared_ptr<Expansion>(this->getChild()->clone()));
+    return new OptionalGrouping(std::shared_ptr<Expansion>(this->getChild()->clone()));
 }
 
-OptionalGrouping::OptionalGrouping(shared_ptr<Expansion> e) {
+OptionalGrouping::OptionalGrouping(std::shared_ptr<Expansion> e) {
     childExpansion = e;
 }
 
-string OptionalGrouping::getText() {
-    string s = "[";
+std::string OptionalGrouping::getText() {
+    std::string s = "[";
     s.append(childExpansion->getText());
     s.append("]");
     return s;
@@ -33,10 +33,10 @@ bool OptionalGrouping::hasChild() {
     return childExpansion != nullptr;
 }
 
-shared_ptr<Expansion> OptionalGrouping::getChild() {
+std::shared_ptr<Expansion> OptionalGrouping::getChild() {
     return childExpansion;
 }
 
-void OptionalGrouping::setChild(shared_ptr<Expansion> e) {
+void OptionalGrouping::setChild(std::shared_ptr<Expansion> e) {
     childExpansion = e;
 }

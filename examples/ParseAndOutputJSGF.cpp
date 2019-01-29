@@ -18,17 +18,17 @@ int main()
     <test> = hi {greeting} how are (you {you} | they {others}) today;\
     ";
     //Parsing the string to create a Grammar object
-    Grammar * g = Grammar::parseGrammarFromString(s);
+    Grammar g;
+    Grammar::parseGrammarFromString(s, g);
 
     //Generate the JSGF definitiopn for the public command Rule
     cout << "Generating <command> Rule:" << endl;
-    cout << g->getRule("command")->getRuleString() << endl << endl;;
+    cout << g.getRule("command")->getRuleString() << endl << endl;;
 
     //Generate a text version of our Grammar object
     cout << "PARSED GRAMMAR:" << endl;
-    cout << g->getText() << endl << endl;
+    cout << g.getText() << endl << endl;
 
-    delete g; // Created on the free store to remember to clean it up!
     cout << "Test Done" << endl;
     cout << "Press enter to exit" << endl;
     getline(cin, s);
