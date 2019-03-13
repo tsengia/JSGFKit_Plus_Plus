@@ -77,16 +77,23 @@ MatchResult Grammar::match(std::string test) {
   */
 void Grammar::parseGrammarFromString(string s, Grammar & grammar)
 {
-    string noComments = Grammar::replaceAll(s, "(\\#+.*[\\n|\\r|\\v])|([//]+.*[\\n|\\r|\\v])", ""); // Remove all commented out lines
-    vector<string> statements = Grammar::splitString(noComments, ";"); // Split into statements with each semicolon, NOTE: semicolons within quotes are not protected! Lookbehinds are not supported in C++11 https://stackoverflow.com/questions/14538687/using-regex-lookbehinds-in-c11#14539500
+    //string noComments = Grammar::replaceAll(s, "(\\#+.*[\\n|\\r|\\v])|([//]+.*[\\n|\\r|\\v])", ""); // Remove all commented out lines
+    //vector<string> statements = Grammar::splitString(s, ";"); // Split into statements with each semicolon, NOTE: semicolons within quotes are not protected! Lookbehinds are not supported in C++11 https://stackoverflow.com/questions/14538687/using-regex-lookbehinds-in-c11#14539500
+    string statement;
+    stringstream ss(s);
+    ///https://www.reddit.com/r/cpp_questions/comments/931zq5/any_way_to_simulate_multi_line_regex_with_c11/
+    ///Why can't C++11 just have multiline regex? Ugh.
 
-    for (string statement : statements)
-    {
+    while(getline(ss, statement, ';')) { /// Note: Semicolons are not protected!
         statement = Grammar::trimString(statement);
         //Remove extra whitespace between characters
         statement = Grammar::replaceAll(statement, " {2,}", " ");
 
-        if (Grammar::stringStartsWith(statement, "grammar "))
+        if (Grammar::stringStartsWith(statement, "#"))
+        {
+            continue; // Line is a comment, skip it.
+        }
+        else if (Grammar::stringStartsWith(statement, "grammar "))
         {
             vector<string> parts = Grammar::splitString(statement, " ");
             grammar.setName(parts[1]);
@@ -1229,23 +1236,32 @@ bool Grammar::stringContains(string part, string search)
 
 bool Grammar::stringStartsWith(string s, string test)
 {
-    return s.find(test) == 0;
+    return s.find(Grammar::trimString(test)) == 0;
 }
 
 bool Grammar::stringEndsWith(string s, string test)
 {
-    return (s.find(test) == s.length() - test.length()) && s.find(test) != string::npos;
+    return (s.find(Grammar::trimString(test)) == s.length() - test.length()) && s.find(test) != string::npos;
 }
 
-string Grammar::trimString(string const& input)
-{
-    if(input.empty())
-    {
-        return input;
-    }
+///Thanks for this trimming function: https://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
 
-    size_t firstScan = input.find_first_not_of(' ');
-    size_t first     = firstScan == string::npos ? input.length() : firstScan;
-    size_t last      = input.find_last_not_of(' ');
-    return input.substr(first, last-first+1);
+// trim from start
+inline std::string &Grammar::ltrim(std::string &s) {
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+            std::not1(std::ptr_fun<int, int>(std::isspace))));
+    return s;
+}
+
+// trim from end
+inline std::string &Grammar::rtrim(std::string &s) {
+    s.erase(std::find_if(s.rbegin(), s.rend(),
+            std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+    return s;
+}
+
+
+inline string Grammar::trimString(string input)
+{
+    return ltrim(rtrim(input));
 }

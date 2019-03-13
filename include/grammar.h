@@ -6,6 +6,11 @@
 #include <regex>
 #include <typeinfo>
 #include <vector>
+#include <algorithm>
+#include <functional>
+#include <cctype>
+#include <locale>
+
 #include "expansion.h"
 #include "rule.h"
 #include "unparsedsection.h"
@@ -36,6 +41,9 @@ typedef std::list<std::shared_ptr<MatchInfo>> MatchList;
 
 class Grammar
 {
+    private:
+
+
     protected:
         // Member data
         std::string name;
@@ -84,7 +92,7 @@ class Grammar
         static std::vector<std::string> getMatchingTags(std::list<std::shared_ptr<MatchInfo>> matchInfo);
 
         // Helper functions
-        static std::string trimString(std::string const& input);
+        static std::string trimString(std::string input);
         static std::vector<std::string> splitString(const std::string & s, std::string rgx_str);
         static bool stringContains(std::string part, std::string search);
         static bool stringStartsWith(std::string s, std::string test);
@@ -93,6 +101,9 @@ class Grammar
         static std::string replaceFirst(std::string s, std::string re, std::string replacement);
 
         static std::regex specialCharacterRegex;
+
+        static inline std::string &ltrim(std::string &s);
+        static inline std::string &rtrim(std::string &s);
 };
 
 #endif // GRAMMAR_H
