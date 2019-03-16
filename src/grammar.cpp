@@ -58,6 +58,29 @@ string Grammar::getText()
     return s;
 }
 
+/**
+  * Returns the rule name of the public rule that matches the test string. If no matching public rule is found, an empty string is returned.
+  * \param string String to test against public rules.
+  * \return string
+  */
+std::string Grammar::getMatchingPublicRule(std::string test) {
+    test = Grammar::trimString(test);
+    test = Grammar::replaceAll(test, " {2,}", " ");
+    for(shared_ptr<Rule> r : rules) {
+        if(r->isPublic()) {
+        MatchList m = matchesRule(r, test);
+            if(m.size() != 0) {
+                return r->getRuleName();
+            }
+        }
+    }
+    return "";
+}
+
+/** Returns a MatchResult object that contains info about the rule that the test string matches. An empty MatchResult object is returned if no match is found.
+  * \param string String to test against the Grammar's rules
+  * \return MatchResult
+  */
 MatchResult Grammar::match(std::string test) {
     test = Grammar::trimString(test);
     test = Grammar::replaceAll(test, " {2,}", " ");

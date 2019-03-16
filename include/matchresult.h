@@ -18,6 +18,7 @@ class MatchResult
         /// Construct for when a match is found
         MatchResult(std::shared_ptr<Rule> rule, MatchList ml);
         std::vector<std::string> getMatchingTags();
+        /// If true, a match was found. If false, no match was found.
         const bool matches;
         const std::shared_ptr<Rule> getMatchingRule();
 

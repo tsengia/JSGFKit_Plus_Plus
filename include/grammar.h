@@ -85,6 +85,7 @@ class Grammar
         static void parseGrammarFromString(std::string s, Grammar & g);
 
         // Matching
+        std::string getMatchingPublicRule(std::string test);
         MatchResult match(std::string test);
         MatchList matchesRule(std::shared_ptr<Rule> rule, std::string test);
         MatchList matchesRule(std::string ruleName, std::string test);
