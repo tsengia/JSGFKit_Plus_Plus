@@ -2,6 +2,7 @@
 #define ALTERNATIVESET_H
 
 #include <expansion.h>
+#include <token.h>
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -19,7 +20,7 @@ class AlternativeSet : public Expansion
         ~AlternativeSet();
 
         Expansion * clone();
-        ExpansionType getType();
+        ExpansionType getType() override;
         bool hasChild();
         std::shared_ptr<Expansion> getChild(unsigned int index = 0);
         std::vector<std::shared_ptr<Expansion>> getChildren();
@@ -27,6 +28,7 @@ class AlternativeSet : public Expansion
 
         void removeChild(Expansion & e);
         void addChild(std::shared_ptr<Expansion> e);
+        void addChild(std::string token);
         std::string getText();
 };
 

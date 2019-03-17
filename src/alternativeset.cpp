@@ -47,6 +47,10 @@ void AlternativeSet::addChild(std::shared_ptr<Expansion> e) {
     expansions.push_back(e);
 }
 
+void AlternativeSet::addChild(std::string token) {
+    expansions.push_back(shared_ptr<Expansion>(new Token(token)));
+}
+
 void AlternativeSet::removeChild(Expansion & e) {
     if(std::count(expansions.begin(), expansions.end(), std::shared_ptr<Expansion>(&e)) != 0) {
         std::find(expansions.begin(), expansions.end(), std::shared_ptr<Expansion>(&e));
