@@ -30,6 +30,10 @@ ExpansionType RequiredGrouping::getType() {
     return REQUIRED_GROUPING;
 }
 
+unsigned int RequiredGrouping::childCount() {
+    return hasChild() ? 1 : 0;
+}
+
 bool RequiredGrouping::hasChild() {
     return childExpansion != nullptr;
 }

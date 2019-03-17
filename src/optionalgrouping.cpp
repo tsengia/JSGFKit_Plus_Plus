@@ -29,6 +29,10 @@ ExpansionType OptionalGrouping::getType() {
     return OPTIONAL_GROUPING;
 }
 
+unsigned int OptionalGrouping::childCount() {
+    return hasChild() ? 1 : 0;
+}
+
 bool OptionalGrouping::hasChild() {
     return childExpansion != nullptr;
 }

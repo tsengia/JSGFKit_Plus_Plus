@@ -26,6 +26,8 @@ class UnparsedSection : public Expansion
         ///Will always return true
         bool hasChild();
 
+        unsigned int childCount();
+
         /// Will always return nullptr
         shared_ptr<Expansion> getChild();
 

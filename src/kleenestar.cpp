@@ -28,6 +28,10 @@ ExpansionType KleeneStar::getType() {
     return KLEENE_STAR;
 }
 
+unsigned int KleeneStar::childCount() {
+    return hasChild() ? 1 : 0;
+}
+
 bool KleeneStar::hasChild() {
     return childExpansion != nullptr;
 }

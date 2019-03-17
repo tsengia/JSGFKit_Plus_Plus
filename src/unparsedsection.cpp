@@ -31,6 +31,10 @@ bool UnparsedSection::hasChild() {
     return false;
 }
 
+unsigned int UnparsedSection::childCount() {
+    return 0;
+}
+
 std::shared_ptr<Expansion> UnparsedSection::getChild() {
     return nullptr;
 }

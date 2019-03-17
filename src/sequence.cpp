@@ -41,7 +41,7 @@ std::string Sequence::getText() {
     return s;
 }
 
-unsigned short Sequence::childrenCount() {
+unsigned int Sequence::childCount() {
     return distance(children.begin(), children.end());
 }
 
@@ -68,7 +68,7 @@ std::shared_ptr<Expansion> Sequence::getChild() {
 void Sequence::simplifySequence(std::shared_ptr<Expansion> s) {
     if(typeid(*s) == typeid(Sequence)) {
         Sequence * sq = (Sequence*) s.get();
-        if(sq->childrenCount() == 1) { // We have a sequence that has only one child. We need to extract the child, destroy the sequence, and set the expansion to the extracted child
+        if(sq->childCount() == 1) { // We have a sequence that has only one child. We need to extract the child, destroy the sequence, and set the expansion to the extracted child
             s = sq->getChild(); // clone() makes a deep copy
         }
         else {

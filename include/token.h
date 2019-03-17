@@ -30,6 +30,7 @@ class Token : public Expansion
 
         ExpansionType getType();
 
+        unsigned int childCount();
         bool hasChild();
         shared_ptr<Expansion> getChild();
 };

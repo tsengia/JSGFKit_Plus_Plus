@@ -22,7 +22,7 @@ class AlternativeSet : public Expansion
         bool hasChild();
         std::shared_ptr<Expansion> getChild();
         std::list<std::shared_ptr<Expansion>> getChildren();
-        unsigned short childCount();
+        unsigned int childCount();
 
         void removeChild(Expansion & e);
         void addChild(std::shared_ptr<Expansion> e);

@@ -21,6 +21,7 @@ class KleeneStar : public Expansion
         bool hasChild();
         std::shared_ptr<Expansion> getChild();
         void setChild(std::shared_ptr<Expansion> e);
+        unsigned int childCount();
 
         std::string getText();
 };

@@ -27,6 +27,9 @@ class Expansion
         /// Returns true if the Expansion has a child Expansion. Tokens will always return false.
         virtual bool hasChild() { return false; }
 
+        /// Returns the number of child expansions this Expansion has. Tokens will always return false.
+        virtual unsigned int childCount() { return 0; }
+
         /// Returns the child Expansion. Returns nullptr if there is no child Expansion. If there are multiple children, returns the first child Expansion in the list.
         virtual std::shared_ptr<Expansion> getChild() { return nullptr; }
 

@@ -29,6 +29,10 @@ ExpansionType PlusOperator::getType() {
     return PLUS_OPERATOR;
 }
 
+unsigned int PlusOperator::childCount() {
+    return hasChild() ? 1 : 0;
+}
+
 bool PlusOperator::hasChild() {
     return childExpansion != nullptr;
 }

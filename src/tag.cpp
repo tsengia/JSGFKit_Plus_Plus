@@ -90,3 +90,7 @@ void Tag::setChildExpansion(std::shared_ptr<Expansion> val) {
 ExpansionType Tag::getType() {
     return TAG;
 }
+
+unsigned int Tag::childCount() {
+    return hasChild() ? 1 : 0;
+}

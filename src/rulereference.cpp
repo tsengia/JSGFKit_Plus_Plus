@@ -36,6 +36,10 @@ bool RuleReference::hasChild() {
     return false;
 }
 
+unsigned int RuleReference::childCount() {
+    return 0;
+}
+
 std::shared_ptr<Expansion> RuleReference::getChild() {
     return nullptr;
 }

@@ -37,6 +37,10 @@ void Token::setText(std::string val) {
     text = val;
 }
 
+unsigned int Token::childCount() {
+    return 0;
+}
+
 ExpansionType Token::getType() {
     return TOKEN;
 }

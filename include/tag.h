@@ -39,6 +39,7 @@ class Tag : public Expansion
         ExpansionType getType();
 
         bool hasChild();
+        unsigned int childCount();
         std::string getText();
         void addTag(std::string t); /// Adds the specified tag to the list of tags.
         void removeTag(std::string t); /// Removes the specified tag from the list of tags if it exists.

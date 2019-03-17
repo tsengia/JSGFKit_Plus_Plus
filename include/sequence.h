@@ -27,9 +27,9 @@ class Sequence : public Expansion
          */
         std::list<std::shared_ptr<Expansion>> getChildren();
 
-        unsigned short childrenCount();
         void addChild(std::shared_ptr<Expansion> e);
         void removeChild(Expansion & e);
+        unsigned int childCount();
 
         /**
           * Static Helper function that checks to see if the provided expansion is a sequence, and if it is, checks to see if the Sequence has only one child. If it has only one child, it sets the provided shared_pointer to point to the child Expansion.

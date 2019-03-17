@@ -23,7 +23,7 @@ Expansion * AlternativeSet::clone() {
     return aset;
 }
 
-unsigned short AlternativeSet::childCount() {
+unsigned int AlternativeSet::childCount() {
     return distance(expansions.begin(), expansions.end());
 }
 

@@ -863,7 +863,7 @@ Expansion * Grammar::parseAlternativeSets(list<Expansion *> & exp)
             {
 
                 Expansion * a = currentSequence;
-                if(currentSequence->childrenCount() == 1)
+                if(currentSequence->childCount() == 1)
                 {
                     Expansion * e = currentSequence->getChild()->clone();
                     a = e;
@@ -890,7 +890,7 @@ Expansion * Grammar::parseAlternativeSets(list<Expansion *> & exp)
     if (aset->childCount() > 0)
     {
         Expansion * a = currentSequence;
-        if(currentSequence->childrenCount() == 1)
+        if(currentSequence->childCount() == 1)
         {
             Expansion * e = currentSequence->getChild()->clone();
             a = e;
@@ -903,7 +903,7 @@ Expansion * Grammar::parseAlternativeSets(list<Expansion *> & exp)
     {
         delete aset; // aset has no children yet, and we are not returning it. so it must be deleted, and deleting it won't result in any dangling pointers
 
-        if(currentSequence->childrenCount() == 1)
+        if(currentSequence->childCount() == 1)
         {
             Expansion * e = currentSequence->getChild()->clone();
             delete currentSequence;
@@ -1074,7 +1074,7 @@ list<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansion>
             }
         }
 
-        if (matchedCount != seq->childrenCount())   // Not all of the required matches were met!
+        if (matchedCount != seq->childCount())   // Not all of the required matches were met!
         {
             localMatchList.clear();
         }
