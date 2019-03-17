@@ -94,7 +94,7 @@ class Grammar
 
         // Utility
         void walkGrammar(void (* callback)(Expansion *));
-        static void walkExpansion(Expansion * e, void (* callback)(Expansion *));
+        void walkExpansion(Expansion * e, void (* callback)(Expansion *));
 
         // Helper functions
         static std::string trimString(std::string input);

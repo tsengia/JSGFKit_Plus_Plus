@@ -3,7 +3,7 @@ using namespace std;
 
 regex Grammar::specialCharacterRegex  = regex("[;=<>*+\\[\\]()|{} ]"); /// Regex that matches for JSGF special characters that cannot be unescaped in non-quoted Tokens
 
-Grammar::Grammar() /// Default constructur. Creates an empty Grammar object with the grammar name set to "default"
+Grammar::Grammar() /// Default constructor. Creates an empty Grammar object with the grammar name set to "default"
 {
     name = "default";
 }
@@ -94,7 +94,7 @@ MatchResult Grammar::match(std::string test) {
 }
 
 /**
-  * Parses a new Grammar object from string s and returns a pointer to it.
+  * Parses a new Grammar object from string s
   * \param [in] string s
   * \return Grammar *
   */
@@ -943,7 +943,7 @@ shared_ptr<Rule> Grammar::getRule(string ruleName)
   */
 void Grammar::walkGrammar(void (* callback)(Expansion *)) {
     for(shared_ptr<Rule> r : rules) {
-        Grammar::walkExpansion(r->getRuleExpansion().get(), callback);
+        walkExpansion(r->getRuleExpansion().get(), callback);
     }
 }
 
