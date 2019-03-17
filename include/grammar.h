@@ -10,6 +10,7 @@
 #include <functional>
 #include <cctype>
 #include <locale>
+#include <fstream>
 
 #include "expansion.h"
 #include "rule.h"
@@ -68,6 +69,8 @@ class Grammar
          * \param [in] string Name of the Grammar
          */
         Grammar(std::string grammarName);
+
+        Grammar(std::ifstream inputStream);
 
         /** Default destructor */
         ~Grammar();

@@ -17,6 +17,42 @@ Grammar::Grammar(string grammarName)
     name = grammarName;
 }
 
+Grammar::Grammar(ifstream inputStream) {
+    std::string statement = "";
+    while(getline(inputStream, statement)) {
+        statement = Grammar::trimString(statement);
+        //Remove extra whitespace between characters
+        statement = Grammar::replaceAll(statement, " {2,}", " ");
+
+        if (Grammar::stringStartsWith(statement, "#"))
+        {
+            continue; // Line is a comment, skip it.
+        }
+        else if (Grammar::stringStartsWith(statement, "grammar "))
+        {
+            vector<string> parts = Grammar::splitString(statement, " ");
+            setName(parts[1]);
+        }
+        else if (Grammar::stringStartsWith(statement,"public <"))
+        {
+            statement = Grammar::replaceFirst(statement, "public ", "");
+            vector<string> parts = Grammar::splitString(statement, "=");
+            string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
+            ruleName = Grammar::trimString(ruleName);
+            Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
+            addRule(shared_ptr<Rule>(new Rule(ruleName, true, shared_ptr<Expansion>(exp))));
+        }
+        else if (Grammar::stringStartsWith(statement,"<"))
+        {
+            vector<string> parts = Grammar::splitString(statement, "=");
+            string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
+            ruleName = Grammar::trimString(ruleName);
+            Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
+            addRule(shared_ptr<Rule>(new Rule(ruleName, false, shared_ptr<Expansion>(exp))));
+        }
+    }
+}
+
 Grammar::~Grammar() /// Default destructor, removes its ownership of Rule objects
 {
     for(shared_ptr<Rule> & r : rules)
