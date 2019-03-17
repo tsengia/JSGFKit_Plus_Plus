@@ -18,7 +18,7 @@ class Expansion
     public:
         /** Default constructor */
         Expansion();
-        ExpansionType getType() { return EXPANSION; }
+        virtual ExpansionType getType() { return EXPANSION; }
         virtual ~Expansion();
 
         /// Returns the JSGF text representing this Expansion and its children.

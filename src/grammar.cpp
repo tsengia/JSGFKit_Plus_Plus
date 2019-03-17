@@ -969,7 +969,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
 {
     vector<shared_ptr<MatchInfo>> matchvector;
 
-    if (typeid(*(e.get())) == typeid(Token))
+    if ((e.get())->getType() == TOKEN)
     {
         Token * t = (Token *) e.get();
         if (t->getText() == (words[wordPosition]))
@@ -982,7 +982,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             // No match
         }
     }
-    else if (typeid(*(e.get())) == typeid(RuleReference))
+    else if ((e.get())->getType() == RULE_REFERENCE)
     {
         RuleReference * ref = (RuleReference *) e.get();
 
@@ -997,7 +997,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
         }
     }
-    else if (typeid(*(e.get())) == typeid(OptionalGrouping))
+    else if ((e.get())->getType() == OPTIONAL_GROUPING)
     {
         OptionalGrouping * og = (OptionalGrouping *) e.get();
         vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(og->getChild(), words, wordCount, wordPosition);
@@ -1013,7 +1013,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             matchvector.insert(matchvector.end(), moreMatches.begin(), moreMatches.end());
         }
     }
-    else if (typeid(*(e.get())) == typeid(RequiredGrouping))
+    else if ((e.get())->getType() == REQUIRED_GROUPING)
     {
         RequiredGrouping * rg = (RequiredGrouping *) e.get();
         vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(rg->getChild(), words, wordCount, wordPosition);
@@ -1024,7 +1024,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             matchvector.insert(matchvector.end(), m1.begin(), m1.end());
         }
     }
-    else if (typeid(*(e).get()) == typeid(Tag))
+    else if (e.get()->getType() == TAG)
     {
         Tag * t = (Tag *) e.get();
         vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(t->getChild(), words, wordCount, wordPosition);
@@ -1035,7 +1035,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             matchvector.insert(matchvector.end(), m1.begin(), m1.end());
         }
     }
-    else if (typeid(*(e.get())) == typeid(AlternativeSet))
+    else if ((e.get())->getType() == ALTERNATE_SET)
     {
         AlternativeSet * as = (AlternativeSet *) e.get();
         for (shared_ptr<Expansion> x : as->getChildren())
@@ -1055,7 +1055,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
         }
     }
-    else if (typeid(*(e.get())) == typeid(Sequence))
+    else if ((e.get())->getType() == SEQUENCE)
     {
         Sequence * seq = (Sequence *) e.get();
         vector<shared_ptr<MatchInfo>> localMatchvector;
@@ -1065,7 +1065,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
         for (shared_ptr<Expansion> x : expansions)
         {
             vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(x, words, wordCount, wordPosition);
-            if (m1.size() == 0 && (typeid(*x) == typeid(KleeneStar) || typeid(*x) == typeid(OptionalGrouping)))   // Stupid OptionalGrouping
+            if (m1.size() == 0 && (x->getType() == KLEENE_STAR || x->getType() == OPTIONAL_GROUPING))   // Stupid OptionalGrouping
             {
                 matchedCount++; // Still counts a match
                 continue;
@@ -1106,7 +1106,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             matchvector.insert(matchvector.end(), localMatchvector.begin(), localMatchvector.end());
         }
     }
-    else if (typeid(*(e.get())) == typeid(KleeneStar))
+    else if ((e.get()->getType()) == KLEENE_STAR)
     {
         KleeneStar * ks = (KleeneStar *) e.get();
         bool done = false;
@@ -1139,7 +1139,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
         }
     }
-    else if (typeid(*(e.get())) == typeid(PlusOperator))
+    else if ((e.get())->getType() == PLUS_OPERATOR)
     {
         PlusOperator * po = (PlusOperator *) e.get();
         bool done = false;
