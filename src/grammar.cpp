@@ -69,6 +69,10 @@ void Grammar::setName(std::string s) {
     name = s;
 }
 
+bool Grammar::writeGrammar(std::ofstream & outputStream) {
+    outputStream << getText();
+}
+
 /**
   * Adds the specified Rule to the Grammar.
   * \param [in] rule

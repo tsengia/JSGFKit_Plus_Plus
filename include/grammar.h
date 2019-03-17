@@ -75,6 +75,8 @@ class Grammar
         /** Default destructor */
         ~Grammar();
 
+        bool writeGrammar(std::ofstream & outputStream);
+
         void addRule(std::shared_ptr<Rule> r);
         std::shared_ptr<Rule> getRule(std::string name);
 
