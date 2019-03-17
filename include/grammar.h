@@ -70,7 +70,7 @@ class Grammar
          */
         Grammar(std::string grammarName);
 
-        Grammar(std::ifstream inputStream);
+        Grammar(std::ifstream & inputStream);
 
         /** Default destructor */
         ~Grammar();

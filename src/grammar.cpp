@@ -17,7 +17,7 @@ Grammar::Grammar(string grammarName)
     name = grammarName;
 }
 
-Grammar::Grammar(ifstream inputStream) {
+Grammar::Grammar(ifstream & inputStream) {
     std::string statement = "";
     while(getline(inputStream, statement)) {
         statement = Grammar::trimString(statement);
