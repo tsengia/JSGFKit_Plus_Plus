@@ -24,7 +24,7 @@ class Tag : public Expansion
         /** Access childExpansion
          * \return The current value of childExpansion
          */
-        std::shared_ptr<Expansion> getChild();
+        std::shared_ptr<Expansion> getChild(unsigned int index = 0);
 
         /**
           * Returns a vector of strings of the tags the child Expansion is tagged with. (All of the strings between the { } )

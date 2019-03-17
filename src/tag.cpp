@@ -64,7 +64,7 @@ Tag::Tag(std::shared_ptr<Expansion> e, unsigned short numberOfTags, std::string 
 /** Access childExpansion
  * \return The current value of childExpansion
  */
-std::shared_ptr<Expansion> Tag::getChild() {
+std::shared_ptr<Expansion> Tag::getChild(unsigned int index) {
     return childExpansion;
 }
 
