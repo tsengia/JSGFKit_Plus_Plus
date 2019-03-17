@@ -936,6 +936,27 @@ shared_ptr<Rule> Grammar::getRule(string ruleName)
     return nullptr;
 }
 
+/** Walks through all of the expansions in every rule. Calls the callback function for each expansion it walks across.
+  * \param callback A void returning function that expects a pointer to an Expansion for its args. The expansion pointer is the expansion that was encountered
+  *
+  *
+  */
+void Grammar::walkGrammar(void (* callback)(Expansion *)) {
+    for(shared_ptr<Rule> r : rules) {
+        Grammar::walkExpansion(r->getRuleExpansion().get(), callback);
+    }
+}
+
+/// Walks through the given expansion and all of its children. Calls the callback function for each expansion it walks across.
+void Grammar::walkExpansion(Expansion * e, void (* callback)(Expansion *)) {
+    callback(e);
+    if(e->hasChild()) {
+        for(unsigned int i = 0; i < e->childCount(); i++) {
+            Grammar::walkExpansion(e->getChild(i).get(), callback);
+        }
+    }
+}
+
 /**
   * Matches the array of word strings against the specified Expansion. Mainly used internally. Use Grammar::matchedRule() for testing for matches.
   * \param [in] e The Expansion being tested against

@@ -92,6 +92,10 @@ class Grammar
         std::vector<std::string> getMatchingTags(std::string test);
         static std::vector<std::string> getMatchingTags(std::vector<std::shared_ptr<MatchInfo>> matchInfo);
 
+        // Utility
+        void walkGrammar(void (* callback)(Expansion *));
+        static void walkExpansion(Expansion * e, void (* callback)(Expansion *));
+
         // Helper functions
         static std::string trimString(std::string input);
         static std::vector<std::string> splitString(const std::string & s, std::string rgx_str);
