@@ -2,14 +2,15 @@
 #define ALTERNATIVESET_H
 
 #include <expansion.h>
-#include <list>
+#include <vector>
 #include <string>
+#include <algorithm>
 
 class AlternativeSet : public Expansion
 {
     private:
-        std::list<float> weights; //TODO: Implement this
-        std::list<std::shared_ptr<Expansion>> expansions;
+        std::vector<float> weights; //TODO: Implement this
+        std::vector<std::shared_ptr<Expansion>> expansions;
 
     public:
         /** Default constructor */
@@ -20,8 +21,8 @@ class AlternativeSet : public Expansion
         Expansion * clone();
         ExpansionType getType();
         bool hasChild();
-        std::shared_ptr<Expansion> getChild();
-        std::list<std::shared_ptr<Expansion>> getChildren();
+        std::shared_ptr<Expansion> getChild(unsigned int index = 0);
+        std::vector<std::shared_ptr<Expansion>> getChildren();
         unsigned int childCount();
 
         void removeChild(Expansion & e);

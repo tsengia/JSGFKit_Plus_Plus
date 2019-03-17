@@ -7,7 +7,7 @@ AlternativeSet::AlternativeSet()
 
 AlternativeSet::~AlternativeSet()
 {
-    std::list<std::shared_ptr<Expansion>>::iterator it = expansions.begin();
+    std::vector<std::shared_ptr<Expansion>>::iterator it = expansions.begin();
     while(it != expansions.end()) {
         (*it).reset();
         it++;
@@ -16,8 +16,8 @@ AlternativeSet::~AlternativeSet()
 
 Expansion * AlternativeSet::clone() {
     AlternativeSet * aset = new AlternativeSet();
-    std::list<std::shared_ptr<Expansion>> c = this->getChildren();
-    for(std::list<std::shared_ptr<Expansion>>::iterator childIterator = c.begin(); childIterator != c.end(); childIterator++) {
+    std::vector<std::shared_ptr<Expansion>> c = this->getChildren();
+    for(std::vector<std::shared_ptr<Expansion>>::iterator childIterator = c.begin(); childIterator != c.end(); childIterator++) {
         aset->addChild(std::shared_ptr<Expansion>((*childIterator)->clone()));
     }
     return aset;
@@ -27,12 +27,12 @@ unsigned int AlternativeSet::childCount() {
     return distance(expansions.begin(), expansions.end());
 }
 
-std::list<std::shared_ptr<Expansion>> AlternativeSet::getChildren() {
+std::vector<std::shared_ptr<Expansion>> AlternativeSet::getChildren() {
     return expansions;
 }
 
-std::shared_ptr<Expansion> AlternativeSet::getChild() {
-    return (*expansions.begin());
+std::shared_ptr<Expansion> AlternativeSet::getChild(unsigned int index) {
+    return expansions[index];
 }
 
 ExpansionType AlternativeSet::getType() {
@@ -48,13 +48,15 @@ void AlternativeSet::addChild(std::shared_ptr<Expansion> e) {
 }
 
 void AlternativeSet::removeChild(Expansion & e) {
-    expansions.remove(std::shared_ptr<Expansion>(&e));
+    if(std::count(expansions.begin(), expansions.end(), std::shared_ptr<Expansion>(&e)) != 0) {
+        std::find(expansions.begin(), expansions.end(), std::shared_ptr<Expansion>(&e));
+    }
 }
 
 std::string AlternativeSet::getText() {
     //TODO: Implement weights
 
-    std::list<std::shared_ptr<Expansion>>::iterator it = expansions.begin();
+    std::vector<std::shared_ptr<Expansion>>::iterator it = expansions.begin();
     std::string s;
     while(it != expansions.end()) {
         s.append((*it)->getText());

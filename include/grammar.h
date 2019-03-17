@@ -1,6 +1,6 @@
 #ifndef GRAMMAR_H
 #define GRAMMAR_H
-#include <list>
+#include <vector>
 #include <string>
 #include <cstring>
 #include <regex>
@@ -27,7 +27,7 @@
 #include "matchinfo.h"
 #include "matchresult.h"
 
-typedef std::list<std::shared_ptr<MatchInfo>> MatchList;
+typedef std::vector<std::shared_ptr<MatchInfo>> Matchvector;
 
 /**
   * \mainpage
@@ -47,18 +47,18 @@ class Grammar
     protected:
         // Member data
         std::string name;
-        std::list<std::shared_ptr<Rule>> rules;
+        std::vector<std::shared_ptr<Rule>> rules;
 
         //Matching
-        MatchList getMatchingExpansions(std::shared_ptr<Expansion> e, std::string words[], unsigned int wordCount, unsigned int wordPosition);
+        Matchvector getMatchingExpansions(std::shared_ptr<Expansion> e, std::string words[], unsigned int wordCount, unsigned int wordPosition);
 
         // Parsing functions
-        static Expansion * parseAlternativeSets(std::list<Expansion *> & exp);
-        static void parseRuleReferences(const std::list<Expansion *> & expansions, std::list<Expansion *> & returnExpansions);
-        static void parseRequiredGroupings(const std::list<Expansion *> & expansions, std::list<Expansion *> & returnExpansions);
-        static void parseOptionalGroupings(const std::list<Expansion *> & expansions, std::list<Expansion *> & returnExpansions);
-        static void parseUnaryOperators(const std::list<Expansion *> & expansions, std::list<Expansion *> & returnExpansions);
-        static std::list<Expansion *> parseTokensFromString(std::string part);
+        static Expansion * parseAlternativeSets(std::vector<Expansion *> & exp);
+        static void parseRuleReferences(const std::vector<Expansion *> & expansions, std::vector<Expansion *> & returnExpansions);
+        static void parseRequiredGroupings(const std::vector<Expansion *> & expansions, std::vector<Expansion *> & returnExpansions);
+        static void parseOptionalGroupings(const std::vector<Expansion *> & expansions, std::vector<Expansion *> & returnExpansions);
+        static void parseUnaryOperators(const std::vector<Expansion *> & expansions, std::vector<Expansion *> & returnExpansions);
+        static std::vector<Expansion *> parseTokensFromString(std::string part);
 
     public:
         /** Default constructor */
@@ -87,10 +87,10 @@ class Grammar
         // Matching
         std::string getMatchingPublicRule(std::string test);
         MatchResult match(std::string test);
-        MatchList matchesRule(std::shared_ptr<Rule> rule, std::string test);
-        MatchList matchesRule(std::string ruleName, std::string test);
+        Matchvector matchesRule(std::shared_ptr<Rule> rule, std::string test);
+        Matchvector matchesRule(std::string ruleName, std::string test);
         std::vector<std::string> getMatchingTags(std::string test);
-        static std::vector<std::string> getMatchingTags(std::list<std::shared_ptr<MatchInfo>> matchInfo);
+        static std::vector<std::string> getMatchingTags(std::vector<std::shared_ptr<MatchInfo>> matchInfo);
 
         // Helper functions
         static std::string trimString(std::string input);

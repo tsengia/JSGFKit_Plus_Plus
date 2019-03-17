@@ -2,13 +2,13 @@
 #define MATCHRESULT_H
 #include <memory>
 #include <string>
-#include <list>
+#include <vector>
 #include <vector>
 #include <string>
 #include "matchinfo.h"
 #include "rule.h"
 
-typedef std::list<std::shared_ptr<MatchInfo>> MatchList;
+typedef std::vector<std::shared_ptr<MatchInfo>> Matchvector;
 
 class MatchResult
 {
@@ -16,7 +16,7 @@ class MatchResult
         /** Default constructor means that no match was found */
         MatchResult();
         /// Construct for when a match is found
-        MatchResult(std::shared_ptr<Rule> rule, MatchList ml);
+        MatchResult(std::shared_ptr<Rule> rule, Matchvector ml);
         std::vector<std::string> getMatchingTags();
         /// If true, a match was found. If false, no match was found.
         const bool matches;
@@ -24,7 +24,7 @@ class MatchResult
 
     protected:
         std::shared_ptr<Rule> matchingRule;
-        MatchList matchList;
+        Matchvector matchvector;
 };
 
 #endif // MATCHRESULT_H

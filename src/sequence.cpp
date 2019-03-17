@@ -7,7 +7,7 @@ Sequence::Sequence()
 
 Sequence::~Sequence()
 {
-    std::list<std::shared_ptr<Expansion>>::iterator it = children.begin();
+    std::vector<std::shared_ptr<Expansion>>::iterator it = children.begin();
     while(it != children.end()) {
         it->reset();
         it++;
@@ -16,8 +16,8 @@ Sequence::~Sequence()
 
 Expansion * Sequence::clone() {
     Sequence * s = new Sequence();
-    std::list<std::shared_ptr<Expansion>> c = this->getChildren();
-    for(std::list<std::shared_ptr<Expansion>>::iterator childIterator = c.begin(); childIterator != c.end(); childIterator++) {
+    std::vector<std::shared_ptr<Expansion>> c = this->getChildren();
+    for(std::vector<std::shared_ptr<Expansion>>::iterator childIterator = c.begin(); childIterator != c.end(); childIterator++) {
         s->addChild(std::shared_ptr<Expansion>((*childIterator)->clone()));
     }
     return s;
@@ -28,11 +28,13 @@ void Sequence::addChild(std::shared_ptr<Expansion> e) {
 }
 
 void Sequence::removeChild(Expansion & e) {
-    children.remove(std::make_shared<Expansion>(e));
+    if(std::count(children.begin(), children.end(), std::shared_ptr<Expansion>(&e)) != 0) {
+        std::find(children.begin(), children.end(), std::shared_ptr<Expansion>(&e));
+    }
 }
 
 std::string Sequence::getText() {
-    std::list<std::shared_ptr<Expansion>>::iterator it;
+    std::vector<std::shared_ptr<Expansion>>::iterator it;
     std::string s = "";
     for(it = children.begin(); it != children.end(); it++) {
         s.append((*it)->getText());
@@ -48,7 +50,7 @@ unsigned int Sequence::childCount() {
 /** Access children
  * \return The current value of children
  */
-std::list<std::shared_ptr<Expansion>> Sequence::getChildren() {
+std::vector<std::shared_ptr<Expansion>> Sequence::getChildren() {
     return children;
 }
 
@@ -56,8 +58,8 @@ bool Sequence::hasChild() {
     return children.empty();
 }
 
-std::shared_ptr<Expansion> Sequence::getChild() {
-    return children.front();
+std::shared_ptr<Expansion> Sequence::getChild(unsigned int index) {
+    return children[index];
 }
 
 /**

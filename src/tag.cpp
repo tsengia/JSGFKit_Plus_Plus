@@ -3,7 +3,7 @@
 
 std::string Tag::getText() {
     std::string s = childExpansion->getText();
-    std::forward_list<std::string>::iterator it;
+    std::vector<std::string>::iterator it;
     for(it = strings.begin(); it != strings.end(); it++){
         s.append(" {" + *it + "}");
     }
@@ -15,11 +15,11 @@ bool Tag::hasChild() {
 }
 
 void Tag::addTag(std::string t) {
-    strings.push_front(t);
+    strings.push_back(t);
 }
 
 void Tag::removeTag(std::string t) {
-    strings.remove(t);
+    strings.erase(std::find(strings.begin(), strings.end(), t));
 }
 
 int Tag::getTagCount()
@@ -29,8 +29,8 @@ int Tag::getTagCount()
 
 Expansion * Tag::clone() {
     Tag * t = new Tag(std::shared_ptr<Expansion>(this->getChild()->clone()));
-    std::forward_list<std::string> tags = strings;
-    std::forward_list<std::string>::iterator it;
+    std::vector<std::string> tags = strings;
+    std::vector<std::string>::iterator it;
     for(it = tags.begin(); it != tags.end(); it++){
         t->addTag(*it);
     }
@@ -49,14 +49,14 @@ Tag::Tag(std::shared_ptr<Expansion> e)
 
 Tag::Tag(std::shared_ptr<Expansion> e, std::string tag) {
     childExpansion = e;
-    strings.push_front(tag);
+    strings.push_back(tag);
     tagCount++;
 }
 
 Tag::Tag(std::shared_ptr<Expansion> e, unsigned short numberOfTags, std::string tags[]) {
     childExpansion = e;
     for(unsigned short i = 0; i < numberOfTags; i++) {
-        strings.push_front(tags[i]);
+        strings.push_back(tags[i]);
     }
     tagCount += numberOfTags;
 }
@@ -73,7 +73,7 @@ std::shared_ptr<Expansion> Tag::getChild() {
   */
 std::vector<std::string> Tag::getTags() {
     std::vector<std::string> v;
-    std::forward_list<std::string>::iterator it;
+    std::vector<std::string>::iterator it;
     for(it = strings.begin(); it != strings.end(); it++){
         v.push_back(*it);
     }

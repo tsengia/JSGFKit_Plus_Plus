@@ -2,12 +2,13 @@
 #define SEQUENCE_H
 
 #include <expansion.h>
-#include <list>
+#include <vector>
+#include <algorithm>
 
 class Sequence : public Expansion
 {
     private:
-        std::list<std::shared_ptr<Expansion>> children; //!< Member variable "children"
+        std::vector<std::shared_ptr<Expansion>> children; //!< Member variable "children"
 
     public:
         /** Default constructor */
@@ -19,13 +20,13 @@ class Sequence : public Expansion
         Expansion * clone();
         ExpansionType getType();
         bool hasChild();
-        std::shared_ptr<Expansion> getChild();
+        std::shared_ptr<Expansion> getChild(unsigned int index = 0);
         std::string getText();
 
         /** Access children
          * \return The current value of children
          */
-        std::list<std::shared_ptr<Expansion>> getChildren();
+        std::vector<std::shared_ptr<Expansion>> getChildren();
 
         void addChild(std::shared_ptr<Expansion> e);
         void removeChild(Expansion & e);

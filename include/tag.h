@@ -1,15 +1,15 @@
 #ifndef TAG_H
 #define TAG_H
 
+#include <algorithm>
 #include <expansion.h>
-#include <forward_list>
 #include <vector>
 
 class Tag : public Expansion
 {
     private:
         std::shared_ptr<Expansion> childExpansion; //!< Member variable "childExpansion"
-        std::forward_list<std::string> strings;
+        std::vector<std::string> strings;
         int tagCount;
 
     public:
@@ -41,8 +41,8 @@ class Tag : public Expansion
         bool hasChild();
         unsigned int childCount();
         std::string getText();
-        void addTag(std::string t); /// Adds the specified tag to the list of tags.
-        void removeTag(std::string t); /// Removes the specified tag from the list of tags if it exists.
+        void addTag(std::string t); /// Adds the specified tag to the vector of tags.
+        void removeTag(std::string t); /// Removes the specified tag from the vector of tags if it exists.
         int getTagCount(); /// Returns the number of tags attached to the child Expansion. Can be multiple.
 };
 

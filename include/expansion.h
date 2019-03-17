@@ -30,8 +30,8 @@ class Expansion
         /// Returns the number of child expansions this Expansion has. Tokens will always return false.
         virtual unsigned int childCount() { return 0; }
 
-        /// Returns the child Expansion. Returns nullptr if there is no child Expansion. If there are multiple children, returns the first child Expansion in the list.
-        virtual std::shared_ptr<Expansion> getChild() { return nullptr; }
+        /// Returns the child Expansion. Returns nullptr if there is no child Expansion. If there are multiple children, returns the child Expansions at the specified index. Default is index 0.
+        virtual std::shared_ptr<Expansion> getChild(unsigned int index = 0) { return nullptr; }
 
         /// Returns a pointer to a deep clone of this Expansion. The clone() method of all children Expansions are also called when cloning this Expansion.
         virtual Expansion * clone() { return nullptr; }
