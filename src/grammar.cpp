@@ -19,7 +19,7 @@ Grammar::Grammar(string grammarName)
 
 Grammar::Grammar(ifstream & inputStream) {
     std::string statement = "";
-    while(getline(inputStream, statement)) {
+    while(getline(inputStream, statement, ';')) {
         statement = Grammar::trimString(statement);
         //Remove extra whitespace between characters
         statement = Grammar::replaceAll(statement, " {2,}", " ");
