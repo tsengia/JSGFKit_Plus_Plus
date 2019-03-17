@@ -37,7 +37,7 @@ bool PlusOperator::hasChild() {
     return childExpansion != nullptr;
 }
 
-std::shared_ptr<Expansion> PlusOperator::getChild() {
+std::shared_ptr<Expansion> PlusOperator::getChild(unsigned int index) {
     return childExpansion;
 }
 

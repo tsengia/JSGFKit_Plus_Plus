@@ -40,7 +40,7 @@ unsigned int RuleReference::childCount() {
     return 0;
 }
 
-std::shared_ptr<Expansion> RuleReference::getChild() {
+std::shared_ptr<Expansion> RuleReference::getChild(unsigned int index) {
     return nullptr;
 }
 

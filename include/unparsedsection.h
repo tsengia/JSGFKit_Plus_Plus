@@ -29,7 +29,7 @@ class UnparsedSection : public Expansion
         unsigned int childCount();
 
         /// Will always return nullptr
-        shared_ptr<Expansion> getChild();
+        shared_ptr<Expansion> getChild(unsigned int index = 0);
 
         string getSection();
         void setSection(string s);

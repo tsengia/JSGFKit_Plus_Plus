@@ -19,7 +19,7 @@ class RequiredGrouping : public Expansion
         Expansion * clone();
         ExpansionType getType();
         bool hasChild();
-        std::shared_ptr<Expansion> getChild();
+        std::shared_ptr<Expansion> getChild(unsigned int index = 0);
         void setChild(std::shared_ptr<Expansion> e);
         unsigned int childCount();
 

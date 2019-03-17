@@ -32,7 +32,7 @@ class Token : public Expansion
 
         unsigned int childCount();
         bool hasChild();
-        shared_ptr<Expansion> getChild();
+        shared_ptr<Expansion> getChild(unsigned int index = 0);
 };
 
 #endif // TOKEN_H

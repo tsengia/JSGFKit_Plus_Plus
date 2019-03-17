@@ -29,7 +29,7 @@ class RuleReference : public Expansion
         bool hasChild();
         unsigned int childCount();
         Expansion * clone();
-        std::shared_ptr<Expansion> getChild();
+        std::shared_ptr<Expansion> getChild(unsigned int index = 0);
         ExpansionType getType();
         std::string getText();
 };

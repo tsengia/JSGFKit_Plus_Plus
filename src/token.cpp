@@ -26,7 +26,7 @@ bool Token::hasChild() {
     return false;
 }
 
-std::shared_ptr<Expansion> Token::getChild() {
+std::shared_ptr<Expansion> Token::getChild(unsigned int index) {
     return nullptr;
 }
 

@@ -35,7 +35,7 @@ unsigned int UnparsedSection::childCount() {
     return 0;
 }
 
-std::shared_ptr<Expansion> UnparsedSection::getChild() {
+std::shared_ptr<Expansion> UnparsedSection::getChild(unsigned int index) {
     return nullptr;
 }
 
