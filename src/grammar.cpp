@@ -183,16 +183,16 @@ void Grammar::parseGrammarFromString(string s, Grammar & grammar)
 
 Expansion * Grammar::parseExpansionsFromString(string input)
 {
-    vector<Expansion *> tokens = Grammar::parseTokensFromString(input);
+    vector<Expansion *> tokens = parseTokensFromString(input);
     vector<Expansion *> expansionvector1;
     vector<Expansion *> expansionvector2;
-    Grammar::parseRuleReferences(tokens, expansionvector1);
-    Grammar::parseRequiredGroupings(expansionvector1, expansionvector2);
+    parseRuleReferences(tokens, expansionvector1);
+    parseRequiredGroupings(expansionvector1, expansionvector2);
     expansionvector1.clear();
-    Grammar::parseOptionalGroupings(expansionvector2, expansionvector1);
+    parseOptionalGroupings(expansionvector2, expansionvector1);
     expansionvector2.clear();
-    Grammar::parseUnaryOperators(expansionvector1, expansionvector2);
-    return Grammar::parseAlternativeSets(expansionvector2);
+    parseUnaryOperators(expansionvector1, expansionvector2);
+    return parseAlternativeSets(expansionvector2);
 }
 
 void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector<Expansion *> & output)
