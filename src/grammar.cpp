@@ -133,6 +133,42 @@ MatchResult Grammar::match(std::string test) {
     return MatchResult();
 }
 
+void Grammar::parseGrammar(ifstream f, Grammar & g) {
+    std::string statement = "";
+    while(getline(f, statement, ';')) {
+        statement = Grammar::trimString(statement);
+        //Remove extra whitespace between characters
+        statement = Grammar::replaceAll(statement, " {2,}", " ");
+
+        if (Grammar::stringStartsWith(statement, "#"))
+        {
+            continue; // Line is a comment, skip it.
+        }
+        else if (Grammar::stringStartsWith(statement, "grammar "))
+        {
+            vector<string> parts = Grammar::splitString(statement, " ");
+            g.setName(parts[1]);
+        }
+        else if (Grammar::stringStartsWith(statement,"public <"))
+        {
+            statement = Grammar::replaceFirst(statement, "public ", "");
+            vector<string> parts = Grammar::splitString(statement, "=");
+            string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
+            ruleName = Grammar::trimString(ruleName);
+            Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
+            g.addRule(shared_ptr<Rule>(new Rule(ruleName, true, shared_ptr<Expansion>(exp))));
+        }
+        else if (Grammar::stringStartsWith(statement,"<"))
+        {
+            vector<string> parts = Grammar::splitString(statement, "=");
+            string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
+            ruleName = Grammar::trimString(ruleName);
+            Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
+            g.addRule(shared_ptr<Rule>(new Rule(ruleName, false, shared_ptr<Expansion>(exp))));
+        }
+    }
+}
+
 /**
   * Parses a new Grammar object from string s
   * \param [in] string s

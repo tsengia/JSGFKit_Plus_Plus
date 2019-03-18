@@ -88,6 +88,7 @@ class Grammar
         // Parsing
         static Expansion * parseExpansionsFromString(std::string input);
         static void parseGrammarFromString(std::string s, Grammar & g);
+        static void parseGrammar(ifstream f, Grammar & g);
 
         // Matching
         std::string getMatchingPublicRule(std::string test);
