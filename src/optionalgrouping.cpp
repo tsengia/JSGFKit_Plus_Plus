@@ -33,6 +33,10 @@ unsigned int OptionalGrouping::childCount() {
     return hasChild() ? 1 : 0;
 }
 
+void OptionalGrouping::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+    childExpansion = newChild;
+}
+
 bool OptionalGrouping::hasChild() {
     return childExpansion != nullptr;
 }

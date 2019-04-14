@@ -38,6 +38,10 @@ bool RequiredGrouping::hasChild() {
     return childExpansion != nullptr;
 }
 
+void RequiredGrouping::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+    childExpansion = newChild;
+}
+
 std::shared_ptr<Expansion> RequiredGrouping::getChild(unsigned int index) {
     return childExpansion;
 }

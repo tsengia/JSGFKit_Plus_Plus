@@ -68,6 +68,10 @@ std::shared_ptr<Expansion> Tag::getChild(unsigned int index) {
     return childExpansion;
 }
 
+void Tag::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+    childExpansion = newChild;
+}
+
 /**
   * Returns a vector of strings of the tags the child Expansion is tagged with. (All of the strings between the { } )
   */

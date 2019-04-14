@@ -26,6 +26,7 @@ class AlternativeSet : public Expansion
         std::vector<std::shared_ptr<Expansion>> getChildren();
         unsigned int childCount();
 
+        void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
         void removeChild(Expansion & e);
         void addChild(std::shared_ptr<Expansion> e);
         void addChild(std::string token);

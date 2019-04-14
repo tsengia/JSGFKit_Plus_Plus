@@ -41,6 +41,10 @@ unsigned int Token::childCount() {
     return 0;
 }
 
+void Token::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+    // Do nothing because Token's don't have children
+}
+
 ExpansionType Token::getType() {
     return TOKEN;
 }

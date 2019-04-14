@@ -18,6 +18,7 @@ class Sequence : public Expansion
 
         /** Clone function, makes a deep copy of the Sequence */
         Expansion * clone();
+        void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
         ExpansionType getType();
         bool hasChild();
         std::shared_ptr<Expansion> getChild(unsigned int index = 0);

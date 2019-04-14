@@ -79,6 +79,10 @@ void Sequence::simplifySequence(std::shared_ptr<Expansion> s) {
     }
 }
 
+void Sequence::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+    children[index] = newChild;
+}
+
 ExpansionType Sequence::getType() {
     return SEQUENCE;
 }

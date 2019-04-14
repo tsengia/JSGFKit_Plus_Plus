@@ -39,6 +39,10 @@ std::shared_ptr<Expansion> UnparsedSection::getChild(unsigned int index) {
     return nullptr;
 }
 
+void UnparsedSection::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+    // Do nothing cause there are no children
+}
+
 std::string UnparsedSection::getText() {
     return "UNPARSED SECTION:" + section;
 }

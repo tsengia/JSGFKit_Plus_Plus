@@ -17,6 +17,7 @@ class OptionalGrouping : public Expansion
         ~OptionalGrouping();
 
         Expansion * clone();
+        void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
         ExpansionType getType();
         bool hasChild();
         std::shared_ptr<Expansion> getChild(unsigned int index = 0);

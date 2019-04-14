@@ -40,6 +40,7 @@ class Tag : public Expansion
 
         bool hasChild();
         unsigned int childCount();
+        void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
         std::string getText();
         void addTag(std::string t); /// Adds the specified tag to the vector of tags.
         void removeTag(std::string t); /// Removes the specified tag from the vector of tags if it exists.

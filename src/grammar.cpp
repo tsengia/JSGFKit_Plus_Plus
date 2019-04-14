@@ -71,6 +71,8 @@ void Grammar::setName(std::string s) {
 
 bool Grammar::writeGrammar(std::ofstream & outputStream) {
     outputStream << getText();
+    ///TODO: Make this return value mean something
+    return true;
 }
 
 /**
@@ -1136,7 +1138,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
         Sequence * seq = (Sequence *) e.get();
         vector<shared_ptr<MatchInfo>> localMatchvector;
         vector<shared_ptr<Expansion>> expansions = seq->getChildren();
-        int matchedCount = 0;
+        unsigned int matchedCount = 0;
 
         for (shared_ptr<Expansion> x : expansions)
         {

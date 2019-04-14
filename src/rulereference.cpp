@@ -44,6 +44,10 @@ std::shared_ptr<Expansion> RuleReference::getChild(unsigned int index) {
     return nullptr;
 }
 
+void RuleReference::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+    // Do nothing cause there are no children
+}
+
 ExpansionType RuleReference::getType() {
     return RULE_REFERENCE;
 }

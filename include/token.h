@@ -29,6 +29,7 @@ class Token : public Expansion
         void setText(string val);
 
         ExpansionType getType();
+        void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
 
         unsigned int childCount();
         bool hasChild();

@@ -25,6 +25,7 @@ class UnparsedSection : public Expansion
 
         ///Will always return true
         bool hasChild();
+        void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
 
         unsigned int childCount();
 
