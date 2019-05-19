@@ -17,6 +17,10 @@ Grammar::Grammar(string grammarName)
     name = grammarName;
 }
 
+Grammar::Grammar(unique_ptr<istream> inputStream) : Grammar(inputStream.get()) {
+
+}
+
 Grammar::Grammar(istream & inputStream) {
     std::string statement = "";
     while(getline(inputStream, statement, ';')) {

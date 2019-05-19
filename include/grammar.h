@@ -71,6 +71,7 @@ class Grammar
         Grammar(std::string grammarName);
 
         Grammar(std::istream & inputStream);
+        Grammar(std::unique_ptr<std::istream> inputStream);
 
         /** Default destructor */
         ~Grammar();
