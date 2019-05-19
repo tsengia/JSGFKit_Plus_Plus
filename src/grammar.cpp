@@ -17,7 +17,7 @@ Grammar::Grammar(string grammarName)
     name = grammarName;
 }
 
-Grammar::Grammar(unique_ptr<istream> inputStream) : Grammar(inputStream.get()) {
+Grammar::Grammar(unique_ptr<istream> inputStream) : Grammar(*inputStream.get()) {
 
 }
 
