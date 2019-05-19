@@ -1050,6 +1050,10 @@ shared_ptr<Rule> Grammar::getRule(string ruleName)
     return nullptr;
 }
 
+vector<shared_ptr<Rule>> Grammar::getRules() {
+    return rules;
+}
+
 /** Walks through all of the expansions in every rule. Calls the callback function for each expansion it walks across.
   * \param callback A void returning function that expects a pointer to an Expansion for its args. The expansion pointer is the expansion that was encountered
   *

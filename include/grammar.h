@@ -80,6 +80,7 @@ class Grammar
 
         void addRule(std::shared_ptr<Rule> r);
         std::shared_ptr<Rule> getRule(std::string name);
+        std::vector<std::shared_ptr<Rule>> getRules();
 
         std::string getName();
         void setName(std::string s);
