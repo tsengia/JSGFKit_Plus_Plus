@@ -1050,8 +1050,26 @@ shared_ptr<Rule> Grammar::getRule(string ruleName)
     return nullptr;
 }
 
+/** Returns a vector of shared ptrs to Rules of all the Rules in this Grammar
+  *
+  */
 vector<shared_ptr<Rule>> Grammar::getRules() {
     return rules;
+}
+
+/** Attempts to remove the specified Rule from the list of rules.
+  * Returns true on success, returns false if the rule with the specified name could not be found.
+  * \param ruleName A string holding the name of the rule that should be removed
+  *
+  */
+bool Grammar::removeRule(string ruleName) {
+    for(vector<shared_ptr<Rule>>::iterator r = rules.begin(); r != rules.end(); r++) {
+        if((*r)->getRuleName() == ruleName) {
+            rules.erase(r);
+            return true;
+        }
+    }
+    return false;
 }
 
 /** Walks through all of the expansions in every rule. Calls the callback function for each expansion it walks across.
