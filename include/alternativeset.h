@@ -28,6 +28,7 @@ class AlternativeSet : public Expansion
 
         void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
         void removeChild(Expansion & e);
+        void removeChild(unsigned int i);
         void addChild(std::shared_ptr<Expansion> e);
         void addChild(std::string token);
         std::string getText();

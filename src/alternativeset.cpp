@@ -62,6 +62,10 @@ void AlternativeSet::removeChild(Expansion & e) {
     }
 }
 
+void AlternativeSet::removeChild(unsigned int i) {
+    expansions.erase(expansions.begin() + i);
+}
+
 std::string AlternativeSet::getText() {
     //TODO: Implement weights
 
