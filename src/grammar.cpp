@@ -18,9 +18,8 @@ Grammar::Grammar(string grammarName)
 }
 
 Grammar::Grammar(istream * inputStream) {
-    char buff[512];
-    while(inputStream->getline(buff, ';')) {
-        std::string statement(buff);
+    std::string statement = "";
+    while(getline(*inputStream, statement, ';')) {
         statement = Grammar::trimString(statement);
         //Remove extra whitespace between characters
         statement = Grammar::replaceAll(statement, " {2,}", " ");
@@ -55,9 +54,8 @@ Grammar::Grammar(istream * inputStream) {
 }
 
 Grammar::Grammar(istream & inputStream) {
-    char buff[512];
-    while(inputStream.getline(buff, ';')) {
-        std::string statement(buff);
+    std::string statement = "";
+    while(getline(inputStream, statement, ';')) {
         statement = Grammar::trimString(statement);
         //Remove extra whitespace between characters
         statement = Grammar::replaceAll(statement, " {2,}", " ");
