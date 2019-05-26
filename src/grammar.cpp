@@ -1365,6 +1365,15 @@ vector<string> Grammar::getMatchingTags(const vector<shared_ptr<MatchInfo>> & ma
     return matchedTags;
 }
 
+std::vector<std::string> Grammar::getMatchingTags(const std::string & test) const {
+    MatchResult m = match(test);
+    if(m.matches) {
+        return m.getMatchingTags();
+    }
+    std::vector<std::string> v;
+    return v;
+}
+
 /**
   * Static helper function that replaces the first occurrence of regex re in string s with the replacement string
   * \param [in] s string that is being modified
