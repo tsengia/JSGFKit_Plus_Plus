@@ -19,7 +19,7 @@ Expansion * UnparsedSection::clone() {
     return new UnparsedSection(this->getSection());
 }
 
-std::string UnparsedSection::getSection() {
+const std::string UnparsedSection::getSection() {
     return section;
 }
 
@@ -27,24 +27,24 @@ void UnparsedSection::setSection(std::string s) {
     section = s;
 }
 
-bool UnparsedSection::hasChild() {
+const bool UnparsedSection::hasChild() {
     return false;
 }
 
-unsigned int UnparsedSection::childCount() {
+const unsigned int UnparsedSection::childCount() {
     return 0;
 }
 
-std::shared_ptr<Expansion> UnparsedSection::getChild(unsigned int index) {
+const std::shared_ptr<Expansion> UnparsedSection::getChild(const unsigned int index) {
     return nullptr;
 }
 
-void UnparsedSection::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+void UnparsedSection::replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index) {
     // Do nothing cause there are no children
 }
 
-std::string UnparsedSection::getText() {
+const std::string UnparsedSection::getText() {
     return "UNPARSED SECTION:" + section;
 }
 
-ExpansionType UnparsedSection::getType()  { return UNPARSED_SECTION; }
+const ExpansionType UnparsedSection::getType()  { return UNPARSED_SECTION; }

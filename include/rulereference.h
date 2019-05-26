@@ -19,20 +19,20 @@ class RuleReference : public Expansion
         /** Access ruleName;
          * \return The current value of ruleName;
          */
-        std::string getRuleName();
+        const std::string getRuleName();
 
         /** Set ruleName;
          * \param val New value to set
          */
         void setRuleName(std::string val);
 
-        bool hasChild();
-        void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
-        unsigned int childCount();
+        const bool hasChild();
+        void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
+        const unsigned int childCount();
         Expansion * clone();
-        std::shared_ptr<Expansion> getChild(unsigned int index = 0);
-        ExpansionType getType();
-        std::string getText();
+        const std::shared_ptr<Expansion> getChild(const unsigned int index = 0);
+        const ExpansionType getType();
+        const std::string getText();
 };
 
 #endif // RULEREFERENCE_H

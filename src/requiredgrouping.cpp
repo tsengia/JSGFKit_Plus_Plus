@@ -19,30 +19,30 @@ Expansion * RequiredGrouping::clone() {
     return new RequiredGrouping(std::shared_ptr<Expansion>(this->getChild()->clone()));
 }
 
-std::string RequiredGrouping::getText() {
+const std::string RequiredGrouping::getText() {
     std::string s = "(";
     s.append(childExpansion->getText());
     s.append(")");
     return s;
 }
 
-ExpansionType RequiredGrouping::getType() {
+const ExpansionType RequiredGrouping::getType() {
     return REQUIRED_GROUPING;
 }
 
-unsigned int RequiredGrouping::childCount() {
+const unsigned int RequiredGrouping::childCount() {
     return hasChild() ? 1 : 0;
 }
 
-bool RequiredGrouping::hasChild() {
+const bool RequiredGrouping::hasChild() {
     return childExpansion != nullptr;
 }
 
-void RequiredGrouping::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+void RequiredGrouping::replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index) {
     childExpansion = newChild;
 }
 
-std::shared_ptr<Expansion> RequiredGrouping::getChild(unsigned int index) {
+const std::shared_ptr<Expansion> RequiredGrouping::getChild(const unsigned int index) {
     return childExpansion;
 }
 

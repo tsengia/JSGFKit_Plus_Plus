@@ -22,18 +22,18 @@ class Token : public Expansion
         /** Access text
          * \return The current value of text
          */
-        string getText();
+        const string getText();
         /** Set text
          * \param val New value to set
          */
         void setText(string val);
 
-        ExpansionType getType();
-        void replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index = 0);
+        const ExpansionType getType();
+        void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
 
-        unsigned int childCount();
-        bool hasChild();
-        shared_ptr<Expansion> getChild(unsigned int index = 0);
+        const unsigned int childCount();
+        const bool hasChild();
+        const shared_ptr<Expansion> getChild(const unsigned int index = 0);
 };
 
 #endif // TOKEN_H

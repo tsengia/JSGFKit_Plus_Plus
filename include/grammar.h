@@ -68,7 +68,7 @@ class Grammar
          * Constructor that specifies the grammar name
          * \param [in] string Name of the Grammar
          */
-        Grammar(std::string grammarName);
+        Grammar(const std::string & grammarName);
 
         Grammar(std::istream & inputStream);
         Grammar(std::istream * inputStream);
@@ -76,30 +76,30 @@ class Grammar
         /** Default destructor */
         ~Grammar();
 
-        bool writeGrammar(std::ofstream & outputStream);
+        const bool writeGrammar(std::ofstream & outputStream);
 
         void addRule(std::shared_ptr<Rule> r);
-        std::shared_ptr<Rule> getRule(std::string name);
-        std::vector<std::shared_ptr<Rule>> getRules();
-        bool removeRule(std::string ruleName);
+        const std::shared_ptr<Rule> getRule(const std::string & name);
+        const std::vector<std::shared_ptr<Rule>> getRules();
+        bool removeRule(const std::string & ruleName);
 
-        std::string getName();
-        void setName(std::string s);
+        const std::string getName();
+        void setName(const std::string & s);
 
-        std::string getText();
+        const std::string getText();
 
         // Parsing
-        static Expansion * parseExpansionsFromString(std::string input);
-        static void parseGrammarFromString(std::string s, Grammar & g);
+        static Expansion * parseExpansionsFromString(const std::string & input);
+        static void parseGrammarFromString(const std::string & s, Grammar & g);
         static void parseGrammar(ifstream f, Grammar & g);
 
         // Matching
-        std::string getMatchingPublicRule(std::string test);
-        MatchResult match(std::string test);
-        Matchvector matchesRule(std::shared_ptr<Rule> rule, std::string test);
-        Matchvector matchesRule(std::string ruleName, std::string test);
-        std::vector<std::string> getMatchingTags(std::string test);
-        static std::vector<std::string> getMatchingTags(std::vector<std::shared_ptr<MatchInfo>> matchInfo);
+        const std::string getMatchingPublicRule(std::string test);
+        const MatchResult match(std::string test);
+        const Matchvector matchesRule(std::shared_ptr<Rule> rule, const std::string & test);
+        const Matchvector matchesRule(const std::string & ruleName, const std::string & test);
+        const std::vector<std::string> getMatchingTags(const std::string & test);
+        static const std::vector<std::string> getMatchingTags(const std::vector<std::shared_ptr<MatchInfo>> & matchInfo);
 
         // Utility
         void walkGrammar(void (* callback)(Expansion *));
@@ -107,12 +107,12 @@ class Grammar
 
         // Helper functions
         static std::string trimString(std::string input);
-        static std::vector<std::string> splitString(const std::string & s, std::string rgx_str);
-        static bool stringContains(std::string part, std::string search);
-        static bool stringStartsWith(std::string s, std::string test);
-        static bool stringEndsWith(std::string s, std::string test);
-        static std::string replaceAll(std::string s, std::string re, std::string replacement);
-        static std::string replaceFirst(std::string s, std::string re, std::string replacement);
+        static std::vector<std::string> splitString(const std::string & s, const std::string & rgx_str);
+        static bool stringContains(const std::string & part, const std::string & search);
+        static bool stringStartsWith(const std::string & s, const std::string & test);
+        static bool stringEndsWith(const std::string & s, const std::string & test);
+        static std::string replaceAll(const std::string & s, const std::string & re, const std::string & replacement);
+        static std::string replaceFirst(const std::string & s, const std::string & re, const std::string & replacement);
 
         static std::regex specialCharacterRegex;
 

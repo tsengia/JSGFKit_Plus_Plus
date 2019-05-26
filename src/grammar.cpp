@@ -12,7 +12,7 @@ Grammar::Grammar() /// Default constructor. Creates an empty Grammar object with
   * Constructor with name.
   * \param string grammarName - name of the Grammar to be created
   */
-Grammar::Grammar(string grammarName)
+Grammar::Grammar(const string & grammarName)
 {
     name = grammarName;
 }
@@ -97,15 +97,15 @@ Grammar::~Grammar() /// Default destructor, removes its ownership of Rule object
     }
 }
 
-std::string Grammar::getName() {
+const std::string Grammar::getName() {
     return name;
 }
 
-void Grammar::setName(std::string s) {
+void Grammar::setName(const std::string & s) {
     name = s;
 }
 
-bool Grammar::writeGrammar(std::ofstream & outputStream) {
+const bool Grammar::writeGrammar(std::ofstream & outputStream) {
     outputStream << getText();
     ///TODO: Make this return value mean something
     return true;
@@ -124,7 +124,7 @@ void Grammar::addRule(shared_ptr<Rule> r)
   * Generates the JSGF grammar and returns it as a string.
   * \return string
   */
-string Grammar::getText()
+const string Grammar::getText()
 {
     string s = "grammar " + name + ";\n";
 
@@ -141,7 +141,7 @@ string Grammar::getText()
   * \param string String to test against public rules.
   * \return string
   */
-std::string Grammar::getMatchingPublicRule(std::string test) {
+const std::string Grammar::getMatchingPublicRule(std::string test) {
     test = Grammar::trimString(test);
     test = Grammar::replaceAll(test, " {2,}", " ");
     for(shared_ptr<Rule> r : rules) {
@@ -159,7 +159,7 @@ std::string Grammar::getMatchingPublicRule(std::string test) {
   * \param string String to test against the Grammar's rules
   * \return MatchResult
   */
-MatchResult Grammar::match(std::string test) {
+const MatchResult Grammar::match(std::string test) {
     test = Grammar::trimString(test);
     test = Grammar::replaceAll(test, " {2,}", " ");
     for(shared_ptr<Rule> r : rules) {
@@ -212,7 +212,7 @@ void Grammar::parseGrammar(ifstream f, Grammar & g) {
   * \param [in] string s
   * \return Grammar *
   */
-void Grammar::parseGrammarFromString(string s, Grammar & grammar)
+void Grammar::parseGrammarFromString(const string & s, Grammar & grammar)
 {
     //string noComments = Grammar::replaceAll(s, "(\\#+.*[\\n|\\r|\\v])|([//]+.*[\\n|\\r|\\v])", ""); // Remove all commented out lines
     //vector<string> statements = Grammar::splitString(s, ";"); // Split into statements with each semicolon, NOTE: semicolons within quotes are not protected! Lookbehinds are not supported in C++11 https://stackoverflow.com/questions/14538687/using-regex-lookbehinds-in-c11#14539500
@@ -255,7 +255,7 @@ void Grammar::parseGrammarFromString(string s, Grammar & grammar)
     }
 }
 
-Expansion * Grammar::parseExpansionsFromString(string input)
+Expansion * Grammar::parseExpansionsFromString(const string & input)
 {
     vector<Expansion *> tokens = parseTokensFromString(input);
     vector<Expansion *> expansionvector1;
@@ -289,7 +289,8 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
                 {
                     KleeneStar *ks = new KleeneStar(shared_ptr<Expansion>(selectedExpansion));
                     tempExp.push_back(ks);
-                    string newUnprocessedText = up->getSection().replace(up->getSection().find("*"), 1, ""); // Remove the ) token from the  UnparsedSection
+                    string newUnprocessedText = up->getSection();
+                    newUnprocessedText = newUnprocessedText.replace(up->getSection().find("*"), 1, ""); // Remove the ) token from the  UnparsedSection
                     UnparsedSection * u = new UnparsedSection(Grammar::trimString(newUnprocessedText));
                     tempExp.push_back(u);
                     expansionFound = false;
@@ -298,7 +299,8 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
                 {
                     PlusOperator *ps = new PlusOperator(shared_ptr<Expansion>(selectedExpansion));
                     tempExp.push_back(ps);
-                    string newUnprocessedText = up->getSection().replace(up->getSection().find("+"), 1, ""); // Remove the ) token from the  UnparsedSection
+                    string newUnprocessedText = up->getSection();
+                    newUnprocessedText = newUnprocessedText.replace(up->getSection().find("+"), 1, ""); // Remove the ) token from the  UnparsedSection
                     UnparsedSection * u = new UnparsedSection(Grammar::trimString(newUnprocessedText));
                     tempExp.push_back(u);
                     expansionFound = false;
@@ -364,7 +366,8 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
 
                         tagExpansion->addTag(currentTag);
                         currentTag = ""; // Reset the tag string contents
-                        string upText = up->getSection().replace(up->getSection().find("}"), 1, ""); // Remove the } token from the  UnparsedSection
+                        string upText = up->getSection();
+                        upText = upText.replace(up->getSection().find("}"), 1, ""); // Remove the } token from the  UnparsedSection
                         upText = Grammar::trimString(upText);
 
                         if (Grammar::stringEndsWith(upText, "{"))   // Test to see if another tag follows this one
@@ -732,7 +735,8 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
                         RuleReference * rr = new RuleReference(selectedToken->getText());
                         tempExp.push_back(rr);
                         //Found the > that ends the rule reference, so we need to remove it from the old  UnparsedSection and add the new  UnparsedSection to the vector
-                        string newUnprocessedText = up->getSection().replace(up->getSection().find(">"), 1, ""); // Remove the > token from the  UnparsedSection
+                        string newUnprocessedText = up->getSection();
+                        newUnprocessedText = newUnprocessedText.replace(up->getSection().find(">"), 1, ""); // Remove the > token from the  UnparsedSection
                         UnparsedSection * u = new UnparsedSection(Grammar::trimString(newUnprocessedText));
                         tempExp.push_back(u);
                         iterationNeeded = true;
@@ -1038,7 +1042,7 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
   * \return shared_ptr<Rule>
   * \return nullptr if no rule can be found
   */
-shared_ptr<Rule> Grammar::getRule(string ruleName)
+const shared_ptr<Rule> Grammar::getRule(const string & ruleName)
 {
     for(shared_ptr<Rule> r : rules)
     {
@@ -1053,7 +1057,7 @@ shared_ptr<Rule> Grammar::getRule(string ruleName)
 /** Returns a vector of shared ptrs to Rules of all the Rules in this Grammar
   *
   */
-vector<shared_ptr<Rule>> Grammar::getRules() {
+const vector<shared_ptr<Rule>> Grammar::getRules() {
     return rules;
 }
 
@@ -1062,7 +1066,7 @@ vector<shared_ptr<Rule>> Grammar::getRules() {
   * \param ruleName A string holding the name of the rule that should be removed
   *
   */
-bool Grammar::removeRule(string ruleName) {
+bool Grammar::removeRule(const string & ruleName) {
     for(vector<shared_ptr<Rule>>::iterator r = rules.begin(); r != rules.end(); r++) {
         if((*r)->getRuleName() == ruleName) {
             rules.erase(r);
@@ -1319,7 +1323,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
   * \param [in] test std::string being matched
   * \return vector<shared_ptr<MatchInfo>> - vector of MatchInfo objects. Can have a size of 0 if test string does not match.
   */
-vector<shared_ptr<MatchInfo>> Grammar::matchesRule(shared_ptr<Rule> rule, string test) {
+const vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const shared_ptr<Rule> rule, const string & test) {
     vector<string> words = Grammar::splitString(test, " ");
     string* wordArray = &words[0];
     vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(rule->getRuleExpansion(), wordArray, words.size(), 0);
@@ -1342,7 +1346,7 @@ vector<shared_ptr<MatchInfo>> Grammar::matchesRule(shared_ptr<Rule> rule, string
   * \param [in] test string that will be matched against the Rule
   * \return vector<shared_ptr<MatchInfo>> - see vector<shared_ptr<MatchInfo>> Grammar::matchesRule(shared_ptr<Rule> rule, string test)
   */
-vector<shared_ptr<MatchInfo>> Grammar::matchesRule(string ruleName, string test) {
+const vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const string & ruleName, const string & test) {
     shared_ptr<Rule> r = getRule(ruleName);
     if(!r) { // Check to make sure rule exists
         vector<shared_ptr<MatchInfo>> m;
@@ -1351,7 +1355,7 @@ vector<shared_ptr<MatchInfo>> Grammar::matchesRule(string ruleName, string test)
     return matchesRule(r, test);
 }
 
-vector<string> Grammar::getMatchingTags(vector<shared_ptr<MatchInfo>> matchInfo) {
+const vector<string> Grammar::getMatchingTags(const vector<shared_ptr<MatchInfo>> & matchInfo) {
     vector<string> matchedTags;
     for(shared_ptr<MatchInfo> m : matchInfo) {
         if(typeid(*(m->getExpansion().get())) == typeid(Tag)) {
@@ -1370,7 +1374,7 @@ vector<string> Grammar::getMatchingTags(vector<shared_ptr<MatchInfo>> matchInfo)
   * \param [in] replacement A string that will replace the first match of re against string s
   * \return string The modified string with the first occurrence of re replaced with replacement
   */
-string Grammar::replaceFirst(string s, string re, string replacement)
+string Grammar::replaceFirst(const string & s, const string & re, const string & replacement)
 {
     regex reg (re);
     return regex_replace(s, reg, replacement, regex_constants::format_first_only);
@@ -1383,14 +1387,14 @@ string Grammar::replaceFirst(string s, string re, string replacement)
   * \param [in] replacement A string that will replace the first match of re against string s
   * \return string The modified string with all occurrences of re replaced with replacement
   */
-string Grammar::replaceAll(string s, string re, string replacement)
+string Grammar::replaceAll(const string & s, const string & re, const string & replacement)
 {
     regex reg (re);
     return regex_replace(s, reg, replacement);
 }
 
 ///Compliments to: https://stackoverflow.com/questions/16749069/c-split-string-by-regex for the below code
-vector<string> Grammar::splitString(const string & s, string rgx_str)
+vector<string> Grammar::splitString(const string & s, const string & rgx_str)
 {
     vector<string> elems;
 
@@ -1408,18 +1412,18 @@ vector<string> Grammar::splitString(const string & s, string rgx_str)
     return elems;
 }
 
-bool Grammar::stringContains(string part, string search)
+bool Grammar::stringContains(const string & part, const string & search)
 {
     size_t p = part.find(search);
     return p != string::npos;
 }
 
-bool Grammar::stringStartsWith(string s, string test)
+bool Grammar::stringStartsWith(const string & s, const string & test)
 {
     return s.find(Grammar::trimString(test)) == 0;
 }
 
-bool Grammar::stringEndsWith(string s, string test)
+bool Grammar::stringEndsWith(const string & s, const string & test)
 {
     return (s.find(Grammar::trimString(test)) == s.length() - test.length()) && s.find(test) != string::npos;
 }

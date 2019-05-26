@@ -33,7 +33,7 @@ void Sequence::removeChild(Expansion & e) {
     }
 }
 
-std::string Sequence::getText() {
+const std::string Sequence::getText() {
     std::vector<std::shared_ptr<Expansion>>::iterator it;
     std::string s = "";
     for(it = children.begin(); it != children.end(); it++) {
@@ -43,22 +43,22 @@ std::string Sequence::getText() {
     return s;
 }
 
-unsigned int Sequence::childCount() {
+const unsigned int Sequence::childCount() {
     return distance(children.begin(), children.end());
 }
 
 /** Access children
  * \return The current value of children
  */
-std::vector<std::shared_ptr<Expansion>> Sequence::getChildren() {
+const std::vector<std::shared_ptr<Expansion>> Sequence::getChildren() {
     return children;
 }
 
-bool Sequence::hasChild() {
+const bool Sequence::hasChild() {
     return children.empty();
 }
 
-std::shared_ptr<Expansion> Sequence::getChild(unsigned int index) {
+const std::shared_ptr<Expansion> Sequence::getChild(const unsigned int index) {
     return children[index];
 }
 
@@ -79,10 +79,10 @@ void Sequence::simplifySequence(std::shared_ptr<Expansion> s) {
     }
 }
 
-void Sequence::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+void Sequence::replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index) {
     children[index] = newChild;
 }
 
-ExpansionType Sequence::getType() {
+const ExpansionType Sequence::getType() {
     return SEQUENCE;
 }

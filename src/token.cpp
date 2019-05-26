@@ -18,15 +18,15 @@ Expansion * Token::clone() {
     return new Token(this->getText());
 }
 
-std::string Token::getText() {
+const std::string Token::getText() {
     return text;
 }
 
-bool Token::hasChild() {
+const bool Token::hasChild() {
     return false;
 }
 
-std::shared_ptr<Expansion> Token::getChild(unsigned int index) {
+const std::shared_ptr<Expansion> Token::getChild(const unsigned int index) {
     return nullptr;
 }
 
@@ -37,14 +37,14 @@ void Token::setText(std::string val) {
     text = val;
 }
 
-unsigned int Token::childCount() {
+const unsigned int Token::childCount() {
     return 0;
 }
 
-void Token::replaceChild(std::shared_ptr<Expansion> newChild, unsigned long index) {
+void Token::replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index) {
     // Do nothing because Token's don't have children
 }
 
-ExpansionType Token::getType() {
+const ExpansionType Token::getType() {
     return TOKEN;
 }
