@@ -1353,7 +1353,7 @@ vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const string & ruleName, cons
     return matchesRule(r, test);
 }
 
-vector<string> Grammar::getMatchingTags(const vector<shared_ptr<MatchInfo>> & matchInfo) {
+vector<string> Grammar::getMatchingTags(vector<shared_ptr<MatchInfo>> matchInfo) {
     vector<string> matchedTags;
     for(shared_ptr<MatchInfo> m : matchInfo) {
         if(typeid(*(m->getExpansion().get())) == typeid(Tag)) {

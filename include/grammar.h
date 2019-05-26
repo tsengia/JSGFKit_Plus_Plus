@@ -99,7 +99,7 @@ class Grammar
         Matchvector matchesRule(std::shared_ptr<Rule> rule, const std::string & test) const;
         Matchvector matchesRule(const std::string & ruleName, const std::string & test) const;
         std::vector<std::string> getMatchingTags(const std::string & test) const;
-        static std::vector<std::string> getMatchingTags(const std::vector<std::shared_ptr<MatchInfo>> & matchInfo);
+        static std::vector<std::string> getMatchingTags(std::vector<std::shared_ptr<MatchInfo>> matchInfo);
 
         // Utility
         void walkGrammar(void (* callback)(Expansion *));
