@@ -18,18 +18,18 @@ OptionalGrouping::OptionalGrouping(std::shared_ptr<Expansion> e) {
     childExpansion = e;
 }
 
-const std::string OptionalGrouping::getText() {
+std::string OptionalGrouping::getText() const {
     std::string s = "[";
     s.append(childExpansion->getText());
     s.append("]");
     return s;
 }
 
-const ExpansionType OptionalGrouping::getType() {
+ExpansionType OptionalGrouping::getType() const {
     return OPTIONAL_GROUPING;
 }
 
-const unsigned int OptionalGrouping::childCount() {
+unsigned int OptionalGrouping::childCount() const {
     return hasChild() ? 1 : 0;
 }
 
@@ -37,11 +37,11 @@ void OptionalGrouping::replaceChild(std::shared_ptr<Expansion> newChild, const u
     childExpansion = newChild;
 }
 
-const bool OptionalGrouping::hasChild() {
+bool OptionalGrouping::hasChild() const {
     return childExpansion != nullptr;
 }
 
-const std::shared_ptr<Expansion> OptionalGrouping::getChild(const unsigned int index) {
+std::shared_ptr<Expansion> OptionalGrouping::getChild(const unsigned int index) const {
     return childExpansion;
 }
 

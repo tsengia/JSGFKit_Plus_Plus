@@ -21,20 +21,20 @@ class UnparsedSection : public Expansion
         ~UnparsedSection();
         Expansion * clone(); // Really should never be used but should still be implemented
 
-        const ExpansionType getType();
+        ExpansionType getType() const;
 
         ///Will always return true
-        const bool hasChild();
+        bool hasChild() const;
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
 
-        const unsigned int childCount();
+        unsigned int childCount() const;
 
         /// Will always return nullptr
-        const shared_ptr<Expansion> getChild(const unsigned int index = 0);
+        shared_ptr<Expansion> getChild(const unsigned int index = 0) const;
 
-        const string getSection();
+        string getSection() const;
         void setSection(string s);
-        const string getText();
+        string getText() const;
 };
 
 #endif // UNPARSEDSECTION_H

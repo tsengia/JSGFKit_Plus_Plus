@@ -20,18 +20,18 @@ class AlternativeSet : public Expansion
         ~AlternativeSet();
 
         Expansion * clone();
-        const ExpansionType getType() override;
-        const bool hasChild();
-        const std::shared_ptr<Expansion> getChild(const unsigned int index = 0);
-        const std::vector<std::shared_ptr<Expansion>> getChildren();
-        const unsigned int childCount();
+        ExpansionType getType() const override;
+        bool hasChild() const;
+        std::shared_ptr<Expansion> getChild(const unsigned int index = 0) const;
+        std::vector<std::shared_ptr<Expansion>> getChildren() const;
+        unsigned int childCount() const;
 
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
         void removeChild(Expansion & e);
-        void removeChild(unsigned int i);
+        void removeChild(const unsigned int i);
         void addChild(std::shared_ptr<Expansion> e);
         void addChild(std::string token);
-        const std::string getText();
+        std::string getText() const;
 };
 
 #endif // ALTERNATIVESET_H

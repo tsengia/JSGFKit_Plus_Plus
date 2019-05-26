@@ -20,18 +20,18 @@ class Rule
 
         void setPrivate() { isVisible = false; } /// Makes the Rule private
         void setPublic() { isVisible = true; } /// Makes the Rule public
-        std::shared_ptr<Expansion> getRuleExpansion() { return ruleExpansion; }
+        std::shared_ptr<Expansion> getRuleExpansion() const { return ruleExpansion; }
         void setRuleExpansion(std::shared_ptr<Expansion> e) { ruleExpansion = e; }
-        void setRuleName(std::string newName) { name = newName; }
+        void setRuleName(const std::string & newName) { name = newName; }
         std::string getRuleName() { return name; }
-        bool isPublic() { return isVisible; }
+        bool isPublic() const { return isVisible; }
 
         /**
           * Returns a generated line of JSGF that defines this Rule.
           * \return string The generated JSGF text that declares this Rule.
           *
           */
-        std::string getRuleString();
+        std::string getRuleString() const;
 
 };
 

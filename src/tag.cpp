@@ -1,16 +1,16 @@
 #include "tag.h"
 #include <iostream>
 
-const std::string Tag::getText() {
+std::string Tag::getText() const {
     std::string s = childExpansion->getText();
-    std::vector<std::string>::iterator it;
+    std::vector<std::string>::const_iterator it;
     for(it = strings.begin(); it != strings.end(); it++){
         s.append(" {" + *it + "}");
     }
     return s;
 }
 
-const bool Tag::hasChild() {
+bool Tag::hasChild() const {
     return true;
 }
 
@@ -22,7 +22,7 @@ void Tag::removeTag(std::string t) {
     strings.erase(std::find(strings.begin(), strings.end(), t));
 }
 
-const int Tag::getTagCount()
+int Tag::getTagCount() const
 {
     return tagCount;
 }
@@ -64,7 +64,7 @@ Tag::Tag(std::shared_ptr<Expansion> e, unsigned short numberOfTags, std::string 
 /** Access childExpansion
  * \return The current value of childExpansion
  */
-const std::shared_ptr<Expansion> Tag::getChild(const unsigned int index) {
+std::shared_ptr<Expansion> Tag::getChild(const unsigned int index) const {
     return childExpansion;
 }
 
@@ -75,9 +75,9 @@ void Tag::replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long 
 /**
   * Returns a vector of strings of the tags the child Expansion is tagged with. (All of the strings between the { } )
   */
-const std::vector<std::string> Tag::getTags() {
+ std::vector<std::string> Tag::getTags() const {
     std::vector<std::string> v;
-    std::vector<std::string>::iterator it;
+    std::vector<std::string>::const_iterator it;
     for(it = strings.begin(); it != strings.end(); it++){
         v.push_back(*it);
     }
@@ -91,10 +91,10 @@ void Tag::setChildExpansion(std::shared_ptr<Expansion> val) {
     childExpansion = val;
 }
 
-const ExpansionType Tag::getType() {
+ExpansionType Tag::getType() const {
     return TAG;
 }
 
-const unsigned int Tag::childCount() {
+unsigned int Tag::childCount() const {
     return hasChild() ? 1 : 0;
 }

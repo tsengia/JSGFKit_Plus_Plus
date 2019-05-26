@@ -19,19 +19,19 @@ class Sequence : public Expansion
         /** Clone function, makes a deep copy of the Sequence */
         Expansion * clone();
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
-        const ExpansionType getType();
-        const bool hasChild();
-        const std::shared_ptr<Expansion> getChild(const unsigned int index = 0);
-        const std::string getText();
+        ExpansionType getType() const;
+        bool hasChild() const;
+        std::shared_ptr<Expansion> getChild(const unsigned int index = 0) const;
+        std::string getText() const;
 
         /** Access children
          * \return The current value of children
          */
-        const std::vector<std::shared_ptr<Expansion>> getChildren();
+        std::vector<std::shared_ptr<Expansion>> getChildren() const;
 
         void addChild(std::shared_ptr<Expansion> e);
         void removeChild(Expansion & e);
-        const unsigned int childCount();
+        unsigned int childCount() const;
 
         /**
           * Static Helper function that checks to see if the provided expansion is a sequence, and if it is, checks to see if the Sequence has only one child. If it has only one child, it sets the provided shared_pointer to point to the child Expansion.

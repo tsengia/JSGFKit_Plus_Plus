@@ -18,20 +18,20 @@ class Expansion
     public:
         /** Default constructor */
         Expansion();
-        const virtual ExpansionType getType() { return EXPANSION; }
+        virtual ExpansionType getType() const { return EXPANSION; }
         virtual ~Expansion();
 
         /// Returns the JSGF text representing this Expansion and its children.
-        const virtual std::string getText() = 0;
+        virtual std::string getText() const = 0;
 
         /// Returns true if the Expansion has a child Expansion. Tokens will always return false.
-        const virtual bool hasChild() = 0;
+        virtual bool hasChild() const = 0;
 
         /// Returns the number of child expansions this Expansion has. Tokens will always return false.
-        const virtual unsigned int childCount() = 0;
+        virtual unsigned int childCount() const = 0;
 
         /// Returns the child Expansion. Returns nullptr if there is no child Expansion. If there are multiple children, returns the child Expansions at the specified index. Default is index 0.
-        const virtual std::shared_ptr<Expansion> getChild(const unsigned int index = 0)  = 0;
+        virtual std::shared_ptr<Expansion> getChild(const unsigned int index = 0) const  = 0;
 
         /// Returns a pointer to a deep clone of this Expansion. The clone() method of all children Expansions are also called when cloning this Expansion.
         virtual Expansion * clone() = 0;

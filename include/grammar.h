@@ -51,7 +51,7 @@ class Grammar
         std::vector<std::shared_ptr<Rule>> rules;
 
         //Matching
-        Matchvector getMatchingExpansions(std::shared_ptr<Expansion> e, std::string words[], unsigned int wordCount, unsigned int wordPosition);
+        Matchvector getMatchingExpansions(std::shared_ptr<Expansion> e, std::string words[], unsigned int wordCount, unsigned int wordPosition) const;
 
         // Parsing functions
         static Expansion * parseAlternativeSets(std::vector<Expansion *> & exp);
@@ -76,17 +76,17 @@ class Grammar
         /** Default destructor */
         ~Grammar();
 
-        const bool writeGrammar(std::ofstream & outputStream);
+        bool writeGrammar(std::ofstream & outputStream) const;
 
         void addRule(std::shared_ptr<Rule> r);
-        const std::shared_ptr<Rule> getRule(const std::string & name);
-        const std::vector<std::shared_ptr<Rule>> getRules();
+        std::shared_ptr<Rule> getRule(const std::string & name) const;
+        std::vector<std::shared_ptr<Rule>> getRules() const;
         bool removeRule(const std::string & ruleName);
 
-        const std::string getName();
+        std::string getName() const;
         void setName(const std::string & s);
 
-        const std::string getText();
+        std::string getText() const;
 
         // Parsing
         static Expansion * parseExpansionsFromString(const std::string & input);
@@ -94,12 +94,12 @@ class Grammar
         static void parseGrammar(ifstream f, Grammar & g);
 
         // Matching
-        const std::string getMatchingPublicRule(std::string test);
-        const MatchResult match(std::string test);
-        const Matchvector matchesRule(std::shared_ptr<Rule> rule, const std::string & test);
-        const Matchvector matchesRule(const std::string & ruleName, const std::string & test);
-        const std::vector<std::string> getMatchingTags(const std::string & test);
-        static const std::vector<std::string> getMatchingTags(const std::vector<std::shared_ptr<MatchInfo>> & matchInfo);
+        std::string getMatchingPublicRule(std::string test) const;
+        MatchResult match(std::string test) const;
+        Matchvector matchesRule(std::shared_ptr<Rule> rule, const std::string & test) const;
+        Matchvector matchesRule(const std::string & ruleName, const std::string & test) const;
+        std::vector<std::string> getMatchingTags(const std::string & test) const;
+        static std::vector<std::string> getMatchingTags(const std::vector<std::shared_ptr<MatchInfo>> & matchInfo);
 
         // Utility
         void walkGrammar(void (* callback)(Expansion *));

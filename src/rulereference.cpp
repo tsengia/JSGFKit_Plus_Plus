@@ -14,14 +14,14 @@ Expansion * RuleReference::clone() {
     return new RuleReference(this->getRuleName());
 }
 
-const std::string RuleReference::getText() {
+std::string RuleReference::getText() const {
     return "<" + ruleName + ">";
 }
 
 /** Access ruleName;
 * \return The current value of ruleName;
 */
-const std::string RuleReference::getRuleName() {
+std::string RuleReference::getRuleName() const {
     return ruleName;
 }
 
@@ -32,15 +32,15 @@ void RuleReference::setRuleName(std::string val) {
     ruleName = val;
 }
 
-const bool RuleReference::hasChild() {
+bool RuleReference::hasChild() const {
     return false;
 }
 
-const unsigned int RuleReference::childCount() {
+unsigned int RuleReference::childCount() const {
     return 0;
 }
 
-const std::shared_ptr<Expansion> RuleReference::getChild(const unsigned int index) {
+std::shared_ptr<Expansion> RuleReference::getChild(const unsigned int index) const {
     return nullptr;
 }
 
@@ -48,6 +48,6 @@ void RuleReference::replaceChild(std::shared_ptr<Expansion> newChild, const unsi
     // Do nothing cause there are no children
 }
 
-const ExpansionType RuleReference::getType() {
+ExpansionType RuleReference::getType() const {
     return RULE_REFERENCE;
 }

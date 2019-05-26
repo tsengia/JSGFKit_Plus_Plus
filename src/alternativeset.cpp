@@ -23,23 +23,23 @@ Expansion * AlternativeSet::clone() {
     return aset;
 }
 
-const unsigned int AlternativeSet::childCount() {
+unsigned int AlternativeSet::childCount() const {
     return distance(expansions.begin(), expansions.end());
 }
 
-const std::vector<std::shared_ptr<Expansion>> AlternativeSet::getChildren() {
+std::vector<std::shared_ptr<Expansion>> AlternativeSet::getChildren() const {
     return expansions;
 }
 
-const std::shared_ptr<Expansion> AlternativeSet::getChild(const unsigned int index) {
+std::shared_ptr<Expansion> AlternativeSet::getChild(const unsigned int index) const {
     return expansions[index];
 }
 
-const ExpansionType AlternativeSet::getType() {
+ExpansionType AlternativeSet::getType() const {
     return ALTERNATE_SET;
 }
 
-const bool AlternativeSet::hasChild() {
+bool AlternativeSet::hasChild() const {
     return expansions.empty();
 }
 
@@ -66,10 +66,10 @@ void AlternativeSet::removeChild(const unsigned int i) {
     expansions.erase(expansions.begin() + i);
 }
 
-const std::string AlternativeSet::getText() {
+std::string AlternativeSet::getText() const {
     //TODO: Implement weights
 
-    std::vector<std::shared_ptr<Expansion>>::iterator it = expansions.begin();
+    std::vector<std::shared_ptr<Expansion>>::const_iterator it = expansions.begin();
     std::string s = "(";
     while(it != expansions.end()) {
         s.append((*it)->getText());

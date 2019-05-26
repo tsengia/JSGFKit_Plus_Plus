@@ -18,13 +18,13 @@ class OptionalGrouping : public Expansion
 
         Expansion * clone();
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
-        const ExpansionType getType();
-        const bool hasChild();
-        const std::shared_ptr<Expansion> getChild(const unsigned int index = 0);
+        ExpansionType getType() const;
+        bool hasChild() const;
+        std::shared_ptr<Expansion> getChild(const unsigned int index = 0) const;
         void setChild(std::shared_ptr<Expansion> e);
-        const unsigned int childCount();
+        unsigned int childCount() const;
 
-        const std::string getText();
+        std::string getText() const;
 };
 
 #endif // OPTIONALGROUPING_H

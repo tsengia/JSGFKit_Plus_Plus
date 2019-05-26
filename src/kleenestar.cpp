@@ -18,21 +18,21 @@ KleeneStar::KleeneStar(std::shared_ptr<Expansion> e) {
     childExpansion = e;
 }
 
-const std::string KleeneStar::getText() {
+std::string KleeneStar::getText() const {
     std::string s = childExpansion->getText();
     s.append("*");
     return s;
 }
 
-const ExpansionType KleeneStar::getType() {
+ExpansionType KleeneStar::getType() const {
     return KLEENE_STAR;
 }
 
-const unsigned int KleeneStar::childCount() {
+unsigned int KleeneStar::childCount() const {
     return hasChild() ? 1 : 0;
 }
 
-const bool KleeneStar::hasChild() {
+bool KleeneStar::hasChild() const {
     return childExpansion != nullptr;
 }
 
@@ -40,7 +40,7 @@ void KleeneStar::replaceChild(std::shared_ptr<Expansion> newChild, const unsigne
     childExpansion = newChild;
 }
 
-const std::shared_ptr<Expansion> KleeneStar::getChild(const unsigned int index) {
+std::shared_ptr<Expansion> KleeneStar::getChild(const unsigned int index) const {
     return childExpansion;
 }
 

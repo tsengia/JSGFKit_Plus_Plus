@@ -19,21 +19,21 @@ Expansion * PlusOperator::clone() {
     return new PlusOperator(std::shared_ptr<Expansion>(this->getChild()->clone()));
 }
 
-const std::string PlusOperator::getText() {
+std::string PlusOperator::getText() const {
     std::string s = childExpansion->getText();
     s.append("+");
     return s;
 }
 
-const ExpansionType PlusOperator::getType() {
+ExpansionType PlusOperator::getType() const {
     return PLUS_OPERATOR;
 }
 
-const unsigned int PlusOperator::childCount() {
+unsigned int PlusOperator::childCount() const {
     return hasChild() ? 1 : 0;
 }
 
-const bool PlusOperator::hasChild() {
+bool PlusOperator::hasChild() const {
     return childExpansion != nullptr;
 }
 
@@ -41,7 +41,7 @@ void PlusOperator::replaceChild(std::shared_ptr<Expansion> newChild, const unsig
     childExpansion = newChild;
 }
 
-const std::shared_ptr<Expansion> PlusOperator::getChild(const unsigned int index) {
+std::shared_ptr<Expansion> PlusOperator::getChild(const unsigned int index) const {
     return childExpansion;
 }
 

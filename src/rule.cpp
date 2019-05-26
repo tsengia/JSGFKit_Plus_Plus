@@ -18,7 +18,7 @@ Rule::~Rule()
     ruleExpansion.reset();
 }
 
-std::string Rule::getRuleString() {
+std::string Rule::getRuleString() const {
     if(isVisible) {
         return Grammar::trimString("public <" + name + "> = " + ruleExpansion->getText()) + ";";
     }

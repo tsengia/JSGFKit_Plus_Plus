@@ -97,7 +97,7 @@ Grammar::~Grammar() /// Default destructor, removes its ownership of Rule object
     }
 }
 
-const std::string Grammar::getName() {
+std::string Grammar::getName() const {
     return name;
 }
 
@@ -105,7 +105,7 @@ void Grammar::setName(const std::string & s) {
     name = s;
 }
 
-const bool Grammar::writeGrammar(std::ofstream & outputStream) {
+bool Grammar::writeGrammar(std::ofstream & outputStream) const {
     outputStream << getText();
     ///TODO: Make this return value mean something
     return true;
@@ -124,7 +124,7 @@ void Grammar::addRule(shared_ptr<Rule> r)
   * Generates the JSGF grammar and returns it as a string.
   * \return string
   */
-const string Grammar::getText()
+string Grammar::getText() const
 {
     string s = "grammar " + name + ";\n";
 
@@ -141,7 +141,7 @@ const string Grammar::getText()
   * \param string String to test against public rules.
   * \return string
   */
-const std::string Grammar::getMatchingPublicRule(std::string test) {
+std::string Grammar::getMatchingPublicRule(std::string test) const {
     test = Grammar::trimString(test);
     test = Grammar::replaceAll(test, " {2,}", " ");
     for(shared_ptr<Rule> r : rules) {
@@ -159,7 +159,7 @@ const std::string Grammar::getMatchingPublicRule(std::string test) {
   * \param string String to test against the Grammar's rules
   * \return MatchResult
   */
-const MatchResult Grammar::match(std::string test) {
+MatchResult Grammar::match(std::string test) const {
     test = Grammar::trimString(test);
     test = Grammar::replaceAll(test, " {2,}", " ");
     for(shared_ptr<Rule> r : rules) {
@@ -366,8 +366,7 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
 
                         tagExpansion->addTag(currentTag);
                         currentTag = ""; // Reset the tag string contents
-                        string upText = up->getSection();
-                        upText = upText.replace(up->getSection().find("}"), 1, ""); // Remove the } token from the  UnparsedSection
+                        string upText = up->getSection().replace(up->getSection().find("}"), 1, ""); // Remove the } token from the  UnparsedSection
                         upText = Grammar::trimString(upText);
 
                         if (Grammar::stringEndsWith(upText, "{"))   // Test to see if another tag follows this one
@@ -735,8 +734,7 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
                         RuleReference * rr = new RuleReference(selectedToken->getText());
                         tempExp.push_back(rr);
                         //Found the > that ends the rule reference, so we need to remove it from the old  UnparsedSection and add the new  UnparsedSection to the vector
-                        string newUnprocessedText = up->getSection();
-                        newUnprocessedText = newUnprocessedText.replace(up->getSection().find(">"), 1, ""); // Remove the > token from the  UnparsedSection
+                        string newUnprocessedText = up->getSection().replace(up->getSection().find(">"), 1, ""); // Remove the > token from the  UnparsedSection
                         UnparsedSection * u = new UnparsedSection(Grammar::trimString(newUnprocessedText));
                         tempExp.push_back(u);
                         iterationNeeded = true;
@@ -1042,7 +1040,7 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
   * \return shared_ptr<Rule>
   * \return nullptr if no rule can be found
   */
-const shared_ptr<Rule> Grammar::getRule(const string & ruleName)
+shared_ptr<Rule> Grammar::getRule(const string & ruleName) const
 {
     for(shared_ptr<Rule> r : rules)
     {
@@ -1057,7 +1055,7 @@ const shared_ptr<Rule> Grammar::getRule(const string & ruleName)
 /** Returns a vector of shared ptrs to Rules of all the Rules in this Grammar
   *
   */
-const vector<shared_ptr<Rule>> Grammar::getRules() {
+vector<shared_ptr<Rule>> Grammar::getRules() const {
     return rules;
 }
 
@@ -1105,7 +1103,7 @@ void Grammar::walkExpansion(Expansion * e, void (* callback)(Expansion *)) {
   * \param [in] wordPosition Index of the word to start matching at
   * \return vector<shared_ptr<MatchInfo>> - std::vector of MatchInfo objects
   */
-vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansion> e, string words[], unsigned int wordCount, unsigned int wordPosition)
+vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansion> e, string words[], unsigned int wordCount, unsigned int wordPosition) const
 {
     vector<shared_ptr<MatchInfo>> matchvector;
 
@@ -1323,7 +1321,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
   * \param [in] test std::string being matched
   * \return vector<shared_ptr<MatchInfo>> - vector of MatchInfo objects. Can have a size of 0 if test string does not match.
   */
-const vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const shared_ptr<Rule> rule, const string & test) {
+vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const shared_ptr<Rule> rule, const string & test) const {
     vector<string> words = Grammar::splitString(test, " ");
     string* wordArray = &words[0];
     vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(rule->getRuleExpansion(), wordArray, words.size(), 0);
@@ -1346,7 +1344,7 @@ const vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const shared_ptr<Rule> 
   * \param [in] test string that will be matched against the Rule
   * \return vector<shared_ptr<MatchInfo>> - see vector<shared_ptr<MatchInfo>> Grammar::matchesRule(shared_ptr<Rule> rule, string test)
   */
-const vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const string & ruleName, const string & test) {
+vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const string & ruleName, const string & test) const {
     shared_ptr<Rule> r = getRule(ruleName);
     if(!r) { // Check to make sure rule exists
         vector<shared_ptr<MatchInfo>> m;
@@ -1355,7 +1353,7 @@ const vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const string & ruleName
     return matchesRule(r, test);
 }
 
-const vector<string> Grammar::getMatchingTags(const vector<shared_ptr<MatchInfo>> & matchInfo) {
+vector<string> Grammar::getMatchingTags(const vector<shared_ptr<MatchInfo>> & matchInfo) {
     vector<string> matchedTags;
     for(shared_ptr<MatchInfo> m : matchInfo) {
         if(typeid(*(m->getExpansion().get())) == typeid(Tag)) {
