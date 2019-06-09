@@ -4,7 +4,6 @@
 #include <string>
 #include <cstring>
 #include <regex>
-#include <typeinfo>
 #include <vector>
 #include <algorithm>
 #include <functional>
