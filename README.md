@@ -4,6 +4,7 @@ A C++ port of the Java JSGFKit with a few additional features.
 ## Building
 JSGF Kit++ uses the `autotools` buildsystem.  
 To build the static library, simply enter the directory and run:
+
     ./configure
     make -j 4
     make install
