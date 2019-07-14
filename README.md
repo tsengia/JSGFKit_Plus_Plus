@@ -13,6 +13,7 @@ Remember that `make -j <number of threads>` lets you set the number of threads y
 
 ## Linking and Including
 To include and link against the JSGF Kit++ static library, use `pkg-config`:
-	pkg-config --libs --cflags jsgfkit
+
+    pkg-config --libs --cflags jsgfkit
 
 
