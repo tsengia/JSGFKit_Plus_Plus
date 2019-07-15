@@ -3,5 +3,5 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Cflags: -I${includedir}
+Cflags: -I${includedir}/jsgfkit
 Libs: -L${libdir} -ljsgfkit
