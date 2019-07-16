@@ -916,7 +916,7 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
     vector<Expansion *> tempExp;
     while(expansionIterator != exp.end())
     {
-        if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))
+        if ((*expansionIterator)->getType() == UNPARSED_SECTION)
         {
             UnparsedSection * up = (UnparsedSection *) *expansionIterator;
             string test = regex_replace(up->getSection(), regex(" "), "");
