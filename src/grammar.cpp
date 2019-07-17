@@ -17,7 +17,7 @@ Grammar::Grammar(const string & grammarName)
     name = grammarName;
 }
 
-Grammar::Grammar(istream * inputStream) {
+Grammar::Grammar(std::istream * inputStream) {
     std::string statement = "";
     while(getline(*inputStream, statement, ';')) {
         statement = Grammar::trimString(statement);
@@ -944,25 +944,31 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
     //Remove all leftover UnparsedSections
     vector<Expansion *>::iterator expansionIterator;
 
-    for (expansionIterator = exp.begin(); expansionIterator != exp.end(); expansionIterator++)
-    {
-        if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))
+    bool done = false;
+    while(!done) {
+        done = true;
+        for (expansionIterator = exp.begin(); expansionIterator != exp.end(); expansionIterator++)
         {
-            UnparsedSection & up = *((UnparsedSection *) (*expansionIterator));
-            if (up.getSection() == "" || up.getSection() == " ")
+            if ((*expansionIterator)->getType() == UNPARSED_SECTION)
             {
-                delete *expansionIterator;
-                // Don't copy the blank section over to the Expansion vector
+                UnparsedSection * up = ((UnparsedSection *) (*expansionIterator));
+                if (up->getSection() == "" || up->getSection() == " ")
+                {
+                    delete *expansionIterator;
+                    // Don't copy the blank section over to the Expansion vector
+                    done = false;
+                    break;
+                }
+                else
+                {
+                    up->setSection(Grammar::trimString(up->getSection()));
+                    tempExp.push_back(up);
+                }
             }
             else
             {
-                up.setSection(Grammar::trimString(up.getSection()));
-                tempExp.push_back(&up);
+                tempExp.push_back(*expansionIterator);
             }
-        }
-        else
-        {
-            tempExp.push_back(*expansionIterator);
         }
     }
 
