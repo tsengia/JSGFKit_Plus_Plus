@@ -16,4 +16,7 @@ To include and link against the JSGF Kit++ static library, use `pkg-config`:
 
     pkg-config --libs --cflags jsgfkit
 
+## WARNING
+This project is still under heavy development! There are many issues (more testing, memory management, runtime errors, etc.).
+You can see progress in the "bugfix" branch, but building and using code from the bugfix branch is not recommended as it may not compile and/or still have runtime errors. Just stick to the master branch.
 
