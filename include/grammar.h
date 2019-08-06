@@ -59,6 +59,8 @@ class Grammar
         static void parseOptionalGroupings(const std::vector<Expansion *> & expansions, std::vector<Expansion *> & returnExpansions);
         static void parseUnaryOperators(const std::vector<Expansion *> & expansions, std::vector<Expansion *> & returnExpansions);
         static std::vector<Expansion *> parseTokensFromString(std::string part);
+		static void trimUnparsedSections(std::vector<Expansion *> & expansions);
+		static bool isEmptyUnparsedSection(Expansion * e);
 
     public:
         /** Default constructor */

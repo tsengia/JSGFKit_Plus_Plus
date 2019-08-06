@@ -93,7 +93,7 @@ Grammar::~Grammar() /// Default destructor, removes its ownership of Rule object
 {
     for(shared_ptr<Rule> & r : rules)
     {
-        r.reset();
+        r.reset(); ///TODO: Double check this, should we really be resetting this?
     }
 }
 
@@ -238,7 +238,7 @@ void Grammar::parseGrammarFromString(const string & s, Grammar & grammar)
         else if (Grammar::stringStartsWith(statement,"public <"))
         {
             statement = Grammar::replaceFirst(statement, "public ", "");
-            vector<string> parts = Grammar::splitString(statement, "=");
+			vector<string> parts = Grammar::splitString(statement+"", "=");
             string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
             ruleName = Grammar::trimString(ruleName);
             Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
@@ -262,7 +262,7 @@ Expansion * Grammar::parseExpansionsFromString(const string & input)
     vector<Expansion *> expansionvector2;
     parseRuleReferences(tokens, expansionvector1);
     parseRequiredGroupings(expansionvector1, expansionvector2);
-    expansionvector1.clear();
+    expansionvector1.clear(); ///TODO: Replace this, doesn't resize container, should use swap instead or use better input/output idioms
     parseOptionalGroupings(expansionvector2, expansionvector1);
     expansionvector2.clear();
     parseUnaryOperators(expansionvector1, expansionvector2);
@@ -280,7 +280,7 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
 
     while(expansionIterator != expansions.end())
     {
-        if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))
+        if ((*expansionIterator)->getType() == UNPARSED_SECTION)
         {
             if (expansionFound)
             {
@@ -352,7 +352,7 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
         {
             if (foundStart)
             {
-                if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))   // Could contain the ending }
+                if ((*expansionIterator)->getType() == UNPARSED_SECTION)   // Could contain the ending }
                 {
                     UnparsedSection * up = (UnparsedSection *) *expansionIterator;
                     if (Grammar::stringStartsWith(up->getSection(), "}"))   // Found the end of the tag!
@@ -399,7 +399,7 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
             else
             {
                 // Looking for a starting bracket {
-                if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))   // May contain the { we're looking for
+                if ((*expansionIterator)->getType() == UNPARSED_SECTION)   // May contain the { we're looking for
                 {
                     UnparsedSection * up = (UnparsedSection *) *expansionIterator;
                     if (Grammar::stringEndsWith(up->getSection(), "{"))   // Found the start of the tag!
@@ -419,7 +419,7 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
                 else     // No tag possible for the selected expansion, but check to see if this expansion can be tagged
                 {
                     tempExp.push_back(selectedExpansion);
-                    if (!(typeid(*(*expansionIterator)) == typeid(PlusOperator) || typeid(*(*expansionIterator)) == typeid(KleeneStar)))
+                    if (!((*expansionIterator)->getType() == PLUS_OPERATOR || (*expansionIterator)->getType() == KLEENE_STAR))
                     {
                         selectedExpansion = *expansionIterator;
                         tagStarted = false;
@@ -434,7 +434,7 @@ void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector
         }
         else     // Looking for a expansion that is taggable
         {
-            if (!(typeid(*(*expansionIterator)) == typeid(PlusOperator) || typeid(*(*expansionIterator)) == typeid(KleeneStar) || typeid(*(*expansionIterator)) == typeid(UnparsedSection)))
+            if (!((*expansionIterator)->getType() == PLUS_OPERATOR || (*expansionIterator)->getType() == KLEENE_STAR || (*expansionIterator)->getType() == UNPARSED_SECTION))
             {
                 foundLegalExpansion = true; // Found a taggable expansion, select it and start searching for tags
                 selectedExpansion = *expansionIterator;
@@ -468,7 +468,7 @@ void Grammar::parseOptionalGroupings(const vector<Expansion *> & expansions, vec
     vector<Expansion *>::iterator expansionIterator = exp.begin();
     while(expansionIterator != exp.end())
     {
-        if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))
+        if ((*expansionIterator)->getType() == UNPARSED_SECTION)
         {
 
             UnparsedSection * up = (UnparsedSection *) *expansionIterator;
@@ -577,7 +577,7 @@ void Grammar::parseRequiredGroupings(const vector<Expansion *> & expansions, vec
     vector<Expansion *>::iterator expansionIterator = exp.begin();
     while(expansionIterator != exp.end())
     {
-        if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))
+        if ((*expansionIterator)->getType() == UNPARSED_SECTION)
         {
             UnparsedSection * up = (UnparsedSection *) *expansionIterator;
             string childString;
@@ -684,6 +684,7 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
     bool endSearch; // True = looking for a >
     bool tokenSearch; // True = hoping that the next Expansion is a Token object containing the name of the rule that is being referenced
     Token * selectedToken; // Only set to null to avoid compiler warnings.
+	unsigned short iterationCount = 0;
 
     bool iterationNeeded = true;
     while (iterationNeeded)
@@ -700,7 +701,7 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
         {
             if (startSearch)
             {
-                if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))
+                if ((*expansionIterator)->getType() == UNPARSED_SECTION)
                 {
                     UnparsedSection * up = (UnparsedSection *) *expansionIterator;
                     if (Grammar::stringEndsWith(up->getSection(), "<"))
@@ -724,7 +725,7 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
             }
             else if (endSearch)
             {
-                if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))
+                if ((*expansionIterator)->getType() == UNPARSED_SECTION)
                 {
                     UnparsedSection * up = (UnparsedSection *) *expansionIterator;
                     if (Grammar::stringStartsWith(up->getSection(), ">"))
@@ -751,7 +752,7 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
             }
             else if (tokenSearch)
             {
-                if (typeid(*(*expansionIterator)) == typeid(Token))
+                if ((*expansionIterator)->getType() == TOKEN)
                 {
                     endSearch = true;
                     tokenSearch = false;
@@ -769,7 +770,9 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
 
             expansionIterator++;
         }
-        exp = tempExp;
+        exp.swap(tempExp);
+        tempExp.clear();
+        iterationCount++;
     }
 
     returnExpansions = exp;
@@ -779,7 +782,7 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
 vector<Expansion *> Grammar::parseTokensFromString(string part)
 {
     vector<Expansion *> exp;
-
+	std::cout << "START TOKENS LIST" << std::endl;
     //Parse Tokens because they have the highest precedence
     string passed; // All characters that are not part of a token
     unsigned int position = 0;
@@ -855,6 +858,7 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
                         currentToken += quoteType; // The last character is a part of the token (Either ' or " )
                         position++; // Last character was added to the token, so it was processed, increment the position counter
                         //Entire token has now been scanned into currentToken
+                        std::cout << "TOKEN:" << currentToken << std::endl;
                         Token * t = new Token(currentToken);
                         exp.push_back(t);
                         currentToken = "";
@@ -911,31 +915,41 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
         exp.push_back(up);
     }
 
-    //Everything that can be Tokenized has been tokenized, so remove all of the whitespace as it serves no function now
-    vector<Expansion *>::iterator expansionIterator = exp.begin();
-    vector<Expansion *> tempExp;
-    while(expansionIterator != exp.end())
-    {
-        if ((*expansionIterator)->getType() == UNPARSED_SECTION)
-        {
-            UnparsedSection * up = (UnparsedSection *) *expansionIterator;
-            string test = regex_replace(up->getSection(), regex(" "), "");
-            if (test.length() != 0)
-            {
-                UnparsedSection * u = new UnparsedSection(test);
-                tempExp.push_back(u);
-            }
-        }
-        else
-        {
-            tempExp.push_back(*expansionIterator);
-        }
-        expansionIterator++;
-    }
-
-    exp = tempExp;
+    Grammar::trimUnparsedSections(exp);
 
     return exp;
+}
+
+bool Grammar::isEmptyUnparsedSection(Expansion * e) {
+	if(e->getType() == UNPARSED_SECTION) {
+		UnparsedSection * u = (UnparsedSection *) e;
+		std::string s = u->getSection();
+		if(s.size() == 0) {
+			delete e;
+			return true;
+		}
+		if(s == " ") {
+			delete e;
+			return true;
+		}
+		if(s == "  ") {
+			delete e;
+			return true;
+		}
+		if(s == "   ") {
+			delete e;
+			return true;
+		}
+		u->setSection(trimString(s));
+		return false;
+	}
+	else {
+		return false;
+	}
+}
+
+void Grammar::trimUnparsedSections(std::vector<Expansion *> & exp) {
+	std::remove_if(exp.begin(), exp.end(), Grammar::isEmptyUnparsedSection);
 }
 
 Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
@@ -944,33 +958,7 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
     //Remove all leftover UnparsedSections
     vector<Expansion *>::iterator expansionIterator;
 
-    bool done = false;
-    while(!done) {
-        done = true;
-        for (expansionIterator = exp.begin(); expansionIterator != exp.end(); expansionIterator++)
-        {
-            if ((*expansionIterator)->getType() == UNPARSED_SECTION)
-            {
-                UnparsedSection * up = ((UnparsedSection *) (*expansionIterator));
-                if (up->getSection() == "" || up->getSection() == " ")
-                {
-                    delete *expansionIterator;
-                    // Don't copy the blank section over to the Expansion vector
-                    done = false;
-                    break;
-                }
-                else
-                {
-                    up->setSection(Grammar::trimString(up->getSection()));
-                    tempExp.push_back(up);
-                }
-            }
-            else
-            {
-                tempExp.push_back(*expansionIterator);
-            }
-        }
-    }
+    trimUnparsedSections(exp);
 
     Sequence * currentSequence = new Sequence(); // CREATED ON THE FREE STORE!
     AlternativeSet * aset = new AlternativeSet(); // CREATED ON THE FREE STORE!
@@ -978,32 +966,30 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
 
     while (expansionIterator != tempExp.end())
     {
-        if (typeid(*(*expansionIterator)) == typeid(UnparsedSection))
+        if ((*expansionIterator)->getType() == UNPARSED_SECTION)
         {
             UnparsedSection * up = (UnparsedSection *) *expansionIterator;
             if (Grammar::stringContains(up->getSection(), "|"))
             {
-
                 Expansion * a = currentSequence;
                 if(currentSequence->childCount() == 1)
                 {
                     Expansion * e = currentSequence->getChild()->clone();
                     a = e;
-                    delete currentSequence;
+                    delete currentSequence; // TODO: This is probably wrong. Calling delete on something with vectors = bad
                 }
 
-
-                aset->addChild(shared_ptr<Expansion>(a));
+                aset->addChild(std::shared_ptr<Expansion>(a));
                 currentSequence = new Sequence();
             }
             else
             {
-                currentSequence->addChild(shared_ptr<Expansion>(up));
+                currentSequence->addChild(std::shared_ptr<Expansion> (up));
             }
         }
         else
         {
-            currentSequence->addChild(shared_ptr<Expansion>(*expansionIterator));
+            currentSequence->addChild(std::shared_ptr<Expansion>(*expansionIterator));
         }
         expansionIterator++;
     }
@@ -1018,7 +1004,7 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
             a = e;
             delete currentSequence;
         }
-        aset->addChild(shared_ptr<Expansion>(a));
+        aset->addChild(std::shared_ptr<Expansion>(a));
         output = aset;
     }
     else
@@ -1136,7 +1122,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             vector<shared_ptr<MatchInfo>> m1 = (getMatchingExpansions(rule->getRuleExpansion(), words, wordCount, wordPosition));
             if (m1.size() != 0)
             {
-                matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), ""))); // Need to mark that the rule was matched!
+                matchvector.push_back(std::make_shared<MatchInfo>(e, "")); // Need to mark that the rule was matched!
                 matchvector.insert(matchvector.end(), m1.begin(), m1.end());
             }
         }
@@ -1186,7 +1172,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
         {
             vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(x, words, wordCount, wordPosition);
 
-            if (m1.size() == 0 && (typeid(*x) == typeid(KleeneStar) || typeid(*x) == typeid(OptionalGrouping)))   // Stupid OptionalGrouping
+            if (m1.size() == 0 && (x->getType() == KLEENE_STAR || x->getType() == OPTIONAL_GROUPING))   // Stupid OptionalGrouping
             {
                 continue;
             }
@@ -1362,7 +1348,7 @@ vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const string & ruleName, cons
 vector<string> Grammar::getMatchingTags(vector<shared_ptr<MatchInfo>> matchInfo) {
     vector<string> matchedTags;
     for(shared_ptr<MatchInfo> m : matchInfo) {
-        if(typeid(*(m->getExpansion().get())) == typeid(Tag)) {
+        if(m->getExpansion().get()->getType() == TAG) {
             Tag * t = (Tag *) m->getExpansion().get();
             vector<string> s = t->getTags();
             matchedTags.insert(matchedTags.end(), s.begin(), s.end());

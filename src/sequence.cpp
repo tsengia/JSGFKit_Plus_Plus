@@ -68,7 +68,7 @@ std::shared_ptr<Expansion> Sequence::getChild(const unsigned int index) const {
   * \param [in,out] s Expansion that will be simplified if it is a Sequence with 1 child expansion
   */
 void Sequence::simplifySequence(std::shared_ptr<Expansion> s) {
-    if(typeid(*s) == typeid(Sequence)) {
+    if(s->getType() == SEQUENCE) {
         Sequence * sq = (Sequence*) s.get();
         if(sq->childCount() == 1) { // We have a sequence that has only one child. We need to extract the child, destroy the sequence, and set the expansion to the extracted child
             s = sq->getChild(); // clone() makes a deep copy
