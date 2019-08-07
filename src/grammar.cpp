@@ -686,6 +686,10 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
     Token * selectedToken; // Only set to null to avoid compiler warnings.
 	unsigned short iterationCount = 0;
 
+	for(Expansion * e : expansions) {
+		std::cout << "E:" << e->getText() << std::endl;
+	}
+
     bool iterationNeeded = true;
     while (iterationNeeded)
     {
@@ -887,6 +891,7 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
                 {
                     tokenMode = false;
                     //Entire token has now been scanned into currentToken
+                    std::cout << "TOKEN:" << currentToken << std::endl;
                     Token * t = new Token(currentToken);
                     exp.push_back(t);
                     currentToken = "";
@@ -902,6 +907,7 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
         }
         if (tokenMode)   // Reached end of string before end of token
         {
+        	std::cout << "END TOKEN:" << currentToken << std::endl;
             Token * t = new Token(currentToken);
             exp.push_back(t);
             currentToken = "";
@@ -949,7 +955,7 @@ bool Grammar::isEmptyUnparsedSection(Expansion * e) {
 }
 
 void Grammar::trimUnparsedSections(std::vector<Expansion *> & exp) {
-	std::remove_if(exp.begin(), exp.end(), Grammar::isEmptyUnparsedSection);
+	exp.erase(std::remove_if(exp.begin(), exp.end(), Grammar::isEmptyUnparsedSection), exp.end());
 }
 
 Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
