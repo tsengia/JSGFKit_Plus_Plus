@@ -21,21 +21,27 @@ public <command> = <pause> {pause} | <resume> {resume} | <push-to-talk> {push-to
     cout << "Rule Match Testing..." << endl;
     getline(cin, a);
     cout << a << endl;
-    /*
-    shared_ptr<Rule> r = g->getMatchingRule(a);
-    if(r) {
-        cout << "Matched rule: " << r->getRuleName() << endl;
-        cout << "Matching tags:" << endl;
 
-        vector<string> t = Grammar::getMatchingTags(g->matchesRule(r, a));
-        for(string s : t) {
-            cout << "T:" << s << endl;
-        }
+    std::string ruleName = g.getMatchingPublicRule(a);
+    if(ruleName != "") {
+		shared_ptr<Rule> r = g.getRule(ruleName);
+		if(r) {
+			cout << "Matched rule: " << r->getRuleName() << endl;
+			cout << "Matching tags:" << endl;
+
+			vector<string> t = Grammar::getMatchingTags(g.matchesRule(r, a));
+			for(string s : t) {
+				cout << "T:" << s << endl;
+			}
+		}
+		else {
+        	cout << "Error returning Rule from ruleName!" << endl;
+    	}
     }
     else {
         cout << "Found no match!" << endl;
     }
-*/
+
 
     cout << "Test Done" << endl;
     return 0;

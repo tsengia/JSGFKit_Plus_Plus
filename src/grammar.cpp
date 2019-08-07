@@ -257,16 +257,31 @@ void Grammar::parseGrammarFromString(const string & s, Grammar & grammar)
 
 Expansion * Grammar::parseExpansionsFromString(const string & input)
 {
-    vector<Expansion *> tokens = parseTokensFromString(input);
-    vector<Expansion *> expansionvector1;
-    vector<Expansion *> expansionvector2;
-    parseRuleReferences(tokens, expansionvector1);
-    parseRequiredGroupings(expansionvector1, expansionvector2);
-    expansionvector1.clear(); ///TODO: Replace this, doesn't resize container, should use swap instead or use better input/output idioms
-    parseOptionalGroupings(expansionvector2, expansionvector1);
-    expansionvector2.clear();
-    parseUnaryOperators(expansionvector1, expansionvector2);
-    return parseAlternativeSets(expansionvector2);
+    vector<Expansion *> inVector = parseTokensFromString(input);
+    vector<Expansion *> outVector;
+    parseRuleReferences(inVector, outVector);
+    for(Expansion * e : outVector) {
+		std::cout << "RR" << e->getText() << std::endl;
+    }
+    inVector.clear();
+    inVector.swap(outVector);
+    parseRequiredGroupings(inVector, outVector);
+    for(Expansion * e : outVector) {
+		std::cout << "RG" << e->getText() << std::endl;
+    }
+    inVector.clear();
+    inVector.swap(outVector);
+    parseOptionalGroupings(inVector, outVector);
+    for(Expansion * e : outVector) {
+		std::cout << "OG" << e->getText() << std::endl;
+    }
+ 	inVector.clear();
+    inVector.swap(outVector);
+    parseUnaryOperators(inVector, outVector); // Don't swap and clear again, end of scope will destroy the inVector anyways
+    for(Expansion * e : outVector) {
+		std::cout << "UO" << e->getText() << std::endl;
+    }
+    return parseAlternativeSets(outVector);
 }
 
 void Grammar::parseUnaryOperators(const vector<Expansion *> & expansions, vector<Expansion *> & output)
@@ -617,6 +632,8 @@ void Grammar::parseRequiredGroupings(const vector<Expansion *> & expansions, vec
                         parsedChildren.clear(); // Using parsedChildren as next return value
                         parseUnaryOperators(children, parsedChildren);
                         children.clear(); // Using children as next return value
+                        ///TODO: Fix this, compiles but ends up destroying all child expansions because new input/output idiom returns void and relies upon references.
+                        ///Find other parsing methods that also use the incorrect form.
                         shared_ptr<Expansion> child = shared_ptr<Expansion>(parseAlternativeSets(parsedChildren));
                         RequiredGrouping *rg = new RequiredGrouping(child);
                         tempExp.push_back(rg);
@@ -685,10 +702,6 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
     bool tokenSearch; // True = hoping that the next Expansion is a Token object containing the name of the rule that is being referenced
     Token * selectedToken; // Only set to null to avoid compiler warnings.
 	unsigned short iterationCount = 0;
-
-	for(Expansion * e : expansions) {
-		std::cout << "E:" << e->getText() << std::endl;
-	}
 
     bool iterationNeeded = true;
     while (iterationNeeded)
@@ -786,7 +799,6 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
 vector<Expansion *> Grammar::parseTokensFromString(string part)
 {
     vector<Expansion *> exp;
-	std::cout << "START TOKENS LIST" << std::endl;
     //Parse Tokens because they have the highest precedence
     string passed; // All characters that are not part of a token
     unsigned int position = 0;
@@ -862,7 +874,6 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
                         currentToken += quoteType; // The last character is a part of the token (Either ' or " )
                         position++; // Last character was added to the token, so it was processed, increment the position counter
                         //Entire token has now been scanned into currentToken
-                        std::cout << "TOKEN:" << currentToken << std::endl;
                         Token * t = new Token(currentToken);
                         exp.push_back(t);
                         currentToken = "";
@@ -891,7 +902,6 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
                 {
                     tokenMode = false;
                     //Entire token has now been scanned into currentToken
-                    std::cout << "TOKEN:" << currentToken << std::endl;
                     Token * t = new Token(currentToken);
                     exp.push_back(t);
                     currentToken = "";
@@ -907,7 +917,6 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
         }
         if (tokenMode)   // Reached end of string before end of token
         {
-        	std::cout << "END TOKEN:" << currentToken << std::endl;
             Token * t = new Token(currentToken);
             exp.push_back(t);
             currentToken = "";
