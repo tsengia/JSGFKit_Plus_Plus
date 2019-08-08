@@ -1,7 +1,7 @@
 #include "grammar.h"
 using namespace std;
 
-regex Grammar::specialCharacterRegex  = regex("[;=<>*+\\[\\]()|{} ]"); /// Regex that matches for JSGF special characters that cannot be unescaped in non-quoted Tokens
+std::regex Grammar::specialCharacterRegex  = std::regex("[;=<>*+\\[\\]()|{} ]"); /// Regex that matches for JSGF special characters that cannot be unescaped in non-quoted Tokens
 
 Grammar::Grammar() /// Default constructor. Creates an empty Grammar object with the grammar name set to "default"
 {
@@ -257,30 +257,39 @@ void Grammar::parseGrammarFromString(const string & s, Grammar & grammar)
 
 Expansion * Grammar::parseExpansionsFromString(const string & input)
 {
+	std::cout << "START EXPANSION PARSE CALL" << std::endl;
     vector<Expansion *> inVector = parseTokensFromString(input);
     vector<Expansion *> outVector;
     parseRuleReferences(inVector, outVector);
+    std::cout << "RR:" << outVector.size() << std::endl;
     for(Expansion * e : outVector) {
-		std::cout << "RR" << e->getText() << std::endl;
+		std::cout << e->getText();
     }
+    std::cout << std::endl;
     inVector.clear();
     inVector.swap(outVector);
     parseRequiredGroupings(inVector, outVector);
+    std::cout << "RG" << outVector.size() << std::endl;
     for(Expansion * e : outVector) {
-		std::cout << "RG" << e->getText() << std::endl;
+		std::cout << e->getText();
     }
+    std::cout << std::endl;
     inVector.clear();
     inVector.swap(outVector);
     parseOptionalGroupings(inVector, outVector);
+    std::cout << "OG" << outVector.size() << std::endl;
     for(Expansion * e : outVector) {
-		std::cout << "OG" << e->getText() << std::endl;
+		std::cout << e->getText();
     }
+    std::cout << std::endl;
  	inVector.clear();
     inVector.swap(outVector);
     parseUnaryOperators(inVector, outVector); // Don't swap and clear again, end of scope will destroy the inVector anyways
+    std::cout << "UO" << outVector.size() << std::endl;
     for(Expansion * e : outVector) {
-		std::cout << "UO" << e->getText() << std::endl;
+		std::cout << e->getText();
     }
+    std::cout << std::endl;
     return parseAlternativeSets(outVector);
 }
 
@@ -524,6 +533,7 @@ void Grammar::parseOptionalGroupings(const vector<Expansion *> & expansions, vec
                         parseOptionalGroupings(children, parsedChildren);
                         children.clear(); // Using children as next return value
                         parseUnaryOperators(parsedChildren, children);
+                        ///TODO: Fix this
                         shared_ptr<Expansion> child = shared_ptr<Expansion>(parseAlternativeSets(children));
                         OptionalGrouping *og = new OptionalGrouping(child);
                         tempExp.push_back(og);
@@ -825,7 +835,7 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
         while (!tokenMode && position < stringLength)
         {
             a = charArray[position];
-            if (!regex_match((z+a), Grammar::specialCharacterRegex))
+            if (!regex_match((z + a), Grammar::specialCharacterRegex))
             {
                 UnparsedSection * up = new UnparsedSection();
                 up->setSection(Grammar::trimString(passed));
