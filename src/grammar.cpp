@@ -806,8 +806,9 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
     // return exp;
 }
 
-vector<Expansion *> Grammar::parseTokensFromString(string part)
+vector<Expansion *> Grammar::parseTokensFromString(std::string part)
 {
+	std::cout << "PART:" << part << std::endl;
     vector<Expansion *> exp;
     //Parse Tokens because they have the highest precedence
     string passed; // All characters that are not part of a token
@@ -819,10 +820,9 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
     string currentToken;
     unsigned int stringLength = part.size();
 
-    char * charArray = new char [stringLength];
+    char * charArray = new char [stringLength + 1];
     strcpy (charArray, part.c_str());
     char a; // This holds the current character that is being scanned
-    string z = "";
     while (position < stringLength)
     {
         escapedMode = false;
@@ -835,7 +835,7 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
         while (!tokenMode && position < stringLength)
         {
             a = charArray[position];
-            if (!regex_match((z + a), Grammar::specialCharacterRegex))
+            if(!Grammar::isSpecialCharacter(a))
             {
                 UnparsedSection * up = new UnparsedSection();
                 up->setSection(Grammar::trimString(passed));
@@ -908,8 +908,7 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
                     currentToken += a;
                     position++;
                 }
-                else if (regex_match((z+a), Grammar::specialCharacterRegex))     // Check to see if char matches special characters
-                {
+                else if (Grammar::isSpecialCharacter(a)) {// Check to see if char matches special characters
                     tokenMode = false;
                     //Entire token has now been scanned into currentToken
                     Token * t = new Token(currentToken);
@@ -932,6 +931,7 @@ vector<Expansion *> Grammar::parseTokensFromString(string part)
             currentToken = "";
         }
     }
+    delete[] charArray;
 
     if (!tokenMode)   // We reached the end of the string without finding a token, so add what we passed over
     {
@@ -1450,6 +1450,14 @@ bool Grammar::stringStartsWith(const string & s, const string & test)
 bool Grammar::stringEndsWith(const string & s, const string & test)
 {
     return (s.find(Grammar::trimString(test)) == s.length() - test.length()) && s.find(test) != string::npos;
+}
+
+///Helper function that returns true if char c is one of: ";=<>*+[]()|{}"
+bool Grammar::isSpecialCharacter(char c) {
+	return c==';' || c=='=' || c=='<' || c=='>' ||\
+			c=='*' || c=='+' || c=='[' || c==']' ||\
+			c=='(' || c==')' || c=='|' || c=='{' ||\
+			c=='}' || c==' ';
 }
 
 ///Thanks for this trimming function: https://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
