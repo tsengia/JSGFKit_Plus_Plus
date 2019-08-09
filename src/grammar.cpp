@@ -238,11 +238,13 @@ void Grammar::parseGrammarFromString(const string & s, Grammar & grammar)
         else if (Grammar::stringStartsWith(statement,"public <"))
         {
             statement = Grammar::replaceFirst(statement, "public ", "");
-			vector<string> parts = Grammar::splitString(statement+"", "=");
+			vector<string> parts = Grammar::splitString(statement, "=");
             string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
             ruleName = Grammar::trimString(ruleName);
             Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
-            grammar.addRule(shared_ptr<Rule>(new Rule(ruleName, true, shared_ptr<Expansion>(exp))));
+            std::cout << exp->getText() << std::endl;
+            std::cout << printExpansionType(exp) << std::endl;
+            grammar.addRule(std::make_shared<Rule>(ruleName, true, shared_ptr<Expansion>(exp)));
         }
         else if (Grammar::stringStartsWith(statement,"<"))
         {
@@ -250,46 +252,27 @@ void Grammar::parseGrammarFromString(const string & s, Grammar & grammar)
             string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
             ruleName = Grammar::trimString(ruleName);
             Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
-            grammar.addRule(shared_ptr<Rule>(new Rule(ruleName, false, shared_ptr<Expansion>(exp))));
+            std::cout << exp->getText() << std::endl;
+            std::cout << printExpansionType(exp) << std::endl;
+            grammar.addRule(std::make_shared<Rule>(ruleName, false, shared_ptr<Expansion>(exp)));
         }
     }
 }
 
 Expansion * Grammar::parseExpansionsFromString(const string & input)
 {
-	std::cout << "START EXPANSION PARSE CALL" << std::endl;
     vector<Expansion *> inVector = parseTokensFromString(input);
     vector<Expansion *> outVector;
     parseRuleReferences(inVector, outVector);
-    std::cout << "RR:" << outVector.size() << std::endl;
-    for(Expansion * e : outVector) {
-		std::cout << e->getText();
-    }
-    std::cout << std::endl;
     inVector.clear();
     inVector.swap(outVector);
     parseRequiredGroupings(inVector, outVector);
-    std::cout << "RG" << outVector.size() << std::endl;
-    for(Expansion * e : outVector) {
-		std::cout << e->getText();
-    }
-    std::cout << std::endl;
     inVector.clear();
     inVector.swap(outVector);
     parseOptionalGroupings(inVector, outVector);
-    std::cout << "OG" << outVector.size() << std::endl;
-    for(Expansion * e : outVector) {
-		std::cout << e->getText();
-    }
-    std::cout << std::endl;
  	inVector.clear();
     inVector.swap(outVector);
     parseUnaryOperators(inVector, outVector); // Don't swap and clear again, end of scope will destroy the inVector anyways
-    std::cout << "UO" << outVector.size() << std::endl;
-    for(Expansion * e : outVector) {
-		std::cout << e->getText();
-    }
-    std::cout << std::endl;
     return parseAlternativeSets(outVector);
 }
 
@@ -803,12 +786,10 @@ void Grammar::parseRuleReferences(const vector<Expansion *> & expansions, vector
     }
 
     returnExpansions = exp;
-    // return exp;
 }
 
 vector<Expansion *> Grammar::parseTokensFromString(std::string part)
 {
-	std::cout << "PART:" << part << std::endl;
     vector<Expansion *> exp;
     //Parse Tokens because they have the highest precedence
     string passed; // All characters that are not part of a token
@@ -996,15 +977,17 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
             UnparsedSection * up = (UnparsedSection *) *expansionIterator;
             if (Grammar::stringContains(up->getSection(), "|"))
             {
-                Expansion * a = currentSequence;
+                shared_ptr<Expansion> a;
                 if(currentSequence->childCount() == 1)
                 {
-                    Expansion * e = currentSequence->getChild()->clone();
-                    a = e;
-                    delete currentSequence; // TODO: This is probably wrong. Calling delete on something with vectors = bad
+                    a = currentSequence->getChild();
+                    delete currentSequence;
+                }
+                else {
+					a.reset(currentSequence);
                 }
 
-                aset->addChild(std::shared_ptr<Expansion>(a));
+                aset->addChild(a);
                 currentSequence = new Sequence();
             }
             else
@@ -1458,6 +1441,43 @@ bool Grammar::isSpecialCharacter(char c) {
 			c=='*' || c=='+' || c=='[' || c==']' ||\
 			c=='(' || c==')' || c=='|' || c=='{' ||\
 			c=='}' || c==' ';
+}
+
+///Helper function that returns a string representation of the type of Expansion
+std::string Grammar::printExpansionType(Expansion * e) {
+	switch(e->getType()) {
+		case UNPARSED_SECTION:
+			return "UNPARSED_SECTION";
+			break;
+		case KLEENE_STAR:
+			return "KLEENE_STAR";
+			break;
+		case PLUS_OPERATOR:
+			return "PLUS_OPERATOR";
+			break;
+		case REQUIRED_GROUPING:
+			return "REQUIRED_GROUPING";
+			break;
+		case OPTIONAL_GROUPING:
+			return "OPTIONAL_GROUPING";
+			break;
+		case SEQUENCE:
+			return "SEQUENCE";
+			break;
+		case TOKEN:
+			return "TOKEN";
+			break;
+		case ALTERNATE_SET:
+			return "ALTERNATIVE_SET";
+			break;
+		case TAG:
+			return "TAG";
+			break;
+		default:
+			return "UNKNOWN TYPE";
+			break;
+	}
+	return "ERROR";
 }
 
 ///Thanks for this trimming function: https://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
