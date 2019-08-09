@@ -18,4 +18,5 @@ To include and link against the JSGF Kit++ static library, use `pkg-config`:
 
 ## Example programs
 It is highly suggested to test to make sure compilation and installation completed successfully. A few example programs come with this library and can be found in the `examples` subdirectory.  
-To build an example program, `cd` into its directory and simply run `make`. If compilation complains about missing headers or undefined references, you will probably need to adjust the `JSGF_KIT_LD` and `JSGF_KIT_CFLAGS` variables to point to the correct library path and include directories. (just run `pkg-config --cflags jsgfkit` and `pkg-config --libs jsgfkit` and copy the output in)
+To build an example program, `cd` into its directory and simply run `make`.  
+If compilation complains about missing headers or undefined references, you will probably need to adjust the `JSGF_KIT_LD` and `JSGF_KIT_CFLAGS` variables in the `Makefile` to point to the correct library path and include directories (just run `pkg-config --cflags jsgfkit` and `pkg-config --libs jsgfkit` and copy the output in).
