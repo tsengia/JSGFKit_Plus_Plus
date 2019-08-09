@@ -1,0 +1,7 @@
+#JSGF v1.0;\
+grammar sphinx-mode;\
+public <command> = <pause> {pause} | <resume> {resume} | <push-to-talk> {push-to-talk} | <toggle> {toggle};\
+<pause> = pause speech recognition;\
+<resume> = resume speech recognition;\
+<toggle> = toggle speech recognition;\
+<push-to-talk> = ((enable | enter | begin | start) {enable} | (disable | exit | end | stop) {disable}) push to talk [mode];

@@ -1,0 +1,4 @@
+#JSGFv1.0;
+grammar helloworld1;
+public <hello> = hello <world>;
+<world> = world | earth | Earth;
