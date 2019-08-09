@@ -16,6 +16,9 @@ To include and link against the JSGF Kit++ static library, use `pkg-config`:
 
     pkg-config --libs --cflags jsgfkit
 
+## Documentation
+Doxygen documentation comments are in the code, to generate HTML documentation files from it, run `doxygen Doxyfile` and the html docs will be outputted into the `docs` subdirectory.
+
 ## Example programs
 It is highly suggested to test to make sure compilation and installation completed successfully. A few example programs come with this library and can be found in the `examples` subdirectory.  
 To build an example program, `cd` into its directory and simply run `make`.  
