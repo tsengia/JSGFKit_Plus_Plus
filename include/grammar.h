@@ -105,6 +105,7 @@ class Grammar
         // Utility
         void walkGrammar(void (* callback)(Expansion *));
         void walkExpansion(Expansion * e, void (* callback)(Expansion *));
+        static std::string printExpansionType(Expansion * e);
 
         // Helper functions
         static bool isSpecialCharacter(char c);

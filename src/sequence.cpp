@@ -7,12 +7,7 @@ Sequence::Sequence()
 
 Sequence::~Sequence()
 {
-	/* //We dont have to do this because when the vector is destructed, so are the shared_ptrs, which decrements the ref count of the pointers and will automatically delete those if ref count equals 0
-    std::vector<std::shared_ptr<Expansion>>::iterator it = children.begin();
-    while(it != children.end()) {
-        it->reset();
-        it++;
-    }*/
+
 }
 
 Expansion * Sequence::clone() {
