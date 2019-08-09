@@ -242,8 +242,6 @@ void Grammar::parseGrammarFromString(const string & s, Grammar & grammar)
             string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
             ruleName = Grammar::trimString(ruleName);
             Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
-            std::cout << exp->getText() << std::endl;
-            std::cout << printExpansionType(exp) << std::endl;
             grammar.addRule(std::make_shared<Rule>(ruleName, true, shared_ptr<Expansion>(exp)));
         }
         else if (Grammar::stringStartsWith(statement,"<"))
@@ -252,8 +250,6 @@ void Grammar::parseGrammarFromString(const string & s, Grammar & grammar)
             string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
             ruleName = Grammar::trimString(ruleName);
             Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
-            std::cout << exp->getText() << std::endl;
-            std::cout << printExpansionType(exp) << std::endl;
             grammar.addRule(std::make_shared<Rule>(ruleName, false, shared_ptr<Expansion>(exp)));
         }
     }
