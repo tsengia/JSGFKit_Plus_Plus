@@ -958,9 +958,8 @@ void Grammar::trimUnparsedSections(std::vector<Expansion *> & exp) {
 	exp.erase(std::remove_if(exp.begin(), exp.end(), Grammar::isEmptyUnparsedSection), exp.end());
 }
 
-Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
-{
-    vector<Expansion *> tempExp;
+Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp) {
+    //vector<Expansion *> tempExp;
     //Remove all leftover UnparsedSections
     vector<Expansion *>::iterator expansionIterator;
 
@@ -968,9 +967,9 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
 
     Sequence * currentSequence = new Sequence(); // CREATED ON THE FREE STORE!
     AlternativeSet * aset = new AlternativeSet(); // CREATED ON THE FREE STORE!
-    expansionIterator = tempExp.begin();
+    expansionIterator = exp.begin();
 
-    while (expansionIterator != tempExp.end())
+    while (expansionIterator != exp.end())
     {
         if ((*expansionIterator)->getType() == UNPARSED_SECTION)
         {
@@ -1005,14 +1004,17 @@ Expansion * Grammar::parseAlternativeSets(vector<Expansion *> & exp)
     Expansion * output;
     if (aset->childCount() > 0)
     {
-        Expansion * a = currentSequence;
+        std::shared_ptr<Expansion> a;
         if(currentSequence->childCount() == 1)
         {
-            Expansion * e = currentSequence->getChild()->clone();
-            a = e;
+            a = currentSequence->getChild();
             delete currentSequence;
         }
-        aset->addChild(std::shared_ptr<Expansion>(a));
+        else {
+			a.reset(currentSequence);
+        }
+
+        aset->addChild(a);
         output = aset;
     }
     else
