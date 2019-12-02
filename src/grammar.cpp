@@ -40,7 +40,7 @@ Grammar::Grammar(std::istream * inputStream) {
             string ruleName = Grammar::replaceAll(parts[0],"<|>", "");
             ruleName = Grammar::trimString(ruleName);
             Expansion * exp = Grammar::parseExpansionsFromString(parts[1]);
-            addRule(shared_ptr<Rule>(new Rule(ruleName, true, shared_ptr<Expansion>(exp))));
+            addRule(shared_ptr<Rule>(new Rule(ruleName, true, shared_ptr<Expansion>(exp))));    
         }
         else if (Grammar::stringStartsWith(statement,"<"))
         {
@@ -1231,16 +1231,21 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
         }
 
-        if (matchedCount != seq->childCount())   // Not all of the required matches were met!
-        {
-            localMatchvector.clear();
-        }
-
-        if (localMatchvector.size() != 0)
+	int isOptioalCnt = seq->LastChildIsOptioalCnt();
+        if (localMatchvector.size() != 0|| matchedCount== (seq->childCount()- isOptioalCnt) )
         {
             matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
             matchvector.insert(matchvector.end(), localMatchvector.begin(), localMatchvector.end());
         }
+
+	else if(matchedCount !=  seq->childCount())   // Not all of the required matches were met! bisLastChildIsOptioal()
+	{
+		localMatchvector.clear();
+	}
+	else 
+	{
+		localMatchvector.clear();
+	}
     }
     else if ((e.get()->getType()) == KLEENE_STAR)
     {
