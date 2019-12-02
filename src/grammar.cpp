@@ -97,6 +97,22 @@ Grammar::~Grammar() /// Default destructor, removes its ownership of Rule object
     }
 }
 
+int Sequence::LastChildIsOptioalCnt() const
+{
+	int iret = 0;
+	//std::vector<std::shared_ptr<Expansion> >::reverse_iterator it0; 
+	std::vector<std::shared_ptr<Expansion> >::const_reverse_iterator it0;
+	for (it0 = children.rbegin(); it0 != children.rend(); ++it0)
+	{
+		std::shared_ptr<Expansion> semp = (*it0);
+		if (typeid((*semp)) == typeid(OptionalGrouping)) //==可选的话，那么返回值++
+			++iret;
+		else
+			break;
+	}
+	return iret;
+}
+
 std::string Grammar::getName() const {
     return name;
 }
