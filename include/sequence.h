@@ -23,6 +23,8 @@ class Sequence : public Expansion
         bool hasChild() const;
         std::shared_ptr<Expansion> getChild(const unsigned int index = 0) const;
         std::string getText() const;
+        
+        int LastChildIsOptioalCnt() const;
 
         /** Access children
          * \return The current value of children
