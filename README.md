@@ -3,15 +3,21 @@ A static library for parsing, generating, manipulating, and matching strings aga
 This is a C++ port of the Java JSGFKit with a few additional features.
 
 ## Building
-JSGF Kit++ uses the `autotools` buildsystem.  
-To build the static library, simply enter the directory and run:
+JSGF Kit++ can use both the `autotools` buildsystem and CMake.
+To build the static library with `autotools`, simply enter the directory and run:
 
     ./configure
     make -j 4
-    make install
+    sudo make install
 
 Remember that `make -j <number of threads>` lets you set the number of threads you want to run at a time for a faster build.
 
+If you would like to build with CMake, simply enter the directory and run:  
+
+    cmake CMakeLists.txt
+    make -j 4
+    sudo make install
+    
 ## Linking and Including
 To include and link against the JSGF Kit++ static library, use `pkg-config`:
 
