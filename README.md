@@ -1,5 +1,5 @@
 # JSGFKit_Plus_Plus
-A static library for parsing, generating, manipulating, and matching strings against JSGF grammars.
+A static cross-platform library for parsing, generating, manipulating, and matching strings against JSGF grammars.
 This is a C++ port of the Java JSGFKit with a few additional features.
 
 ## Building
@@ -17,11 +17,14 @@ If you would like to build with CMake, simply enter the directory and run:
     cmake CMakeLists.txt
     make -j 4
     sudo make install
-    
+ 
 ## Linking and Including
 To include and link against the JSGF Kit++ static library, use `pkg-config`:
 
     pkg-config --libs --cflags jsgfkit
+
+## Windows
+To compile on Windows, install CMake and run `cmake CMakeLists.txt` from the command line in the source directory to generate the Visual Studio project files to compile with.
 
 ## Documentation
 Doxygen documentation comments are in the code, to generate HTML documentation files from it, run `doxygen Doxyfile` and the html docs will be outputted into the `docs` subdirectory.
