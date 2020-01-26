@@ -27,6 +27,8 @@ To include and link against the JSGF Kit++ static library, use `pkg-config`:
 To compile on Windows, install CMake and run `cmake CMakeLists.txt` from the command line in the source directory to generate the Visual Studio project files to compile with.
 
 ## Documentation
+A hosted version of the Doxygen generated docs can be found here: http://personal.psu.edu/~txs5620/jsgfkitxx/
+
 Doxygen documentation comments are in the code, to generate HTML documentation files from it, run `doxygen Doxyfile` and the html docs will be outputted into the `docs` subdirectory.
 
 ## Example programs
