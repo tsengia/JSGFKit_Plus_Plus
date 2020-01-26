@@ -35,3 +35,8 @@ install(TARGETS jsgfkit
 install(FILES ${KIT_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/jsgfkit)
 
 install(FILES jsgfkit.pc DESTINATION ${CMAKE_INSTALL_DATAROOT_DIR}/pkgconfig)
+
+# Build Tests
+add_subdirectory (test)
+enable_testing ()
+add_test (NAME ParseTest COMMAND parsetest)
