@@ -172,7 +172,7 @@ MatchResult Grammar::match(std::string test) const {
     return MatchResult();
 }
 
-void Grammar::parseGrammar(ifstream f, Grammar & g) {
+void Grammar::parseGrammar(ifstream & f, Grammar & g) {
     std::string statement = "";
     while(getline(f, statement, ';')) {
         statement = Grammar::trimString(statement);
