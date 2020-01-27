@@ -22,6 +22,9 @@ If you would like to build with CMake, simply enter the directory and run:
 To include and link against the JSGF Kit++ static library, use `pkg-config`:
 
     pkg-config --libs --cflags jsgfkit
+    
+## Unit Tests
+There are a few unit tests to run if you want to verify your build. These tests are built into the CMake build system. Just run `ctest` to run the tests. This may not work on Windows systems (one test uses a bash script).
 
 ## Windows
 To compile on Windows, install CMake and run `cmake CMakeLists.txt` from the command line in the source directory to generate the Visual Studio project files to compile with.
@@ -32,7 +35,7 @@ A hosted version of the Doxygen generated docs can be found here: http://persona
 Doxygen documentation comments are in the code, to generate HTML documentation files from it, run `doxygen Doxyfile` and the html docs will be outputted into the `docs` subdirectory.
 
 ## Example programs
-It is highly suggested to test to make sure compilation and installation completed successfully. A few example programs come with this library and can be found in the `examples` subdirectory.  
+A few example programs come with this library and can be found in the `examples` subdirectory.  
 To build an example program, `cd` into its directory and simply run `make`.  
 If compilation complains about missing headers or undefined references, you will probably need to adjust the `JSGF_KIT_LD` and `JSGF_KIT_CFLAGS` variables in the `Makefile` to point to the correct library path and include directories (just run `pkg-config --cflags jsgfkit` and `pkg-config --libs jsgfkit` and copy the output in).
 
