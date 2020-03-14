@@ -83,14 +83,14 @@ int main(int argc, char *argv[])
 	string test = "";
 	getline(cin, test);
 
-	MatchResult r = g.match(test);
+//	MatchResult r = g.match(test);
 
 	//Print out the public rule the input matches
-	if(printRule && r.matches) {
-		if(r.getMatchingRule()->isPublic()) {
-			cout << r.getMatchingRule()->getRuleName() << endl;
+	if(printRule) {
+		string s = g.getMatchingPublicRule(test);
+		if(s != "") {
+			cout << "Match: " << s << endl;
 		}
-
 	}
 
 	//Print out the matching tags, separatd by commas
