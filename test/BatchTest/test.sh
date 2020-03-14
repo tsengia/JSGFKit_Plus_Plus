@@ -2,8 +2,12 @@
 
 echo "JSGF Kit++ Batch Grammar Tester"
 if [ ! -f parsetest ]; then
-	echo "ERROR: Please build and copy the parsetest example program into this directory!"
-	exit -2;
+	if [ -f ../parsetest ]; then
+		cp ../parsetest parsetest
+	else
+		echo "ERROR: Please build and copy the parsetest example program into this directory!"
+		exit -2;
+	fi
 fi
 
 for g in grammars/*/*; do
