@@ -73,7 +73,6 @@ int main(int argc, char *argv[])
 	inputFile.open(grammarPath);
 	if(inputFile.good()) {
 		Grammar::parseGrammar(inputFile, g);
-		cout << g.getText() << endl;
 	}
 	else {
 		cerr << "Failed to open the specified grammar file!" << endl;
