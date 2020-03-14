@@ -1,0 +1,7 @@
+#JSGFv1.0;
+grammar testing2;
+public <rarg> = <blarg> | <rarg> | <garg> | <hello> <this1s4teST> | hello [world];
+public <garg> = garg +;
+<blarg> = blarg*   ;
+<hello> = hello | hi [there how are you?];
+<this1s4teST> = let\'S make sure that eSc4p1ng & token (parsing works);

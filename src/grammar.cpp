@@ -1,4 +1,5 @@
 #include "grammar.h"
+#include <sstream>
 using namespace std;
 
 std::regex Grammar::specialCharacterRegex  = std::regex("[;=<>*+\\[\\]()|{} ]"); /// Regex that matches for JSGF special characters that cannot be unescaped in non-quoted Tokens
@@ -171,7 +172,7 @@ MatchResult Grammar::match(std::string test) const {
     return MatchResult();
 }
 
-void Grammar::parseGrammar(ifstream f, Grammar & g) {
+void Grammar::parseGrammar(ifstream & f, Grammar & g) {
     std::string statement = "";
     while(getline(f, statement, ';')) {
         statement = Grammar::trimString(statement);
@@ -478,15 +479,17 @@ void Grammar::parseOptionalGroupings(const vector<Expansion *> & expansions, vec
 
             string childString;
             string outsideString;
+			string part;
 
             unsigned int stringSize = up->getSection().size();
+			part = up->getSection();
 
-            char cstr[stringSize+1];
-            up->getSection().copy(cstr,stringSize);
+            //char cstr[stringSize + 1];
+            //up->getSection().copy(cstr,stringSize);
 
             for (unsigned int i =0; i < stringSize; i++)
             {
-                char c = cstr[i];
+                char c = part[i];
                 if (c == startChar)
                 {
                     nestCount++;
@@ -586,13 +589,16 @@ void Grammar::parseRequiredGroupings(const vector<Expansion *> & expansions, vec
             UnparsedSection * up = (UnparsedSection *) *expansionIterator;
             string childString;
             string outsideString;
+			string part;
             unsigned int stringSize = up->getSection().size();
-            char cstr[stringSize+1];
-            up->getSection().copy(cstr,stringSize);
+			part = up->getSection();
+
+            //char cstr[stringSize+1];
+            //up->getSection().copy(cstr,stringSize);
 
             for (unsigned int i =0; i < stringSize; i++)
             {
-                char c = cstr[i];
+                char c = part[i];
                 if (c == startChar)
                 {
                     nestCount++;
@@ -798,7 +804,7 @@ vector<Expansion *> Grammar::parseTokensFromString(std::string part)
     unsigned int stringLength = part.size();
 
     char * charArray = new char [stringLength + 1];
-    strcpy (charArray, part.c_str());
+    strncpy(charArray, part.c_str(), stringLength);
     char a; // This holds the current character that is being scanned
     while (position < stringLength)
     {

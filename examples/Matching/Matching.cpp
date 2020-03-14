@@ -44,10 +44,12 @@ int main() {
                 cout << s << ", ";
 
                 if(s == "quit_tag") {
+		    cout << endl;
                     done = true;
                     break;
                 }
             }
+	    cout << endl;
         }
     }
 
