@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 	if(printRule) {
 		string s = g.getMatchingPublicRule(test);
 		if(s != "") {
-			cout << "Match: " << s << endl;
+			cout << s << endl;
 		}
 	}
 
