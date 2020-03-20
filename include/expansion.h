@@ -39,4 +39,15 @@ class Expansion
         virtual void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0) { };
 };
 
+#define EXPANSION_IS_TOKEN(e) ((e)->getType() == TOKEN)
+#define EXPANSION_IS_SEQUENCE(e) ((e)->getType() == SEQUENCE)
+#define EXPANSION_IS_ALTERNET_SET(e) ((e)->getType() == ALTERNATE_SET)
+#define EXPANSION_IS_PLUS_OPERATOR(e) ((e)->getType() == PLUS_OPERATOR)
+#define EXPANSION_IS_KLEENE_STAR(e) ((e)->getType() == KLEENE_STAR)
+#define EXPANSION_IS_RULE_REFERENCE(e) ((e)->getType() == RULE_REFERENCE)
+#define EXPANSION_IS_TAG(e) ((e)->getType() == TAG)
+#define EXPANSION_IS_REQUIRED_GROUPING(e) ((e)->getType() == REQUIRED_GROUPING)
+#define EXPANSION_IS_OPTIONAL_GROUPING(e) ((e)->getType() == OPTIONAL_GROUPING)
+#define EXPANSION_IS_UNPARSED_SECTION(e) ((e)->getType() == UNPARSED_SECTION)
+
 #endif // EXPANSION_H
