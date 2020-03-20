@@ -1227,6 +1227,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
             else   // Doesn't match! Sequence aborted.
             {
+		//std::cout << "CLEAR A" << std::endl;
                 localMatchvector.clear();
                 break;
             }
@@ -1237,8 +1238,17 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
         }
 
-        if (matchedCount != seq->childCount())   // Not all of the required matches were met!
+	unsigned int requiredMatched = 0;
+	for(shared_ptr<Expansion> x : expansions) {
+		if(!EXPANSION_IS_OPTIONAL_GROUPING(x) && !EXPANSION_IS_KLEENE_STAR(x)) {
+			requiredMatched++;
+		}
+	}
+
+	//std::cout << "Needed: " << seq->childCount() << " Got: " << matchedCount << std::endl;
+        if (matchedCount < requiredMatched)   // Not all of the required matches were met!
         {
+	    //std::cout << "CLEAR B" << std::endl;
             localMatchvector.clear();
         }
 
@@ -1331,6 +1341,8 @@ vector<shared_ptr<MatchInfo>> Grammar::matchesRule(const shared_ptr<Rule> rule, 
     vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(rule->getRuleExpansion(), wordArray, words.size(), 0);
     unsigned int matchCount = 0;
     for (shared_ptr<MatchInfo> mi2 : m1) {
+	//std::cout << "MI: " << mi2->getMatchingSection() << ", " << matchCount << ", " << printExpansionType(mi2->getExpansion().get()) << std::endl;
+
         if (mi2->getMatchingSection() != "") {
             matchCount++;
         }
