@@ -8,14 +8,14 @@ include(GNUInstallDirs)
 
 option(ENABLE_DEBUG "Enables debugging messages" OFF)
 
-set(KIT_SOURCES src/grammar.cpp src/expansion.cpp src/rule.cpp src/matchinfo.cpp src/matchresult.cpp src/tag.cpp
+set(KIT_SOURCES src/grammar.cpp src/expansion.cpp src/rule.cpp src/matchinfo.cpp src/matchresult.cpp src/matchtracker.cpp src/tag.cpp
                         src/unparsedsection.cpp src/kleenestar.cpp src/plusoperator.cpp
                         src/optionalgrouping.cpp src/requiredgrouping.cpp src/sequence.cpp
                         src/alternativeset.cpp src/token.cpp src/rulereference.cpp)
 
 set(KIT_HEADERS include/rule.h include/expansion.h include/grammar.h
                   include/unparsedsection.h include/kleenestar.h
-                  include/alternativeset.h include/token.h include/tag.h include/matchinfo.h
+                  include/alternativeset.h include/token.h include/tag.h include/matchinfo.h include/matchtracker.h
                   include/matchresult.h include/sequence.h include/plusoperator.h include/requiredgrouping.h
                   include/optionalgrouping.h include/rulereference.h)
 
