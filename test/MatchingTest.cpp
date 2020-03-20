@@ -84,6 +84,10 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+	if(printParsed) {
+		cout << g.getText() << endl;
+	}
+
 	string test = "";
 	getline(cin, test);
 
