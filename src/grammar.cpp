@@ -1184,7 +1184,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
         {
             vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(x, words, wordCount, wordPosition);
 
-            if (m1.size() == 0 && (x->getType() == KLEENE_STAR || x->getType() == OPTIONAL_GROUPING))   // Stupid OptionalGrouping
+            if (m1.size() == 0 && (EXPANSION_IS_KLEENE_STAR(x) || EXPANSION_IS_OPTIONAL_GROUPING(x)))   // Stupid OptionalGrouping
             {
                 continue;
             }
@@ -1207,7 +1207,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
         for (shared_ptr<Expansion> x : expansions)
         {
             vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(x, words, wordCount, wordPosition);
-            if (m1.size() == 0 && (x->getType() == KLEENE_STAR || x->getType() == OPTIONAL_GROUPING))   // Stupid OptionalGrouping
+            if (m1.size() == 0 && (EXPANSION_IS_KLEENE_STAR(x) || EXPANSION_IS_OPTIONAL_GROUPING(x)))   // Stupid OptionalGrouping
             {
                 matchedCount++; // Still counts a match
                 continue;
