@@ -55,6 +55,17 @@ bool Sequence::hasChild() const {
     return children.empty();
 }
 
+///Returns true if every child can be optional
+bool Sequence::isOptional() const {
+    std::vector<std::shared_ptr<Expansion>>::const_iterator it;
+    for(it = children.begin(); it != children.end(); it++) {
+        if(!(*it)->isOptional()) {
+		return false;
+	}
+    }
+    return true;
+}
+
 std::shared_ptr<Expansion> Sequence::getChild(const unsigned int index) const {
     return children[index];
 }
