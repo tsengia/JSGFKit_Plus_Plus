@@ -18,6 +18,14 @@ if [ ! -f jsgfmatch ]; then
 		exit -2;
 	fi
 fi
+if [ ! -f optionaltest ]; then
+	if [ -f ../optionaltest ]; then
+		cp ../optionaltest optionaltest
+	else
+		echo "ERROR: Please build and copy the optionaltest example program into this directory!"
+		exit -2;
+	fi
+fi
 
 
 echo "Running parsing tests..."
@@ -28,6 +36,16 @@ for g in grammars/*/*; do
 		exit -1;
 	fi
 done
+
+echo "Running optional detection tests..."
+while IFS=, read -r grammar rule expectedResult
+do
+	a=$( echo $rule | ./optionaltest $grammar )
+	if [ "$a" != "$expectedResult" ]; then
+		echo "For grammar $grammar , the \"$rule\" rule was declared \"$a\", but \"$expectedResult\" was expected!"
+		exit -1;
+	fi
+done < optional_test.csv
 
 echo "Running matching tests..."
 echo "Testing rules..."

@@ -1,0 +1,3 @@
+#JSGFv1.0;
+grammar testing2;
+public <test> = hello+ there world;
