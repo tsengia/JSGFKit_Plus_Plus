@@ -1,7 +1,12 @@
 grammars/public_rules/hello.gram,blarg,rarg
 grammars/public_rules/helloworld.gram,hello earth,hello
 grammars/public_rules/optional_at_end.gram,hello,working
-grammars/public_rules/optional_at_end.gram,hello world,working
+grammars/public_rules/optional_at_beginning.gram,hello there world,working
+grammars/public_rules/optional_at_end.gram,hello hello hello there world,working
+grammars/public_rules/optional_at_end.gram,there world,working
+grammars/public_rules/repeated_sequence.gram,hello hello world,working
+grammars/public_rules/repeated_sequence.gram,hello hello hello hello world,working
+grammars/public_rules/repeated_sequence.gram,hello world,
 grammars/public_rules/lots_of_rules.gram,blarg blarg blarg blarg,rarg
 grammars/public_rules/lots_of_rules.gram,hello,rarg
 grammars/public_rules/lots_of_rules.gram,hello let'S make sure that eSc4p1ng & token (parsing works),rarg
