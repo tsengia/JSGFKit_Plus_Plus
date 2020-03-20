@@ -4,6 +4,8 @@ MatchTracker::MatchTracker(std::shared_ptr<std::vector<std::string>> words, unsi
 {
 	position = startIndex;
 	wordList = words;
+	reachedEnd = false;
+	successful = false;
 }
 
 MatchTracker::MatchTracker(MatchTracker & t) {

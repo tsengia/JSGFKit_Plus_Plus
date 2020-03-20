@@ -26,6 +26,9 @@ class Expansion
         /// Returns true if the Expansion has a child Expansion. Tokens will always return false.
         virtual bool hasChild() const { return false; };
 
+	/// Returns true if the Expansion and/or its children are completely optional
+	virtual bool isOptional() const { return false; };
+
         /// Returns the number of child expansions this Expansion has. Tokens will always return false.
         virtual unsigned int childCount() const { return 0; };
 

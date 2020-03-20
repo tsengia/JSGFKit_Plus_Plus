@@ -26,6 +26,10 @@ bool Token::hasChild() const {
     return false;
 }
 
+bool Token::isOptional() const {
+    return false;
+}
+
 std::shared_ptr<Expansion> Token::getChild(const unsigned int index) const {
     return nullptr;
 }

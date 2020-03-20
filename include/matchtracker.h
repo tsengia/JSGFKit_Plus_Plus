@@ -27,5 +27,8 @@ class MatchTracker
 	std::vector<std::string> matchedRules;
 
 	static MatchTracker matchExpansion(std::shared_ptr<std::vector<std::string>> words, unsigned int startIndex, std::shared_ptr<Expansion> startExpansion);
+
+	bool reachedEnd;
+	bool successful;
 };
 #endif // MATCHINFO_H

@@ -33,6 +33,7 @@ class Token : public Expansion
 
         unsigned int childCount() const;
         bool hasChild() const;
+	bool isOptional() const;
         shared_ptr<Expansion> getChild(const unsigned int index = 0) const;
 };
 
