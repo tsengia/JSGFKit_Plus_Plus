@@ -1124,7 +1124,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             // No match
         }
     }
-    else if ((e.get())->getType() == RULE_REFERENCE)
+    else if (EXPANSION_IS_RULE_REFERENCE(e))
     {
         RuleReference * ref = (RuleReference *) e.get();
 
@@ -1139,7 +1139,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
         }
     }
-    else if ((e.get())->getType() == OPTIONAL_GROUPING)
+    else if (EXPANSION_IS_OPTIONAL_GROUPING(e))
     {
         OptionalGrouping * og = (OptionalGrouping *) e.get();
         vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(og->getChild(), words, wordCount, wordPosition);
@@ -1155,7 +1155,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             matchvector.insert(matchvector.end(), moreMatches.begin(), moreMatches.end());
         }
     }
-    else if ((e.get())->getType() == REQUIRED_GROUPING)
+    else if (EXPANSION_IS_REQUIRED_GROUPING(e))
     {
         RequiredGrouping * rg = (RequiredGrouping *) e.get();
         vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(rg->getChild(), words, wordCount, wordPosition);
@@ -1166,7 +1166,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             matchvector.insert(matchvector.end(), m1.begin(), m1.end());
         }
     }
-    else if (e.get()->getType() == TAG)
+    else if (EXPANSION_IS_TAG(e))
     {
         Tag * t = (Tag *) e.get();
         vector<shared_ptr<MatchInfo>> m1 = getMatchingExpansions(t->getChild(), words, wordCount, wordPosition);
@@ -1177,7 +1177,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             matchvector.insert(matchvector.end(), m1.begin(), m1.end());
         }
     }
-    else if ((e.get())->getType() == ALTERNATE_SET)
+    else if (EXPANSION_IS_ALTERNATE_SET(e))
     {
         AlternativeSet * as = (AlternativeSet *) e.get();
         for (shared_ptr<Expansion> x : as->getChildren())
@@ -1197,7 +1197,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
         }
     }
-    else if ((e.get())->getType() == SEQUENCE)
+    else if (EXPANSION_IS_SEQUENCE(e))
     {
         Sequence * seq = (Sequence *) e.get();
         vector<shared_ptr<MatchInfo>> localMatchvector;
@@ -1248,7 +1248,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             matchvector.insert(matchvector.end(), localMatchvector.begin(), localMatchvector.end());
         }
     }
-    else if ((e.get()->getType()) == KLEENE_STAR)
+    else if (EXPANSION_IS_KLEENE_STAR(e))
     {
         KleeneStar * ks = (KleeneStar *) e.get();
         bool done = false;
@@ -1281,7 +1281,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             }
         }
     }
-    else if ((e.get())->getType() == PLUS_OPERATOR)
+    else if (EXPANSION_IS_PLUS_OPERATOR(e))
     {
         PlusOperator * po = (PlusOperator *) e.get();
         bool done = false;

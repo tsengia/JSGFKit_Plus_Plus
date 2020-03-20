@@ -41,7 +41,7 @@ class Expansion
 
 #define EXPANSION_IS_TOKEN(e) ((e)->getType() == TOKEN)
 #define EXPANSION_IS_SEQUENCE(e) ((e)->getType() == SEQUENCE)
-#define EXPANSION_IS_ALTERNET_SET(e) ((e)->getType() == ALTERNATE_SET)
+#define EXPANSION_IS_ALTERNATE_SET(e) ((e)->getType() == ALTERNATE_SET)
 #define EXPANSION_IS_PLUS_OPERATOR(e) ((e)->getType() == PLUS_OPERATOR)
 #define EXPANSION_IS_KLEENE_STAR(e) ((e)->getType() == KLEENE_STAR)
 #define EXPANSION_IS_RULE_REFERENCE(e) ((e)->getType() == RULE_REFERENCE)
