@@ -27,7 +27,7 @@
 #include "MatchInfo.hpp"
 #include "MatchResult.hpp"
 
-typedef std::vector<std::shared_ptr<MatchInfo>> Matchvector;
+typedef std::vector<std::shared_ptr<MatchInfo>> MatchVector;
 
 /**
   * \mainpage
@@ -50,7 +50,7 @@ class Grammar
         std::vector<std::shared_ptr<Rule>> rules;
 
         //Matching
-        Matchvector getMatchingExpansions(std::shared_ptr<Expansion> e, std::string words[], unsigned int wordCount, unsigned int wordPosition) const;
+        MatchVector getMatchingExpansions(std::shared_ptr<Expansion> e, std::string words[], unsigned int wordCount, unsigned int wordPosition) const;
 
         // Parsing functions
         static Expansion * parseAlternativeSets(std::vector<Expansion *> & exp);
@@ -97,8 +97,8 @@ class Grammar
         // Matching
         std::string getMatchingPublicRule(std::string test) const;
         MatchResult match(std::string test) const;
-        Matchvector matchesRule(std::shared_ptr<Rule> rule, const std::string & test) const;
-        Matchvector matchesRule(const std::string & ruleName, const std::string & test) const;
+        MatchVector matchesRule(std::shared_ptr<Rule> rule, const std::string & test) const;
+        MatchVector matchesRule(const std::string & ruleName, const std::string & test) const;
         std::vector<std::string> getMatchingTags(const std::string & test) const;
         static std::vector<std::string> getMatchingTags(std::vector<std::shared_ptr<MatchInfo>> matchInfo);
 

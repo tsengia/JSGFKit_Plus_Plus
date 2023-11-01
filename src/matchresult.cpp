@@ -3,14 +3,14 @@
 
 MatchResult::MatchResult() : matches(false) { }
 
-MatchResult::MatchResult(std::shared_ptr<Rule> rule, Matchvector ml) : matches(true)
+MatchResult::MatchResult(std::shared_ptr<Rule> rule, MatchVector ml) : matches(true)
 {
     matchingRule = rule;
-    matchvector = ml;
+    matchVector = ml;
 }
 
 std::vector<std::string> MatchResult::getMatchingTags() {
-    return Grammar::getMatchingTags(matchvector);
+    return Grammar::getMatchingTags(matchVector);
 }
 
 const std::shared_ptr<Rule> MatchResult::getMatchingRule() {

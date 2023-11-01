@@ -147,7 +147,7 @@ std::string Grammar::getMatchingPublicRule(std::string test) const {
     test = Grammar::replaceAll(test, " {2,}", " ");
     for(shared_ptr<Rule> r : rules) {
         if(r->isPublic()) {
-        Matchvector m = matchesRule(r, test);
+        MatchVector m = matchesRule(r, test);
             if(m.size() != 0) {
                 return r->getRuleName();
             }
@@ -164,7 +164,7 @@ MatchResult Grammar::match(std::string test) const {
     test = Grammar::trimString(test);
     test = Grammar::replaceAll(test, " {2,}", " ");
     for(shared_ptr<Rule> r : rules) {
-        Matchvector m = matchesRule(r, test);
+        MatchVector m = matchesRule(r, test);
         if(m.size() != 0) {
             return MatchResult(r, m);
         }
@@ -1109,7 +1109,7 @@ void Grammar::walkExpansion(Expansion * e, void (* callback)(Expansion *)) {
   */
 vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansion> e, string words[], unsigned int wordCount, unsigned int wordPosition) const
 {
-    vector<shared_ptr<MatchInfo>> matchvector;
+    vector<shared_ptr<MatchInfo>> matchVector;
 
     if ((e.get())->getType() == TOKEN)
     {
@@ -1117,7 +1117,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
         if (t->getText() == (words[wordPosition]))
         {
             string matchedPart = words[wordPosition];
-            matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), words[wordPosition])));
+            matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), words[wordPosition])));
         }
         else
         {
@@ -1134,8 +1134,8 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             vector<shared_ptr<MatchInfo>> m1 = (getMatchingExpansions(rule->getRuleExpansion(), words, wordCount, wordPosition));
             if (m1.size() != 0)
             {
-                matchvector.push_back(std::make_shared<MatchInfo>(e, "")); // Need to mark that the rule was matched!
-                matchvector.insert(matchvector.end(), m1.begin(), m1.end());
+                matchVector.push_back(std::make_shared<MatchInfo>(e, "")); // Need to mark that the rule was matched!
+                matchVector.insert(matchVector.end(), m1.begin(), m1.end());
             }
         }
     }
@@ -1150,9 +1150,9 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
         else
         {
             //Matches
-            matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
+            matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
             vector<shared_ptr<MatchInfo>> moreMatches = getMatchingExpansions(og->getChild(), words, wordCount, wordPosition);
-            matchvector.insert(matchvector.end(), moreMatches.begin(), moreMatches.end());
+            matchVector.insert(matchVector.end(), moreMatches.begin(), moreMatches.end());
         }
     }
     else if ((e.get())->getType() == REQUIRED_GROUPING)
@@ -1162,8 +1162,8 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
 
         if (m1.size() != 0)
         {
-            matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
-            matchvector.insert(matchvector.end(), m1.begin(), m1.end());
+            matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
+            matchVector.insert(matchVector.end(), m1.begin(), m1.end());
         }
     }
     else if (e.get()->getType() == TAG)
@@ -1173,8 +1173,8 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
 
         if (m1.size() != 0)
         {
-            matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
-            matchvector.insert(matchvector.end(), m1.begin(), m1.end());
+            matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
+            matchVector.insert(matchVector.end(), m1.begin(), m1.end());
         }
     }
     else if ((e.get())->getType() == ALTERNATE_SET)
@@ -1191,8 +1191,8 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
 
             if (m1.size() != 0)
             {
-                matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
-                matchvector.insert(matchvector.end(), m1.begin(), m1.end()); // Found a match! Add it to the vector
+                matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
+                matchVector.insert(matchVector.end(), m1.begin(), m1.end()); // Found a match! Add it to the vector
                 break;
             }
         }
@@ -1200,7 +1200,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
     else if ((e.get())->getType() == SEQUENCE)
     {
         Sequence * seq = (Sequence *) e.get();
-        vector<shared_ptr<MatchInfo>> localMatchvector;
+        vector<shared_ptr<MatchInfo>> localMatchVector;
         vector<shared_ptr<Expansion>> expansions = seq->getChildren();
         unsigned int matchedCount = 0;
 
@@ -1223,11 +1223,11 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
                         wordPosition += Grammar::splitString(localMatch->getMatchingSection(), " ").size();
                     }
                 }
-                localMatchvector.insert(localMatchvector.end(), m1.begin(), m1.end()); // Found a match! Add it to the vector
+                localMatchVector.insert(localMatchVector.end(), m1.begin(), m1.end()); // Found a match! Add it to the vector
             }
             else   // Doesn't match! Sequence aborted.
             {
-                localMatchvector.clear();
+                localMatchVector.clear();
                 break;
             }
 
@@ -1239,13 +1239,13 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
 
         if (matchedCount != seq->childCount())   // Not all of the required matches were met!
         {
-            localMatchvector.clear();
+            localMatchVector.clear();
         }
 
-        if (localMatchvector.size() != 0)
+        if (localMatchVector.size() != 0)
         {
-            matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
-            matchvector.insert(matchvector.end(), localMatchvector.begin(), localMatchvector.end());
+            matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
+            matchVector.insert(matchVector.end(), localMatchVector.begin(), localMatchVector.end());
         }
     }
     else if ((e.get()->getType()) == KLEENE_STAR)
@@ -1253,7 +1253,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
         KleeneStar * ks = (KleeneStar *) e.get();
         bool done = false;
         vector<shared_ptr<MatchInfo>> m1;
-        matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
+        matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
         while(!done)
         {
             if (wordPosition > wordCount - 1)
@@ -1276,8 +1276,8 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
                         wordPosition += Grammar::splitString(mi2->getMatchingSection(), " ").size();
                     }
                 }
-                matchvector.insert(matchvector.end(), m1.begin(), m1.end());
-                matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
+                matchVector.insert(matchVector.end(), m1.begin(), m1.end());
+                matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
             }
         }
     }
@@ -1301,7 +1301,7 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
             else
             {
                 //Matches
-                matchvector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
+                matchVector.push_back(shared_ptr<MatchInfo>(new MatchInfo(shared_ptr<Expansion>(e), "")));
                 for (shared_ptr<MatchInfo> mi2 : m1)
                 {
                     if(mi2->getMatchingSection() != "")
@@ -1309,12 +1309,12 @@ vector<shared_ptr<MatchInfo>> Grammar::getMatchingExpansions(shared_ptr<Expansio
                         wordPosition += Grammar::splitString(mi2->getMatchingSection(), " ").size();
                     }
                 }
-                matchvector.insert(matchvector.end(), m1.begin(), m1.end());
+                matchVector.insert(matchVector.end(), m1.begin(), m1.end());
             }
         }
     }
 
-    return matchvector;
+    return matchVector;
 }
 
 

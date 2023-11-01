@@ -8,7 +8,7 @@
 #include "jsgfkitxx/MatchInfo.hpp"
 #include "jsgfkitxx/Rule.hpp"
 
-typedef std::vector<std::shared_ptr<MatchInfo>> Matchvector;
+typedef std::vector<std::shared_ptr<MatchInfo>> MatchVector;
 
 class MatchResult
 {
@@ -16,7 +16,7 @@ class MatchResult
         /** Default constructor means that no match was found */
         MatchResult();
         /// Construct for when a match is found
-        MatchResult(std::shared_ptr<Rule> rule, Matchvector ml);
+        MatchResult(std::shared_ptr<Rule> rule, MatchVector ml);
         std::vector<std::string> getMatchingTags();
         /// If true, a match was found. If false, no match was found.
         const bool matches;
@@ -24,7 +24,7 @@ class MatchResult
 
     protected:
         std::shared_ptr<Rule> matchingRule;
-        Matchvector matchvector;
+        MatchVector matchVector;
 };
 
 #endif // MATCHRESULT_H
