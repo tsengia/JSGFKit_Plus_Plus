@@ -26,6 +26,9 @@ class Expansion
         /// Returns true if the Expansion has a child Expansion. Tokens will always return false.
         virtual bool hasChild() const { return false; };
 
+	/// Returns true if the Expansion and/or its children are completely optional
+	virtual bool isOptional() const { return false; };
+
         /// Returns the number of child expansions this Expansion has. Tokens will always return false.
         virtual unsigned int childCount() const { return 0; };
 
@@ -38,5 +41,16 @@ class Expansion
         /// Replaces the child at the specified index with the given Expansion
         virtual void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0) { };
 };
+
+#define EXPANSION_IS_TOKEN(e) ((e)->getType() == TOKEN)
+#define EXPANSION_IS_SEQUENCE(e) ((e)->getType() == SEQUENCE)
+#define EXPANSION_IS_ALTERNATE_SET(e) ((e)->getType() == ALTERNATE_SET)
+#define EXPANSION_IS_PLUS_OPERATOR(e) ((e)->getType() == PLUS_OPERATOR)
+#define EXPANSION_IS_KLEENE_STAR(e) ((e)->getType() == KLEENE_STAR)
+#define EXPANSION_IS_RULE_REFERENCE(e) ((e)->getType() == RULE_REFERENCE)
+#define EXPANSION_IS_TAG(e) ((e)->getType() == TAG)
+#define EXPANSION_IS_REQUIRED_GROUPING(e) ((e)->getType() == REQUIRED_GROUPING)
+#define EXPANSION_IS_OPTIONAL_GROUPING(e) ((e)->getType() == OPTIONAL_GROUPING)
+#define EXPANSION_IS_UNPARSED_SECTION(e) ((e)->getType() == UNPARSED_SECTION)
 
 #endif // EXPANSION_H

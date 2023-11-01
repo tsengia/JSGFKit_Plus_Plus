@@ -1,0 +1,11 @@
+grammars/optional_testing/bare_sequence.gram,test,required
+grammars/optional_testing/lone_plus.gram,test,required
+grammars/optional_testing/lone_kleene.gram,test,optional
+grammars/optional_testing/required_set.gram,test,required
+grammars/optional_testing/required_grouping.gram,test,required
+grammars/optional_testing/optional_parenthesis.gram,test,optional
+grammars/optional_testing/optional_parenthesis2.gram,test,optional
+grammars/optional_testing/sequence_plus.gram,test,required
+grammars/optional_testing/sequence_with_tag.gram,test,required
+grammars/optional_testing/optional_alternate_set.gram,test,optional
+grammars/optional_testing/optional_sequence.gram,test,optional

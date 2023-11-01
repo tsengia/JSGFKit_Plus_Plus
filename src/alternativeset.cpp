@@ -43,6 +43,17 @@ bool AlternativeSet::hasChild() const {
     return expansions.empty();
 }
 
+bool AlternativeSet::isOptional() const {
+    std::vector<std::shared_ptr<Expansion>>::const_iterator it = expansions.begin();
+    while(it != expansions.end()) {
+        if((*it)->isOptional()) { // If at least one of the children is optional, then this set can be matched no matter what.
+		return true;
+        }
+	it++;
+    }
+    return false;
+}
+
 void AlternativeSet::addChild(std::shared_ptr<Expansion> e) {
     expansions.push_back(e);
 }

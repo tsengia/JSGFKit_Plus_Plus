@@ -36,6 +36,11 @@ bool RuleReference::hasChild() const {
     return false;
 }
 
+bool RuleReference::isOptional() const {
+	///TODO: Access the list of rules and check to see if the rule expansion is optional
+	return false;
+}
+
 unsigned int RuleReference::childCount() const {
     return 0;
 }

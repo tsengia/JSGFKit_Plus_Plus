@@ -1,0 +1,3 @@
+#JSGFv1.0;
+grammar optionalbracketsbeginning;
+public <working> = hello* there world;

@@ -36,6 +36,10 @@ bool KleeneStar::hasChild() const {
     return childExpansion != nullptr;
 }
 
+bool KleeneStar::isOptional() const {
+	return true;
+}
+
 void KleeneStar::replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index) {
     childExpansion = newChild;
 }

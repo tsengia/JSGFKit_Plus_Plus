@@ -41,6 +41,10 @@ bool OptionalGrouping::hasChild() const {
     return childExpansion != nullptr;
 }
 
+bool OptionalGrouping::isOptional() const {
+	return true;
+}
+
 std::shared_ptr<Expansion> OptionalGrouping::getChild(const unsigned int index) const {
     return childExpansion;
 }

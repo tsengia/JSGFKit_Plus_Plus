@@ -21,6 +21,7 @@ class Sequence : public Expansion
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
         ExpansionType getType() const;
         bool hasChild() const;
+	bool isOptional() const;
         std::shared_ptr<Expansion> getChild(const unsigned int index = 0) const;
         std::string getText() const;
 

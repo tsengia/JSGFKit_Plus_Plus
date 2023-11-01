@@ -22,7 +22,7 @@ A hosted version of the Doxygen generated docs can be found here: http://persona
 Doxygen documentation comments are in the code, to generate HTML documentation files from it, run `doxygen Doxyfile` and the html docs will be outputted into the `docs` subdirectory.
 
 ## Example programs
-It is highly suggested to test to make sure compilation and installation completed successfully. A few example programs come with this library and can be found in the `examples` subdirectory.  
+A few example programs come with this library and can be found in the `examples` subdirectory.  
 To build an example program, `cd` into its directory and simply run `make`.  
 If compilation complains about missing headers or undefined references, you will probably need to adjust the `JSGF_KIT_LD` and `JSGF_KIT_CFLAGS` variables in the `Makefile` to point to the correct library path and include directories (just run `pkg-config --cflags jsgfkit` and `pkg-config --libs jsgfkit` and copy the output in).
 

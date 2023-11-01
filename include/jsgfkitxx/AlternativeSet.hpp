@@ -22,6 +22,7 @@ class AlternativeSet : public Expansion
         Expansion * clone();
         ExpansionType getType() const override;
         bool hasChild() const;
+	bool isOptional() const;
         std::shared_ptr<Expansion> getChild(const unsigned int index = 0) const;
         std::vector<std::shared_ptr<Expansion>> getChildren() const;
         unsigned int childCount() const;

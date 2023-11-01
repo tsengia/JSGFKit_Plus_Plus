@@ -27,6 +27,7 @@ class RuleReference : public Expansion
         void setRuleName(std::string val);
 
         bool hasChild() const;
+	bool isOptional() const;
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
         unsigned int childCount() const;
         Expansion * clone();
