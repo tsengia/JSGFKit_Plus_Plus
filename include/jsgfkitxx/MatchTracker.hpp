@@ -1,6 +1,6 @@
 #ifndef MATCHINFO_H
 #define MATCHINFO_H
-#include "expansion.h"
+#include "jsgfkitxx/Expansion.hpp"
 #include <string>
 #include <vector>
 
