@@ -3,31 +3,18 @@ A static cross-platform library for parsing, generating, manipulating, and match
 This is a C++ port of the Java JSGFKit with a few additional features.
 
 ## Building
-JSGF Kit++ can use both the `autotools` buildsystem and CMake.
-To build the static library with `autotools`, simply enter the directory and run:
-
-    ./configure
-    make -j 4
-    sudo make install
-
-Remember that `make -j <number of threads>` lets you set the number of threads you want to run at a time for a faster build.
-
-If you would like to build with CMake, simply enter the directory and run:  
-
-    cmake CMakeLists.txt
-    make -j 4
-    sudo make install
+Run the below commands to compile with CMake:
+```bash
+cmake CMakeLists.txt -Bbuild
+cd build
+make
+```
  
 ## Linking and Including
 To include and link against the JSGF Kit++ static library, use `pkg-config`:
-
+```bash
     pkg-config --libs --cflags jsgfkit
-    
-## Unit Tests
-There are a few unit tests to run if you want to verify your build. These tests are built into the CMake build system. Just run `ctest` to run the tests. This may not work on Windows systems (one test uses a bash script).
-
-## Windows
-To compile on Windows, install CMake and run `cmake CMakeLists.txt` from the command line in the source directory to generate the Visual Studio project files to compile with.
+```
 
 ## Documentation
 A hosted version of the Doxygen generated docs can be found here: http://personal.psu.edu/~txs5620/jsgfkitxx/

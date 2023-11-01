@@ -1,5 +1,5 @@
-#include "grammar.h"
-#include "expansion.h"
+#include "jsgfkitxx/Grammar.hpp"
+#include "jsgfkitxx/Expansion.hpp"
 
 #include <iostream>
 #include <string>
