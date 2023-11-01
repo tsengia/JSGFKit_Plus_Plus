@@ -1,4 +1,4 @@
-#include "grammar.h"
+#include "jsgfkitxx/Grammar.hpp"
 #include <sstream>
 using namespace std;
 

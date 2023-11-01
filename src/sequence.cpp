@@ -1,4 +1,4 @@
-#include "sequence.h"
+#include "jsgfkitxx/Sequence.hpp"
 #include <iostream>
 Sequence::Sequence()
 {

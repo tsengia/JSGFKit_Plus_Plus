@@ -1,20 +1,20 @@
-#ifndef REQUIREDGROUPING_H
-#define REQUIREDGROUPING_H
+#ifndef OPTIONALGROUPING_H
+#define OPTIONALGROUPING_H
 
-#include <expansion.h>
+#include "jsgfkitxx/Expansion.hpp"
 
 
-class RequiredGrouping : public Expansion
+class OptionalGrouping : public Expansion
 {
     private:
         std::shared_ptr<Expansion> childExpansion;
 
     public:
         /** Default constructor */
-        RequiredGrouping();
-        RequiredGrouping(std::shared_ptr<Expansion> e);
+        OptionalGrouping();
+        OptionalGrouping(std::shared_ptr<Expansion> e);
         /** Default destructor */
-        ~RequiredGrouping();
+        ~OptionalGrouping();
 
         Expansion * clone();
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
@@ -27,4 +27,4 @@ class RequiredGrouping : public Expansion
         std::string getText() const;
 };
 
-#endif // REQUIREDGROUPING_H
+#endif // OPTIONALGROUPING_H

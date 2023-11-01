@@ -1,6 +1,6 @@
 #ifndef RULE_H
 #define RULE_H
-#include "expansion.h"
+#include "Expansion.hpp"
 #include <string>
 
 class Rule

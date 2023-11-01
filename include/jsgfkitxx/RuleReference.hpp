@@ -1,7 +1,7 @@
 #ifndef RULEREFERENCE_H
 #define RULEREFERENCE_H
 
-#include <expansion.h>
+#include "jsgfkitxx/Expansion.hpp"
 
 
 class RuleReference : public Expansion

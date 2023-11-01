@@ -11,21 +11,21 @@
 #include <locale>
 #include <fstream>
 
-#include "expansion.h"
-#include "rule.h"
-#include "unparsedsection.h"
-#include "sequence.h"
-#include "token.h"
-#include "kleenestar.h"
-#include "plusoperator.h"
-#include "matchinfo.h"
-#include "optionalgrouping.h"
-#include "requiredgrouping.h"
-#include "tag.h"
-#include "rulereference.h"
-#include "alternativeset.h"
-#include "matchinfo.h"
-#include "matchresult.h"
+#include "Expansion.hpp"
+#include "Rule.hpp"
+#include "UnparsedSection.hpp"
+#include "Sequence.hpp"
+#include "Token.hpp"
+#include "KleeneStar.hpp"
+#include "PlusOperator.hpp"
+#include "MatchInfo.hpp"
+#include "OptionalGrouping.hpp"
+#include "RequiredGrouping.hpp"
+#include "Tag.hpp"
+#include "RuleReference.hpp"
+#include "AlternativeSet.hpp"
+#include "MatchInfo.hpp"
+#include "MatchResult.hpp"
 
 typedef std::vector<std::shared_ptr<MatchInfo>> Matchvector;
 

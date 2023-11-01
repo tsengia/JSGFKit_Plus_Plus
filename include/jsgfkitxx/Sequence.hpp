@@ -1,7 +1,7 @@
 #ifndef SEQUENCE_H
 #define SEQUENCE_H
 
-#include <expansion.h>
+#include "jsgfkitxx/Expansion.hpp"
 #include <vector>
 #include <algorithm>
 

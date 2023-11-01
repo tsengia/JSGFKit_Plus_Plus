@@ -1,5 +1,5 @@
-#include "grammar.h"
-#include "expansion.h"
+#include "Grammar.hpp"
+#include "Expansion.hpp"
 
 #include <iostream>
 #include <string>

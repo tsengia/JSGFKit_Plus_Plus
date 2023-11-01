@@ -1,4 +1,4 @@
-#include "rulereference.h"
+#include "jsgfkitxx/RuleReference.hpp"
 
 RuleReference::RuleReference(std::string ruleN)
 {

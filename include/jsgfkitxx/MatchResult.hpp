@@ -5,8 +5,8 @@
 #include <vector>
 #include <vector>
 #include <string>
-#include "matchinfo.h"
-#include "rule.h"
+#include "jsgfkitxx/MatchInfo.hpp"
+#include "jsgfkitxx/Rule.hpp"
 
 typedef std::vector<std::shared_ptr<MatchInfo>> Matchvector;
 

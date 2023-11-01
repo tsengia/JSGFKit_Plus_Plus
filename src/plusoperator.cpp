@@ -1,4 +1,4 @@
-#include "plusoperator.h"
+#include "jsgfkitxx/PlusOperator.hpp"
 
 PlusOperator::PlusOperator()
 {

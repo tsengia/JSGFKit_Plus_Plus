@@ -1,4 +1,4 @@
-#include "kleenestar.h"
+#include "jsgfkitxx/KleeneStar.hpp"
 
 KleeneStar::KleeneStar()
 {

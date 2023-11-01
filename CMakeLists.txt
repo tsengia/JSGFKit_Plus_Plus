@@ -6,21 +6,21 @@ project(jsgfkitxx
 )
 
 set(JSGF_KIT_XX_SOURCES 
-    src/grammar.cpp 
-    src/expansion.cpp 
-    src/rule.cpp 
-    src/matchinfo.cpp 
-    src/matchresult.cpp 
-    src/tag.cpp                
-    src/unparsedsection.cpp 
-    src/kleenestar.cpp 
-    src/plusoperator.cpp            
-    src/optionalgrouping.cpp 
-    src/requiredgrouping.cpp 
-    src/sequence.cpp     
-    src/alternativeset.cpp 
-    src/token.cpp 
-    src/rulereference.cpp
+    src/Grammar.cpp
+    src/Expansion.cpp 
+    src/Rule.cpp 
+    src/MatchInfo.cpp 
+    src/MatchResult.cpp 
+    src/Tag.cpp                
+    src/UnparsedSection.cpp 
+    src/KleeneStar.cpp 
+    src/PlusOperator.cpp            
+    src/OptionalGrouping.cpp 
+    src/RequiredGrouping.cpp 
+    src/Sequence.cpp     
+    src/AlternativeSet.cpp 
+    src/Token.cpp 
+    src/RuleReference.cpp
 )
 
 add_library(jsgfkitxx STATIC ${JSGF_KIT_XX_SOURCES})

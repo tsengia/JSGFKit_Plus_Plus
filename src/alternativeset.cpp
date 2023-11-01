@@ -1,4 +1,4 @@
-#include "alternativeset.h"
+#include "jsgfkitxx/AlternativeSet.hpp"
 
 AlternativeSet::AlternativeSet()
 {

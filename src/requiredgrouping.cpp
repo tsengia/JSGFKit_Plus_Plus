@@ -1,4 +1,4 @@
-#include "requiredgrouping.h"
+#include "jsgfkitxx/RequiredGrouping.hpp"
 
 RequiredGrouping::RequiredGrouping()
 {

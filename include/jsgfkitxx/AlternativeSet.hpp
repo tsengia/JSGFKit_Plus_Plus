@@ -1,8 +1,8 @@
 #ifndef ALTERNATIVESET_H
 #define ALTERNATIVESET_H
 
-#include <expansion.h>
-#include <token.h>
+#include "jsgfkitxx/Expansion.hpp"
+#include "jsgfkitxx/Token.hpp"
 #include <vector>
 #include <string>
 #include <algorithm>

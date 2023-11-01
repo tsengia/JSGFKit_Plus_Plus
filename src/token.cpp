@@ -1,4 +1,4 @@
-#include "token.h"
+#include "jsgfkitxx/Token.hpp"
 
 Token::Token()
 {

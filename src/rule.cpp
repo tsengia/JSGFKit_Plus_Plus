@@ -1,5 +1,5 @@
-#include "rule.h"
-#include "grammar.h"
+#include "jsgfkitxx/Rule.hpp"
+#include "jsgfkitxx/Grammar.hpp"
 
 Rule::Rule()
 {

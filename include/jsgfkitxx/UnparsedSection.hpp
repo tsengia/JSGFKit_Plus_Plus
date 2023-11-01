@@ -1,7 +1,7 @@
 #ifndef UNPARSEDSECTION_H
 #define UNPARSEDSECTION_H
 
-#include <expansion.h>
+#include "jsgfkitxx/Expansion.hpp"
 #include <string>
 
 using namespace std;

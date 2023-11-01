@@ -1,4 +1,4 @@
-#include "expansion.h"
+#include "jsgfkitxx/Expansion.hpp"
 #include <iostream>
 
 Expansion::Expansion()

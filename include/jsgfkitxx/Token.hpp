@@ -1,6 +1,6 @@
 #ifndef TOKEN_H
 #define TOKEN_H
-#include "expansion.h"
+#include "Expansion.hpp"
 #include <iostream>
 
 using namespace std;

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "grammar.h"
+#include "jsgfkitxx/Grammar.hpp"
 
 using namespace std;
 

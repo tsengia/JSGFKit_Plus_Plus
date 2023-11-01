@@ -1,5 +1,5 @@
-#include "matchresult.h"
-#include "grammar.h"
+#include "jsgfkitxx/MatchResult.hpp"
+#include "jsgfkitxx/Grammar.hpp"
 
 MatchResult::MatchResult() : matches(false) { }
 

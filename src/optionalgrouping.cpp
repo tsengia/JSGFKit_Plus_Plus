@@ -1,4 +1,4 @@
-#include "optionalgrouping.h"
+#include "jsgfkitxx/OptionalGrouping.hpp"
 
 OptionalGrouping::OptionalGrouping()
 {

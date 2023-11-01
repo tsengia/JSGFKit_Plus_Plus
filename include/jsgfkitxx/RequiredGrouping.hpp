@@ -1,20 +1,20 @@
-#ifndef KLEENESTAR_H
-#define KLEENESTAR_H
+#ifndef REQUIREDGROUPING_H
+#define REQUIREDGROUPING_H
 
-#include <expansion.h>
+#include "jsgfkitxx/Expansion.hpp"
 
 
-class KleeneStar : public Expansion
+class RequiredGrouping : public Expansion
 {
     private:
         std::shared_ptr<Expansion> childExpansion;
 
     public:
         /** Default constructor */
-        KleeneStar();
-        KleeneStar(std::shared_ptr<Expansion> e);
+        RequiredGrouping();
+        RequiredGrouping(std::shared_ptr<Expansion> e);
         /** Default destructor */
-        ~KleeneStar();
+        ~RequiredGrouping();
 
         Expansion * clone();
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
@@ -27,4 +27,4 @@ class KleeneStar : public Expansion
         std::string getText() const;
 };
 
-#endif // KLEENESTAR_H
+#endif // REQUIREDGROUPING_H

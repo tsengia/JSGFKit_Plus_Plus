@@ -1,20 +1,20 @@
-#ifndef PLUSOPERATOR_H
-#define PLUSOPERATOR_H
+#ifndef KLEENESTAR_H
+#define KLEENESTAR_H
 
-#include <expansion.h>
+#include "jsgfkitxx/Expansion.hpp"
 
 
-class PlusOperator : public Expansion
+class KleeneStar : public Expansion
 {
     private:
         std::shared_ptr<Expansion> childExpansion;
 
     public:
         /** Default constructor */
-        PlusOperator();
-        PlusOperator(std::shared_ptr<Expansion> e);
+        KleeneStar();
+        KleeneStar(std::shared_ptr<Expansion> e);
         /** Default destructor */
-        ~PlusOperator();
+        ~KleeneStar();
 
         Expansion * clone();
         void replaceChild(std::shared_ptr<Expansion> newChild, const unsigned long index = 0);
@@ -26,4 +26,5 @@ class PlusOperator : public Expansion
 
         std::string getText() const;
 };
-#endif // PLUSOPERATOR_H
+
+#endif // KLEENESTAR_H

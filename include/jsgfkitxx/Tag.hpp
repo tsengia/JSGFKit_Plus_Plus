@@ -2,8 +2,9 @@
 #define TAG_H
 
 #include <algorithm>
-#include <expansion.h>
 #include <vector>
+
+#include "jsgfkitxx/Expansion.hpp"
 
 class Tag : public Expansion
 {

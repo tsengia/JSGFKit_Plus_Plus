@@ -1,4 +1,4 @@
-#include "tag.h"
+#include "jsgfkitxx/Tag.hpp"
 #include <iostream>
 
 std::string Tag::getText() const {
