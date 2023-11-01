@@ -3,8 +3,8 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: jsgfkit
+Name: jsgfkitxx
 Description: A C++ library for parsing and manipulating Java Speech Grammar Format files.
 Version: 1.0
-Cflags: -I${includedir}/jsgfkit
-Libs: -L${libdir} -ljsgfkit
+Cflags: -I${includedir}/jsgfkitxx
+Libs: -L${libdir} -ljsgfkitxx
