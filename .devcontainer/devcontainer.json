@@ -1,0 +1,6 @@
+{
+    "name": "JSGFKit++ Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile.dev"
+    }
+}
